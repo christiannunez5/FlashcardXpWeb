@@ -1,10 +1,11 @@
+import { Navbar } from "@/components/shared";
 import "./App.css";
 
 function App() {
     return (
-        <>
-            <p className="font-bold">hello world</p>
-        </>
+        <div className="bg-[#eff5f8] w-screen h-screen">
+            <Navbar />
+        </div>
     );
 }
 
