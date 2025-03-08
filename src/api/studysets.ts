@@ -1,5 +1,5 @@
 import api from "../lib/axios";
-import { StudySet } from "../types";
+import { StudySet } from "../types/models";
 
 const ENDPOINT = "/api/studyset";
 

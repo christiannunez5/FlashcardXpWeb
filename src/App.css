@@ -1,11 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inconsolata:wght@200..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap");
 @import "tailwindcss";
 
 * {
-    font-family: "Inconsolata", sans-serif;
+    font-family: "Space Grotesk", sans-serif;
 }
 
 button,
 a {
     cursor: pointer;
+}
+
+p {
+    font-size: 17px;
+    line-height: 1.8em;
+}
+
+h1 {
+    font-family: "Bricolage Grotesque";
 }
