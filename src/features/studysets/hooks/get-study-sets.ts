@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { getStudySets } from "../../../api/studysets";
+import { getStudySets } from "@/api/studysets";
 
-
-export const useGetStudySets() => {
+export function useGetStudySets() {
     return useQuery({
         queryKey: ["studysets"],
-        queryFn: getStudySets
-    })
+        queryFn: getStudySets,
+    });
 }

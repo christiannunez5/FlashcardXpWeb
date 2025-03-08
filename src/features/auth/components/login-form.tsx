@@ -2,7 +2,6 @@ import { loginSchema, TLoginSchema, useLogin } from "../hooks/";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { handleZodErrors } from "@/utils/handleZodErrors";
-import { toast } from "sonner";
 
 export const LoginForm = () => {
     const { register, handleSubmit } = useForm<TLoginSchema>({

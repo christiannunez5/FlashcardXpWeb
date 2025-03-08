@@ -19,7 +19,7 @@ export const useLogin = () => {
                 toast.error(error.response?.data.error.message);
             }
         },
-        onSuccess: (data) => {
+        onSuccess: () => {
             toast.success("Logged in successfully!");
         },
     });
