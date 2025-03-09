@@ -9,8 +9,8 @@ export const Navbar = () => {
             <div>
                 <p>Logo</p>
             </div>
-            
-            {/* <div className="flex items-center h-16 gap-2">
+
+            <div className="flex items-center h-16 gap-2">
                 <div className="cursor-pointer h-full grid place-content-center px-7 border-b-2 border-[#533de0]">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@ export const Navbar = () => {
                         <path d="M4 20h14" />
                     </svg>
                 </div>
-            </div> */}
+            </div>
 
             <div className="flex items-center gap-4 ">
                 <div className="">
