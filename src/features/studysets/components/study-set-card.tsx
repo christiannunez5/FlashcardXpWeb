@@ -1,6 +1,7 @@
 import { useDeleteStudySet } from "../hooks";
 import { StudySet } from "@/types";
 import { truncateText } from "@/utils";
+import { Link } from "react-router";
 
 interface StudySetCardProps {
     studySet: StudySet;
@@ -15,12 +16,16 @@ export const StudySetCard = ({ studySet }: StudySetCardProps) => {
 
     return (
         <div
-            className="w-full bg-white h-[200px] rounded-xl 
-        shadow-md"
+            className="relative w-full bg-white h-[200px] rounded-xl 
+        shadow-md flex flex-col"
         >
+            <Link
+                to={`/studyset/${studySet.id}/flashcards`} // Use the `to` prop to navigate
+                className="absolute inset-0"
+            ></Link>
+
             <div className="rounded-t-xl bg-amber-300 w-full flex justify-between items-center p-4">
                 <p>{studySet.title}</p>
-
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -43,7 +48,16 @@ export const StudySetCard = ({ studySet }: StudySetCardProps) => {
                 </svg>
             </div>
 
-            <div className="p-4">{truncateText(studySet.description, 120)}</div>
+            <div className="w-full h-full p-4 flex flex-col items-end ">
+                <p className="grow">{truncateText(studySet.description, 90)}</p>
+
+                <p
+                    className="
+                 text-sm text-gray-400"
+                >
+                    {studySet.flashcardsCount} flashcards
+                </p>
+            </div>
         </div>
     );
 };

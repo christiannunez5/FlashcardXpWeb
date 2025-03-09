@@ -1,5 +1,5 @@
 import { login } from "@/api/auth";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -12,6 +12,8 @@ export const loginSchema = z.object({
 export type TLoginSchema = z.infer<typeof loginSchema>;
 
 export const useLogin = () => {
+    const queryClient = useQueryClient();
+
     return useMutation({
         mutationFn: login,
         onError: (error) => {
@@ -21,6 +23,7 @@ export const useLogin = () => {
         },
         onSuccess: () => {
             toast.success("Logged in successfully!");
+            queryClient.invalidateQueries({ queryKey: ["current-user"] });
         },
     });
 };
