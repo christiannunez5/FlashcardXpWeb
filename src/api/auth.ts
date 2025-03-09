@@ -16,5 +16,5 @@ export const login = async ({
 
 export const getCurrentLoggedInUser = async () => {
     const response = await api.get(`${ENDPOINT}/me`);
-    return response.data as User;
+    return response.data as User | null;
 };

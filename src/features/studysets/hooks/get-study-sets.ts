@@ -3,7 +3,7 @@ import { getCurrentUserStudySets } from "@/api/studysets";
 
 export function useGetStudySets() {
     return useQuery({
-        queryKey: ["studysets"],
+        queryKey: ["study-sets"],
         queryFn: getCurrentUserStudySets,
     });
 }

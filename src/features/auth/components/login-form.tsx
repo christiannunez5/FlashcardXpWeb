@@ -13,7 +13,7 @@ export const LoginForm = () => {
     const handleLogin = (data: FieldValues) => {
         login({ email: data.email, password: data.password });
     };
-
+    
     return (
         <div className="w-[55%] p-10 flex flex-col gap-4">
             <div className=" flex flex-col items-center">

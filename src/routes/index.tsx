@@ -6,11 +6,11 @@ import { BrowserRouter } from "react-router";
 
 const RootNavigator = () => {
     const { data: user } = useGetCurrentUser();
-    
+
     return (
         <BrowserRouter>
             <Suspense fallback={<div>Loading.....,.....</div>}>
-                {user !== null ? <PrivateRoutes /> : <PublicRoutes />}
+                {user !== undefined ? <PrivateRoutes /> : <PublicRoutes />}
             </Suspense>
         </BrowserRouter>
     );
