@@ -1,4 +1,4 @@
-export interface StudySet {
+export interface TStudySet {
     id: string;
     title: string;
     description: string;
@@ -6,21 +6,21 @@ export interface StudySet {
     flashcardsCount: number;
 }
 
-export interface Flashcard {
+export interface TFlashcard {
     id: string;
     term: string;
     definition: string;
 }
 
-export interface User {
+export interface TUser {
     id: string;
     username: string;
     email: string;
     profilePicUrl: string;
 }
 
-export interface FlashcardsByStudySet
-    extends Omit<StudySet, "flashcardsCount" | "createdAt"> {
-    flashcards: Flashcard[];
-    createdBy: User;
+export interface TFlashcardsByStudySet
+    extends Omit<TStudySet, "flashcardsCount" | "createdAt"> {
+    flashcards: TFlashcard[];
+    createdBy: TUser;
 }

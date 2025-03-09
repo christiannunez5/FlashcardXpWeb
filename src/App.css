@@ -13,3 +13,24 @@ a {
 p {
     line-height: 1.8em;
 }
+
+h1,
+h2,
+h3 {
+    font-family: "Bricolage Grotesque", sans-serif;
+}
+
+h1 {
+    font-weight: 800;
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 2rem;
+    font-weight: 600;
+}

@@ -1,10 +1,10 @@
 import { useDeleteStudySet } from "../hooks";
-import { StudySet } from "@/types";
+import { TStudySet } from "@/types";
 import { truncateText } from "@/utils";
 import { Link } from "react-router";
 
 interface StudySetCardProps {
-    studySet: StudySet;
+    studySet: TStudySet;
 }
 
 export const StudySetCard = ({ studySet }: StudySetCardProps) => {
@@ -48,11 +48,11 @@ export const StudySetCard = ({ studySet }: StudySetCardProps) => {
                 </svg>
             </div>
 
-            <div className="w-full h-full p-4 flex flex-col items-end ">
+            <div className="w-full h-full p-4 flex flex-col ">
                 <p className="grow">{truncateText(studySet.description, 90)}</p>
 
                 <p
-                    className="
+                    className="self-end
                  text-sm text-gray-400"
                 >
                     {studySet.flashcardsCount} flashcards

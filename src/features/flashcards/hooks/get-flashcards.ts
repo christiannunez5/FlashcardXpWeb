@@ -1,9 +1,9 @@
-import { getFlashcardsByStudySet } from "@/api/flashcard";
+import { getStudySetFlashcards } from "@/api/flashcard";
 import { useQuery } from "@tanstack/react-query";
 
-export function useGetFlashcardsByStudySet(studySetId: string) {
+export function useGetStudySetFlashcards(studySetId: string) {
     return useQuery({
         queryKey: ["flashcards", studySetId],
-        queryFn: () => getFlashcardsByStudySet(studySetId),
+        queryFn: () => getStudySetFlashcards(studySetId),
     });
 }

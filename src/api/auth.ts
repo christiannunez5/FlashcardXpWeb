@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
-import { User } from "@/types";
+import { TUser } from "@/types";
 
 const ENDPOINT = "/api/auth";
 
@@ -16,5 +16,5 @@ export const login = async ({
 
 export const getCurrentLoggedInUser = async () => {
     const response = await api.get(`${ENDPOINT}/me`);
-    return response.data as User | null;
+    return response.data as TUser | null;
 };
