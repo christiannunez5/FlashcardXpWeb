@@ -13,11 +13,11 @@ export const LoginForm = () => {
     const handleLogin = (data: FieldValues) => {
         login({ email: data.email, password: data.password });
     };
-    
+
     return (
-        <div className="w-[55%] p-10 flex flex-col gap-4">
+        <div className="w-[55%] p-10 flex flex-col gap-4 ">
             <div className=" flex flex-col items-center">
-                <h1 className="text-3xl font-bold">Sign in with email</h1>
+                <h3>Sign in with email</h3>
             </div>
 
             <form
@@ -27,7 +27,7 @@ export const LoginForm = () => {
                     handleZodErrors(errors)
                 )}
             >
-                <div className="bg-[#EDEDED] flex p-4 rounded-lg gap-2">
+                <div className="bg-background flex p-4 rounded-lg gap-2">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -53,7 +53,7 @@ export const LoginForm = () => {
                     />
                 </div>
 
-                <div className="bg-[#EDEDED] flex p-4 rounded-lg gap-2">
+                <div className="flex p-4 rounded-lg gap-2 bg-background">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -84,7 +84,7 @@ export const LoginForm = () => {
 
                 <div className="w-full flex gap-2 ">
                     <button
-                        className="bg-[#07085B] w-full p-2 rounded-3xl text-white"
+                        className="bg-accent w-full p-2 rounded-3xl text-white"
                         onClick={handleLogin}
                         type="submit"
                     >

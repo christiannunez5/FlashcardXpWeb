@@ -123,16 +123,16 @@ import { useState } from "react";
 export const Navbar = () => {
     return (
         <nav className="w-full flex justify-end gap-5 items-center">
-            <div className="bg-white rounded-2xl py-2 px-4 w-[500px]">
+            <div className="bg-container rounded-3xl py-3 px-4 w-[500px]">
                 <input
                     type="text"
-                    className="w-full outline-none"
+                    className="w-full outline-none px-3"
                     placeholder="Search flashcard name..."
                 />
             </div>
 
             <ThemeToggle />
-            <div className="w-10 h-10 rounded-full bg-white"></div>
+            <div className="w-10 h-10 rounded-full bg-container"></div>
         </nav>
     );
 };
@@ -142,7 +142,7 @@ export const ThemeToggle = () => {
 
     return (
         <div
-            className="text-lg rounded-full hover:bg-[#eff5f8] p-3 cursor-pointer"
+            className="text-lg rounded-full hover:bg-container p-3 cursor-pointer"
             onClick={() => setIsLight(!isLight)}
         >
             {isLight ? <MdOutlineWbSunny /> : <IoMoonOutline />}

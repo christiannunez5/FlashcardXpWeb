@@ -2,7 +2,7 @@ import { LoginForm } from "@/features/auth/components";
 
 const Login = () => {
     return (
-        <div className="bg-white w-screen h-screen p-10 flex flex-col ">
+        <div className="bg-primary w-screen  h-screen p-10 flex flex-col text-foreground">
             <div>Logo</div>
 
             <main className="flex-1 w-[80%] flex gap-10 mx-auto ">

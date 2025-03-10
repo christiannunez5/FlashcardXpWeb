@@ -11,7 +11,7 @@ export const Flashcard = ({ flashcard }: FlaschardProps) => {
     
     return (
         <motion.div
-            className="relative mt-4 flex-1 w-full h-full cursor-pointer"
+            className="relative mt-4 flex-1 cursor-pointer"
             initial={false}
             animate={{ rotateY: flipped ? 180 : 0 }}
             style={{

@@ -16,23 +16,26 @@ export const StudySetCard = ({ studySet }: StudySetCardProps) => {
 
     return (
         <div
-            className="relative w-full bg-white h-[200px] rounded-xl 
-        shadow-md flex flex-col"
+            className="relative w-full bg-primary h-[200px] rounded-xl shadow-md
+        flex flex-col text-foreground"
         >
             <Link
                 to={`/studyset/${studySet.id}/flashcards`} // Use the `to` prop to navigate
                 className="absolute inset-0"
             ></Link>
 
-            <div className="rounded-t-xl bg-amber-300 w-full flex justify-between items-center p-4">
-                <p>{studySet.title}</p>
+            <div
+                className="rounded-t-xl bg-accent
+            w-full flex justify-between items-center p-4"
+            >
+                <p className="text-accent-foreground">{studySet.title}</p>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="#800000"
+                    stroke="#b71c1c"
                     stroke-width="1.5"
                     stroke-linecap="round"
                     stroke-linejoin="round"

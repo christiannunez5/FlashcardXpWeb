@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router";
 
 const Home = lazy(() => import("@/pages/home"));
 const StudySet = lazy(() => import("@/pages/studyset"));
+const Decks = lazy(() => import("@/pages/my-studysets"));
 
 export const PrivateRoutes = () => {
     return (
@@ -14,6 +15,7 @@ export const PrivateRoutes = () => {
                     path="studyset/:studySetId/flashcards"
                     element={<StudySet />}
                 />
+                <Route path="my-studysets" element={<Decks />} />
             </Route>
         </Routes>
     );

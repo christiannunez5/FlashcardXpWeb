@@ -1,9 +1,7 @@
-import { StudySets } from "@/features/studysets/components";
-
 const Home = () => {
     return (
-        <div className="">
-            <StudySets />
+        <div className="text-foreground">
+            <p>hello</p>
         </div>
     );
 };

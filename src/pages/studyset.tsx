@@ -1,57 +1,85 @@
-import { TFlashcard } from "@/features/flashcards/components/flashcard";
 import { useGetStudySetFlashcards } from "@/features/flashcards/hooks";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { ReactNode } from "react";
 import { useParams } from "react-router";
 
 const StudySet = () => {
     const params = useParams();
-    const [flipped, setFlipped] = useState(false);
+
     if (!params.studySetId) {
         throw new Error("params missing");
     }
     const { data: studySet } = useGetStudySetFlashcards(params.studySetId);
 
     return (
-        <div className="w-[70%] mx-auto h-full flex flex-col">
-            <h2>{studySet?.title}</h2>
+        <div className="w-full h-full flex gap-10">
+            <div className="flex flex-col gap-4">
+                <StudySetOption
+                    title="Practice Test"
+                    description="Take a test on your terms and definition"
+                    icon={
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="40"
+                            height="40"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            className="icon icon-tabler icons-tabler-outline icon-tabler-zoom-question"
+                        >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                            <path d="M21 21l-6 -6" />
+                            <path d="M10 13l0 .01" />
+                            <path d="M10 10a1.5 1.5 0 1 0 -1.14 -2.474" />
+                        </svg>
+                    }
+                />
 
-            <div className="flex gap-2 mt-2">
-                <div className="bg-[#07085B] py-2 px-8 rounded-lg text-white">
-                    Flashcards
-                </div>
-
-                <div className="bg-white py-2 px-8 rounded-lg border border-[#07085B] ">
-                    Quiz
-                </div>
+                <StudySetOption
+                    title="Flashcards"
+                    description="Study terms and definitions"
+                    icon={
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="40"
+                            height="40"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="icon icon-tabler icons-tabler-filled icon-tabler-play-card-q"
+                        >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M17 2a3 3 0 0 1 3 3v14a3 3 0 0 1 -3 3h-10a3 3 0 0 1 -3 -3v-14a3 3 0 0 1 3 -3zm.01 16h-.01a1 1 0 0 0 -.117 1.993l.127 .007a1 1 0 0 0 0 -2m-5.01 -10a3 3 0 0 0 -3 3v2a3 3 0 0 0 4.293 2.708l.5 .5a1 1 0 0 0 1.414 -1.415l-.499 -.5c.187 -.392 .292 -.83 .292 -1.293v-2a3 3 0 0 0 -3 -3m0 2a1 1 0 0 1 1 1v2a1 1 0 0 1 -2 0v-2a1 1 0 0 1 1 -1m-4.99 -6h-.01a1 1 0 0 0 -.117 1.993l.127 .007a1 1 0 1 0 0 -2" />
+                        </svg>
+                    }
+                />
             </div>
 
-            <motion.div
-                className="relative mt-4 flex-1 w-full h-full cursor-pointer"
-                initial={false}
-                animate={{ rotateY: flipped ? 180 : 0 }}
-                transition={{ duration: 0.5 }}
-                style={{
-                    transformStyle: "preserve-3d",
-                }}
-                onClick={() => setFlipped(!flipped)}
-            >
-                {/* FRONT */}
-                <div
-                    className="absolute w-full h-full bg-white rounded-2xl shadow-md flex items-center justify-center"
-                    style={{ backfaceVisibility: "hidden" }}
-                >
-                    <h1>Literature</h1>
-                </div>
+            <div className="w-full bg-primary rounded-xl shadow-md"></div>
+        </div>
+    );
+};
 
-                {/* BACK */}
-                <div
-                    className="absolute w-full h-full bg-white rounded-2xl shadow-md flex items-center justify-center rotate-y-180"
-                    style={{ backfaceVisibility: "hidden" }}
-                >
-                    <p>BACK</p>
-                </div>
-            </motion.div>
+interface StudySetOptionProps {
+    title: string;
+    description: string;
+    icon: ReactNode;
+}
+
+const StudySetOption = ({ title, description, icon }: StudySetOptionProps) => {
+    return (
+        <div
+            className="relative flex gap-4 bg-primary py-4 px-5 rounded-3xl shadow-md
+                items-center hover:brightness-110"
+        >
+            <a href="" className="absolute inset-0"></a>
+            {icon}
+            <div>
+                <p className="text-xl font-semibold">{title}</p>
+                <p className="text-sm ">{description}</p>
+            </div>
         </div>
     );
 };

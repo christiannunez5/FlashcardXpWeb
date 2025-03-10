@@ -1,6 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inconsolata:wght@200..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap");
 @import "tailwindcss";
 
+@theme {
+    --color-background: #f4f4f4;
+    --color-primary: #ffffff;
+    --color-foreground: #040316;
+    /* --color-accent: #3700b3; */
+    --color-accent: #07085b;
+    --color-accent-foreground: #ffffff;
+
+    --color-container: #e2e8f0;
+}
+
+@layer theme {
+    .dark {
+        --color-background: #1e252b;
+        --color-primary: #262d34;
+        --color-foreground: #ffffffce;
+        /* --color-accent: #bb86fc; */
+
+        --color-container: #303030;
+        --color-accent: #3700b3;
+        --color-accent-foreground: white;
+    }
+}
+
 * {
     font-family: "Space Grotesk", sans-serif;
 }
@@ -16,7 +40,8 @@ p {
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
     font-family: "Bricolage Grotesque", sans-serif;
 }
 
@@ -32,5 +57,10 @@ h2 {
 
 h3 {
     font-size: 2rem;
+    font-weight: 600;
+}
+
+h4 {
+    font-size: 1.5rem;
     font-weight: 600;
 }
