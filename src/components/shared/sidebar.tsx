@@ -143,7 +143,8 @@ const SidebarItem = ({ icon, title, linkUrl }: SidebarItemProps) => {
     return (
         <Link
             to={linkUrl}
-            className="relative py-3 px-6 gap-4 flex items-center "
+            className="relative py-3 px-6 gap-4 flex items-center hover:bg-accent 
+            hover:text-accent-foreground transition-colors"
         >
             {icon}
             <p>{title}</p>
