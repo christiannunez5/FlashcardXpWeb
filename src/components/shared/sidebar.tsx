@@ -7,7 +7,7 @@ export const Sidebar = () => {
             className="h-screen bg-primary w-80 flex flex-col items-center py-4 justify-center 
         sticky top-0 shadow-md text-foreground"
         >
-            <ul className="w-full flex flex-col gap-2">
+            <ul className="w-full flex flex-col gap-2 flex-grow justify-center">
                 <SidebarItem
                     title="Home"
                     linkUrl="/"
@@ -123,6 +123,12 @@ export const Sidebar = () => {
                     }
                 />
             </ul>
+
+            <div className="w-full px-6 hover:brightness-105">
+                <button className="w-full p-2 bg-accent text-accent-foreground rounded-2xl">
+                    New study set
+                </button>
+            </div>
         </aside>
     );
 };
@@ -137,7 +143,7 @@ const SidebarItem = ({ icon, title, linkUrl }: SidebarItemProps) => {
     return (
         <Link
             to={linkUrl}
-            className="relative py-2 px-6 gap-4 flex items-center border-b-2 border-container"
+            className="relative py-3 px-6 gap-4 flex items-center "
         >
             {icon}
             <p>{title}</p>

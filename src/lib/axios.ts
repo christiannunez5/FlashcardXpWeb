@@ -10,4 +10,23 @@ const api = axios.create({
     },
 });
 
+api.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+        const originalRequest = error.config;
+        if (error.response.status === 401) {
+            try {
+                const response = await api.post(
+                    "/api/auth/login/refresh-token"
+                );
+                console.log(response.status);
+                return api(originalRequest);
+            } catch (error) {
+                window.location.href = "/";
+                return Promise.reject(error);
+            }
+        }
+    }
+);
+
 export default api;
