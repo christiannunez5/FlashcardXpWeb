@@ -8,18 +8,19 @@ import { Flashcard } from "@/features/flashcards/components/flashcard";
 import { TFlashcard } from "@/types";
 import { useEffect, useState } from "react";
 import { BsFullscreen } from "react-icons/bs";
+import { FaShuffle } from "react-icons/fa6";
 
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { FiEdit2 } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
+
+import { CircularButton } from "@/components/ui/circular-button";
+import { MdOutlineShuffle } from "react-icons/md";
 
 interface FlashcardsProps {
     flashcards: TFlashcard[];
 }
 
 export const Flashcards = ({ flashcards }: FlashcardsProps) => {
-    console.log(flashcards);
-
     const [api, setApi] = useState<CarouselApi>();
     const [current, setCurrent] = useState(0);
 
@@ -54,50 +55,55 @@ export const Flashcards = ({ flashcards }: FlashcardsProps) => {
             </Carousel>
 
             <div className="flex mt-5">
-                <div className="flex gap-2 self-start">
-                    <button
-                        className="shadow-xl grid place-content-center h-10 w-10 rounded-full bg-primary
-                    hover:bg-container"
+                <div>
+                    <CircularButton
+                        size={10}
+                        className="bg-primary hover:bg-container"
                     >
-                        <BsFullscreen />
-                    </button>
-
-                    <button
-                        className="shadow-xl grid place-content-center h-10 w-10 rounded-full bg-primary
-                    hover:bg-container"
-                    >
-                        <IoSettingsOutline className="text-xl" />
-                    </button>
+                        <MdOutlineShuffle className="text-xl" />
+                    </CircularButton>
                 </div>
 
                 <div
                     className="bg-primary shadow-xl text-accent-foreground flex items-center mx-auto
-                                    gap-2 py-2 rounded-4xl px-2"
+                    gap-2 py-2 rounded-4xl px-2"
                 >
-                    <button
-                        className="p-3 rounded-full bg-accent
-                    disabled:bg-slate-500 disabled:text-gray-400"
+                    <CircularButton
+                        size={10}
                         onClick={() => api?.scrollTo(current - 1)}
                         disabled={current === 0}
+                        className="bg-accent text-accent-foreground"
                     >
                         <FaArrowLeft />
-                    </button>
+                    </CircularButton>
 
                     <p className="text-foreground mx-8">
                         {current}/{flashcards.length - 1}
                     </p>
-                    <button
-                        className="p-3 rounded-full bg-accent"
+
+                    <CircularButton
+                        size={10}
                         onClick={() => api?.scrollTo(current + 1)}
+                        className="bg-accent text-accent-foreground"
                     >
                         <FaArrowRight />
-                    </button>
+                    </CircularButton>
                 </div>
 
-                <div>
-                    <button className="shadow-xl grid place-content-center h-10 w-10 rounded-full bg-primary">
-                        <FiEdit2 />
-                    </button>
+                <div className="flex gap-2 self-start">
+                    <CircularButton
+                        size={10}
+                        className="bg-primary hover:bg-container"
+                    >
+                        <BsFullscreen />
+                    </CircularButton>
+
+                    <CircularButton
+                        size={10}
+                        className="bg-primary hover:bg-container"
+                    >
+                        <IoSettingsOutline className="text-xl" />
+                    </CircularButton>
                 </div>
             </div>
         </div>

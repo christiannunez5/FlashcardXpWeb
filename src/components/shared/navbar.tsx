@@ -3,17 +3,22 @@ import { IoMoonOutline } from "react-icons/io5";
 import { FiPlus } from "react-icons/fi";
 import { FaExclamation } from "react-icons/fa";
 import { useThemeContext } from "@/hooks/use-theme-context";
+import { CircularButton } from "@/components/ui/circular-button";
 
 export const Navbar = () => {
     return (
         <nav className="w-full flex justify-end gap-6 items-center">
-            <button className="p-3 bg-accent text-white rounded-full">
+            <CircularButton
+                className="bg-accent text-accent-foreground"
+                size={10}
+            >
                 <FiPlus />
-            </button>
+            </CircularButton>
 
-            <button className="p-3 rounded-full hover:bg-container">
+            <CircularButton className="bg-inherit hover:bg-container" size={10}>
                 <FaExclamation />
-            </button>
+            </CircularButton>
+
             <ThemeToggle />
             <div className="w-10 h-10 rounded-full bg-container"></div>
         </nav>
@@ -23,14 +28,13 @@ export const Navbar = () => {
 export const ThemeToggle = () => {
     const { isDark, toggleMode } = useThemeContext();
 
-    console.log(isDark);
-
     return (
-        <button
-            className="rounded-full hover:bg-container p-3 text-lg"
+        <CircularButton
+            className="bg-inherit hover:bg-container text-lg"
             onClick={toggleMode}
+            size={10}
         >
             {isDark ? <MdOutlineWbSunny /> : <IoMoonOutline />}
-        </button>
+        </CircularButton>
     );
 };

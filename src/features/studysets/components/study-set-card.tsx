@@ -3,7 +3,7 @@ import { TStudySet } from "@/types";
 import { truncateText } from "@/utils";
 import { Link } from "react-router";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { truncate } from "fs";
+import { CircularButton } from "@/components/ui/circular-button";
 
 interface StudySetCardProps {
     studySet: TStudySet;
@@ -34,21 +34,19 @@ export const StudySetCard = ({ studySet }: StudySetCardProps) => {
                     {truncateText(studySet.title, 20)}
                 </p>
 
-                <button
-                    className="p-3 rounded-full hover:bg-container relative z-10 text-accent-foreground
-                hover:text-foreground"
+                <CircularButton
+                    size={10}
+                    className="z-10 bg-none bg-inherit text-accent-foreground
+                     hover:text-foreground hover:bg-container "
                 >
-                    <BsThreeDotsVertical className="rounded-full " />
-                </button>
+                    <BsThreeDotsVertical />
+                </CircularButton>
             </div>
 
             <div className="w-full h-full flex flex-col p-4">
                 <p className="grow">{truncateText(studySet.description, 70)}</p>
 
-                <p
-                    className="self-end
-                 text-sm text-gray-400"
-                >
+                <p className="self-end text-sm text-gray-400">
                     {studySet.flashcardsCount} flashcards
                 </p>
             </div>
