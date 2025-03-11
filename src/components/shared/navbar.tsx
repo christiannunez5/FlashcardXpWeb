@@ -4,8 +4,19 @@ import { FiPlus } from "react-icons/fi";
 import { FaExclamation } from "react-icons/fa";
 import { useThemeContext } from "@/hooks/use-theme-context";
 import { CircularButton } from "@/components/ui/circular-button";
+import { Button } from "@/components/ui/button";
+import { useLogout } from "@/features/auth/hooks";
+import { useGetCurrentUser } from "@/hooks";
 
 export const Navbar = () => {
+    const { mutate: logout } = useLogout();
+    const { data } = useGetCurrentUser();
+    const handleLogout = () => {
+        console.log("hello");
+        logout();
+        console.log(data);
+    };
+
     return (
         <nav className="w-full flex justify-end gap-6 items-center">
             <CircularButton
@@ -18,6 +29,8 @@ export const Navbar = () => {
             <CircularButton className="bg-inherit hover:bg-container" size={10}>
                 <FaExclamation />
             </CircularButton>
+
+            <Button onClick={handleLogout}>Logout</Button>
 
             <ThemeToggle />
             <div className="w-10 h-10 rounded-full bg-container"></div>

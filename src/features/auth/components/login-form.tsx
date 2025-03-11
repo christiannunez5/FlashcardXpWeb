@@ -2,6 +2,7 @@ import { loginSchema, TLoginSchema, useLogin } from "../hooks/";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { handleZodErrors } from "@/utils/handleZodErrors";
+import { Button } from "@/components/ui/button";
 
 export const LoginForm = () => {
     const { register, handleSubmit } = useForm<TLoginSchema>({
@@ -83,20 +84,19 @@ export const LoginForm = () => {
                 <a className="text-gray-400 self-end my-1">Forgot password?</a>
 
                 <div className="w-full flex gap-2 ">
-                    <button
-                        className="bg-accent w-full p-2 rounded-3xl text-white"
-                        onClick={handleLogin}
+                    <Button
+                        className="bg-accent rounded-3xl px-7 "
                         type="submit"
                     >
                         Login now
-                    </button>
+                    </Button>
 
-                    <button
-                        className="w-full p-2 rounded-3xl border border-gray-500
-                             "
+                    <Button
+                        className="border border-gray-500 bg-primary 
+                    text-foreground rounded-3xl px-5 hover:text-accent-foreground"
                     >
                         Create account
-                    </button>
+                    </Button>
                 </div>
             </form>
 

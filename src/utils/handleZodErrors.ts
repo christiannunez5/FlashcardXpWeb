@@ -7,6 +7,7 @@ import { toast } from "sonner";
  */
 
 export const handleZodErrors = (errors: FieldErrors) => {
+    console.log(errors);
     Object.values(errors)
         .reverse()
         .forEach((error: any) => {

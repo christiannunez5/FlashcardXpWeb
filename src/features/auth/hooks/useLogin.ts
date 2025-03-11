@@ -18,7 +18,7 @@ export const useLogin = () => {
         mutationFn: login,
         onError: (error) => {
             if (error instanceof AxiosError) {
-                toast.error(error.response?.data.error.message);
+                toast.error(error.response?.data.message);
             }
         },
         onSuccess: () => {

@@ -12,6 +12,7 @@ const api = axios.create({
 
 api.interceptors.response.use(
     (response) => response,
+
     async (error) => {
         const originalRequest = error.config;
         if (error.response.status === 401) {
@@ -22,10 +23,10 @@ api.interceptors.response.use(
                 console.log(response.status);
                 return api(originalRequest);
             } catch (error) {
-                window.location.href = "/";
                 return Promise.reject(error);
             }
         }
+        return Promise.reject(error);
     }
 );
 
