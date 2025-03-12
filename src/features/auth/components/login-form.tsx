@@ -3,17 +3,25 @@ import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { handleZodErrors } from "@/utils/handleZodErrors";
 import { Button } from "@/components/ui/button";
+import { FormInput } from "@/components/ui/input";
 
 export const LoginForm = () => {
-    const { register, handleSubmit } = useForm<TLoginSchema>({
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm<TLoginSchema>({
         resolver: zodResolver(loginSchema),
     });
 
-    const { mutate: login } = useLogin();
+    const { mutate: login, isPending } = useLogin();
 
     const handleLogin = (data: FieldValues) => {
         login({ email: data.email, password: data.password });
     };
+
+    watch();
 
     return (
         <div className="w-[55%] p-10 flex flex-col gap-4 ">
@@ -22,64 +30,62 @@ export const LoginForm = () => {
             </div>
 
             <form
-                action=""
                 className="flex flex-col gap-2 mt-10"
                 onSubmit={handleSubmit(handleLogin, (errors) =>
                     handleZodErrors(errors)
                 )}
             >
-                <div className="bg-background flex p-4 rounded-lg gap-2">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="gray"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        className="icon icon-tabler icons-tabler-outline icon-tabler-mail"
-                    >
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
-                        <path d="M3 7l9 6l9 -6" />
-                    </svg>
+                <FormInput
+                    className="bg-background p-4 rounded-lg gap-4"
+                    placeholder="Email address"
+                    {...register("email")}
+                    error={errors.email}
+                    icon={
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="gray"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            className="icon icon-tabler icons-tabler-outline icon-tabler-mail"
+                        >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
+                            <path d="M3 7l9 6l9 -6" />
+                        </svg>
+                    }
+                />
 
-                    <input
-                        {...register("email")}
-                        type="text"
-                        placeholder="Email address"
-                        className="w-full outline-none"
-                    />
-                </div>
-
-                <div className="flex p-4 rounded-lg gap-2 bg-background">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="gray"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        className="icon icon-tabler icons-tabler-outline icon-tabler-lock"
-                    >
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" />
-                        <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
-                        <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
-                    </svg>
-
-                    <input
-                        {...register("password")}
-                        type="password"
-                        placeholder="Password"
-                        className="w-full outline-none"
-                    />
-                </div>
+                <FormInput
+                    type="Password"
+                    icon={
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="gray"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            className="icon icon-tabler icons-tabler-outline icon-tabler-lock"
+                        >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" />
+                            <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+                            <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+                        </svg>
+                    }
+                    {...register("password")}
+                    placeholder="Password"
+                    error={errors.password}
+                    className="bg-background p-4 rounded-lg gap-4"
+                />
 
                 <a className="text-gray-400 self-end my-1">Forgot password?</a>
 
@@ -87,13 +93,14 @@ export const LoginForm = () => {
                     <Button
                         className="bg-accent rounded-3xl px-7 "
                         type="submit"
+                        disabled={isPending}
                     >
                         Login now
                     </Button>
 
                     <Button
                         className="border border-gray-500 bg-primary 
-                    text-foreground rounded-3xl px-5 hover:text-accent-foreground"
+                        text-foreground rounded-3xl px-5 hover:text-accent-foreground"
                     >
                         Create account
                     </Button>

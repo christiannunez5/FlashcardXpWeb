@@ -7,7 +7,8 @@ import { CircularButton } from "@/components/ui/circular-button";
 import { Button } from "@/components/ui/button";
 import { useLogout } from "@/features/auth/hooks";
 import { useGetCurrentUser } from "@/hooks";
-
+import { AddStudySetModal } from "@/components/shared";
+    
 export const Navbar = () => {
     const { mutate: logout } = useLogout();
     const { data } = useGetCurrentUser();
@@ -19,12 +20,14 @@ export const Navbar = () => {
 
     return (
         <nav className="w-full flex justify-end gap-6 items-center">
-            <CircularButton
-                className="bg-accent text-accent-foreground"
-                size={10}
-            >
-                <FiPlus />
-            </CircularButton>
+            <AddStudySetModal>
+                <CircularButton
+                    className="bg-accent text-accent-foreground"
+                    size={10}
+                >
+                    <FiPlus />
+                </CircularButton>
+            </AddStudySetModal>
 
             <CircularButton className="bg-inherit hover:bg-container" size={10}>
                 <FaExclamation />

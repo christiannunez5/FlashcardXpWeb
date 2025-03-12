@@ -1,10 +1,48 @@
 @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inconsolata:wght@200..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap");
-
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
 
 @import "tailwindcss";
+
+* {
+    font-family: "Space Grotesk", sans-serif;
+}
+
+button,
+a {
+    cursor: pointer;
+}
+
+p {
+    line-height: 1.5em;
+    font-weight: 450;
+}
+
+h1 {
+    font-weight: 800;
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+h5 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
 
 @theme {
     --color-background: #f4f4f4;
@@ -28,46 +66,6 @@
         --color-accent: #3700b3;
         --color-accent-foreground: white;
     }
-}
-
-* {
-    font-family: "Space Grotesk", sans-serif;
-}
-
-button,
-a {
-    cursor: pointer;
-}
-
-p {
-    line-height: 1.8em;
-}
-
-h1,
-h2,
-h3,
-h4 {
-    font-family: "Bricolage Grotesque", sans-serif;
-}
-
-h1 {
-    font-weight: 800;
-    font-size: 3rem;
-}
-
-h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-}
-
-h3 {
-    font-size: 2rem;
-    font-weight: 600;
-}
-
-h4 {
-    font-size: 1.5rem;
-    font-weight: 600;
 }
 
 :root {

@@ -1,3 +1,4 @@
+import { TStudySetWithFlashcardsSchema } from "@/features/studysets/hooks";
 import api from "../lib/axios";
 import { TStudySet } from "../types";
 
@@ -8,8 +9,9 @@ export const getCurrentUserStudySets = async () => {
     return response.data as TStudySet[];
 };
 
-export const addStudyset = async () => {
-    const response = await api.post(`${ENDPOINT}`);
+export const addStudyset = async (data: TStudySetWithFlashcardsSchema) => {
+    console.log("data: ", data);
+    const response = await api.post(`${ENDPOINT}`, data);
     return response.data as TStudySet;
 };
 

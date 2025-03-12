@@ -1,3 +1,4 @@
+import { AddStudySetModal } from "@/components/shared/add-study-set-modal";
 import { Button } from "@/components/ui/button";
 import { sidebarItems } from "@/data";
 import React, { ReactNode } from "react";
@@ -23,9 +24,11 @@ export const Sidebar = () => {
             </ul>
 
             <div className="w-full px-4">
-                <Button className="w-full mt-2 " variant={"default"}>
-                    New study set
-                </Button>
+                <AddStudySetModal>
+                    <Button className="w-full mt-2 " variant={"default"}>
+                        New study set
+                    </Button>
+                </AddStudySetModal>
             </div>
         </aside>
     );
@@ -46,7 +49,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ icon, title, linkUrl }) => {
         <Link
             to={linkUrl}
             className={`relative py-3 px-5 gap-4 flex items-center rounded-xl
-                transition-colors  ${
+                ${
                     isActive
                         ? "bg-accent text-accent-foreground hover:bg-accent/90"
                         : "hover:bg-container"

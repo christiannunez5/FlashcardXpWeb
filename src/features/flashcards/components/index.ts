@@ -1,4 +1,2 @@
-
-
-export * from './flashcard'
-export * from './flashcards'
+export * from "./flashcards";
+export * from "./add-flashcard";

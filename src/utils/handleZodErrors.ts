@@ -7,10 +7,13 @@ import { toast } from "sonner";
  */
 
 export const handleZodErrors = (errors: FieldErrors) => {
-    console.log(errors);
-    Object.values(errors)
+    Object.entries(errors)
         .reverse()
-        .forEach((error: any) => {
-            return toast.error(error.message);
+        .forEach(([key, error]: [string | string[], any]) => {
+            if (error.message) {
+                toast.error(error.message);
+            } else if (key === "flashcards") {
+                handleZodErrors(error);
+            }
         });
 };

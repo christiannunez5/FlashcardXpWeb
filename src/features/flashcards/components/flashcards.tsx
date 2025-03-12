@@ -23,7 +23,7 @@ interface FlashcardsProps {
 export const Flashcards = ({ flashcards }: FlashcardsProps) => {
     const [api, setApi] = useState<CarouselApi>();
     const [current, setCurrent] = useState(0);
-
+    
     useEffect(() => {
         if (!api) {
             return;
