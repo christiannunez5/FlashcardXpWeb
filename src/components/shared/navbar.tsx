@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useLogout } from "@/features/auth/hooks";
 import { useGetCurrentUser } from "@/hooks";
 import { AddStudySetModal } from "@/components/shared";
-    
+
 export const Navbar = () => {
     const { mutate: logout } = useLogout();
     const { data } = useGetCurrentUser();
@@ -50,7 +50,7 @@ export const ThemeToggle = () => {
             onClick={toggleMode}
             size={10}
         >
-            {isDark ? <MdOutlineWbSunny /> : <IoMoonOutline />}
+            {isDark ? <IoMoonOutline /> : <MdOutlineWbSunny />}
         </CircularButton>
     );
 };

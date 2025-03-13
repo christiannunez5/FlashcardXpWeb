@@ -4,22 +4,31 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
 
-interface FlaschardProps {
+interface CarouselFlashcard {
     flashcard: TFlashcard;
 }
 
-export const Flashcard = ({ flashcard }: FlaschardProps) => {
+export const CarouselFlashcard = ({ flashcard }: CarouselFlashcard) => {
     const [flipped, setFlipped] = useState(false);
+
+    const handleCardClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setFlipped(!flipped);
+    };
+
+    const handleEditClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+    };
 
     return (
         <motion.div
-            className="w-full h-[70vh] relative cursor-pointer bg-background"
+            className="w-full h-[70vh] relative cursor-pointer "
             initial={false}
             animate={{ rotateY: flipped ? 180 : 0 }}
             style={{
                 transformStyle: "preserve-3d",
             }}
-            onClick={() => setFlipped(!flipped)}
+            onClick={handleCardClick}
         >
             {/* FRONT */}
             <div
@@ -27,13 +36,11 @@ export const Flashcard = ({ flashcard }: FlaschardProps) => {
                 flex flex-col gap-5 p-10"
                 style={{ backfaceVisibility: "hidden" }}
             >
-                <CircularButton
-                    size={8}
-                    className="self-end hover:bg-container"
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    <FiEdit2 />
-                </CircularButton>
+                <div onClick={handleEditClick} className="self-end ">
+                    <CircularButton size={10} className="hover:bg-container">
+                        <FiEdit2 />
+                    </CircularButton>
+                </div>
 
                 <div className="grow grid place-content-center">
                     <h2 className="">{flashcard.term}</h2>
@@ -45,13 +52,10 @@ export const Flashcard = ({ flashcard }: FlaschardProps) => {
                 flex flex-col gap-5 p-10 rotate-y-180"
                 style={{ backfaceVisibility: "hidden" }}
             >
-                <CircularButton
-                    size={8}
-                    className="self-end hover:bg-container"
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    <FiEdit2 />
-                </CircularButton>
+                <div
+                    className="flex justify-end bg-amber-900"
+                    onClick={handleEditClick}
+                ></div>
 
                 <div className="grow grid place-content-center">
                     <p className="text-xl font-medium">

@@ -4,26 +4,23 @@ import {
     CarouselContent,
     CarouselItem,
 } from "@/components/ui/carousel";
-import { Flashcard } from "@/features/flashcards/components/flashcard";
+import { CarouselFlashcard } from "@/features/flashcards/components/carousel-flashcard";
 import { TFlashcard } from "@/types";
 import { useEffect, useState } from "react";
 import { BsFullscreen } from "react-icons/bs";
-import { FaShuffle } from "react-icons/fa6";
-
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { IoSettingsOutline } from "react-icons/io5";
-
 import { CircularButton } from "@/components/ui/circular-button";
 import { MdOutlineShuffle } from "react-icons/md";
+import { FlashcardsOptionsModal } from "@/features/flashcards/components/flashcards-options-modal";
 
-interface FlashcardsProps {
+interface FlashcardsCarouselProps {
     flashcards: TFlashcard[];
 }
 
-export const Flashcards = ({ flashcards }: FlashcardsProps) => {
+export const FlashcardsCarousel = ({ flashcards }: FlashcardsCarouselProps) => {
     const [api, setApi] = useState<CarouselApi>();
     const [current, setCurrent] = useState(0);
-    
+
     useEffect(() => {
         if (!api) {
             return;
@@ -41,13 +38,13 @@ export const Flashcards = ({ flashcards }: FlashcardsProps) => {
             <Carousel
                 className="w-full grid "
                 setApi={setApi}
-                opts={{ loop: false }}
+                opts={{ loop: true }}
             >
                 <CarouselContent>
                     {flashcards.map((f) => {
                         return (
                             <CarouselItem>
-                                <Flashcard flashcard={f} />
+                                <CarouselFlashcard flashcard={f} />
                             </CarouselItem>
                         );
                     })}
@@ -65,20 +62,19 @@ export const Flashcards = ({ flashcards }: FlashcardsProps) => {
                 </div>
 
                 <div
-                    className="bg-primary shadow-xl text-accent-foreground flex items-center mx-auto
+                    className="bg-primary shadow-sm text-accent-foreground flex items-center mx-auto
                     gap-2 py-2 rounded-4xl px-2"
                 >
                     <CircularButton
                         size={10}
                         onClick={() => api?.scrollTo(current - 1)}
-                        disabled={current === 0}
                         className="bg-accent text-accent-foreground"
                     >
                         <FaArrowLeft />
                     </CircularButton>
 
                     <p className="text-foreground mx-8">
-                        {current}/{flashcards.length - 1}
+                        {current + 1}/{flashcards.length}
                     </p>
 
                     <CircularButton
@@ -98,12 +94,7 @@ export const Flashcards = ({ flashcards }: FlashcardsProps) => {
                         <BsFullscreen />
                     </CircularButton>
 
-                    <CircularButton
-                        size={10}
-                        className="bg-primary hover:bg-container"
-                    >
-                        <IoSettingsOutline className="text-xl" />
-                    </CircularButton>
+                    <FlashcardsOptionsModal />
                 </div>
             </div>
         </div>

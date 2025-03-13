@@ -1,19 +1,28 @@
-import { Flashcards } from "@/features/flashcards/components";
+import { Button } from "@/components/ui/button";
+import {
+    FlashcardList,
+    FlashcardsCarousel,
+} from "@/features/flashcards/components";
 import { useGetStudySetFlashcards } from "@/features/flashcards/hooks";
+
 import { ReactNode } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 const StudySet = () => {
     const params = useParams();
-
-    if (!params.studySetId) {
+    const navigate = useNavigate();
+    if (!params.id) {
         throw new Error("params missing");
     }
-    const { data: studySet } = useGetStudySetFlashcards(params.studySetId);
+    const { data: studySet } = useGetStudySetFlashcards(params.id);
 
     if (!studySet) {
-        return;
+        return <div>Loading...</div>;
     }
+
+    const handleOnClick = () => {
+        navigate(`/flashcards/${studySet.id}/edit`);
+    };
     
     return (
         <div className="w-full flex flex-col gap-4">
@@ -74,11 +83,22 @@ const StudySet = () => {
                         />
                     </div>
 
-                    <Flashcards flashcards={studySet?.flashcards} />
+                    <FlashcardsCarousel flashcards={studySet?.flashcards} />
                 </div>
             </section>
 
-            <section>asd</section>
+            <section className="w-full">
+                <FlashcardList flashcards={studySet.flashcards}>
+                    <div className="self-end">
+                        <Button
+                            className="p-6 rounded-3xl"
+                            onClick={handleOnClick}
+                        >
+                            <h5>Add or remove items</h5>
+                        </Button>
+                    </div>
+                </FlashcardList>
+            </section>
         </div>
     );
 };

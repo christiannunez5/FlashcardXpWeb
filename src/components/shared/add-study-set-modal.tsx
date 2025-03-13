@@ -4,9 +4,16 @@ import {
     DialogHeader,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import { useAddStudySet } from "@/features/studysets/hooks";
 import { PropsWithChildren } from "react";
 
 export const AddStudySetModal = ({ children }: PropsWithChildren) => {
+    const { mutate: addEmptyStudySet } = useAddStudySet();
+
+    const handleAddStudySet = () => {
+        addEmptyStudySet();
+    };
+    
     return (
         <Dialog>
             <DialogTrigger asChild>{children}</DialogTrigger>
@@ -19,19 +26,16 @@ export const AddStudySetModal = ({ children }: PropsWithChildren) => {
                 </DialogHeader>
 
                 <div className="w-full flex gap-4 h-[300px] text-accent-foreground">
-                    <div
+                    <button
                         className="relative w-full bg-accent rounded-xl px-5
                         flex flex-col justify-center text-center hover:bg-accent/90"
+                        onClick={handleAddStudySet}
                     >
-                        <a
-                            href="/flashcards/add"
-                            className="absolute inset-0"
-                        ></a>
                         <p className="font-medium">Do it yourself flashcards</p>
                         <p className="text-sm text-muted-foreground">
                             Upload your files and let AI do all the work
                         </p>
-                    </div>
+                    </button>
 
                     <div
                         className="relative w-full bg-accent rounded-xl px-5 hover:bg-accent/90

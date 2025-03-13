@@ -16,7 +16,8 @@ export const CircularButton: FC<CircularButtonProps> = ({
         <button
             className={cn(
                 `h-${size} w-${size} grid place-content-center bg-primary rounded-full text-foreground
-                disabled:bg-slate-500 disabled:text-accent-foreground hover:bg-accent/90`,
+                disabled:text-gray-600 disabled:opacity-65 cursor-pointer
+                 disabled:cursor-default`,
                 className
             )}
             {...props}

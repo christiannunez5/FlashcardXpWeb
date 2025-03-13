@@ -1,37 +1,52 @@
 import { Button } from "@/components/ui/button";
 import { FormInput } from "@/components/ui/input";
 import { AddFlashcard } from "@/features/flashcards/components/add-flashcard";
+import { useGetStudySetFlashcards } from "@/features/flashcards/hooks";
 import {
-    updateFlashcardsSchema,
-    TUpdateFlashcardsSchema,
-    useAddStudySet,
-} from "@/features/studysets/hooks/add-study-set";
+    TUpdateStudySetSchema,
+    updateStudySetSchema,
+    useUpdateFlashcards,
+} from "@/features/studysets/hooks";
 import { handleZodErrors } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm, useWatch } from "react-hook-form";
+import { useParams } from "react-router";
 
-const AddFlashcards = () => {
-    const { mutate: addFlashcards, isPending } = useAddStudySet();
+const EditFlashcards = () => {
+    const params = useParams();
+
+    if (!params.id) {
+        throw new Error("params missing");
+    }
+
+    const { data: studySet } = useGetStudySetFlashcards(params.id);
+
+    const { mutate: updateStudySet } = useUpdateFlashcards();
 
     const {
         register,
-        handleSubmit,
         getValues,
+        handleSubmit,
         setValue,
         control,
         formState: { errors },
-    } = useForm<TUpdateFlashcardsSchema>({
-        resolver: zodResolver(updateFlashcardsSchema),
+    } = useForm<TUpdateStudySetSchema>({
+        resolver: zodResolver(updateStudySetSchema),
         defaultValues: {
             title: "",
             description: "",
-            isPublic: false,
-            flashcards: [
-                { term: "", definition: "" },
-                { term: "", definition: "" },
-            ],
+            flashcards: [],
         },
     });
+
+    useEffect(() => {
+        if (studySet) {
+            setValue("title", studySet.title);
+            setValue("description", studySet.description);
+            setValue("flashcards", studySet.flashcards || []);
+        }
+    }, [studySet, setValue]);
 
     const flashcards = useWatch({
         control,
@@ -39,9 +54,14 @@ const AddFlashcards = () => {
         defaultValue: getValues("flashcards"),
     });
 
-    const handleAddStudySet = () => {
+    if (!studySet) {
+        return <div>Loading...</div>;
+    }
+
+    const handleUpdateStudySet = () => {
         const data = getValues();
-        addFlashcards(data);
+
+        updateStudySet({ studySetId: studySet?.id, data: data });
     };
 
     const handleDeleteFlashcard = (index: number) => {
@@ -63,7 +83,7 @@ const AddFlashcards = () => {
     return (
         <form
             className="w-[75%] mx-auto space-y-4"
-            onSubmit={handleSubmit(handleAddStudySet, (errors) => {
+            onSubmit={handleSubmit(handleUpdateStudySet, (errors) => {
                 handleZodErrors(errors);
             })}
         >
@@ -90,7 +110,7 @@ const AddFlashcards = () => {
                 />
             </div>
 
-            {flashcards?.map((_, index) => {
+            {flashcards.map((_, index) => {
                 return (
                     <AddFlashcard
                         key={index}
@@ -103,9 +123,7 @@ const AddFlashcards = () => {
                 );
             })}
 
-            <Button type="submit" disabled={isPending}>
-                Submit
-            </Button>
+            <Button type="submit">Submit</Button>
             <Button type="button" onClick={handleAddEmptyFlashcard}>
                 Add new flashcard
             </Button>
@@ -113,4 +131,4 @@ const AddFlashcards = () => {
     );
 };
 
-export default AddFlashcards;
+export default EditFlashcards;

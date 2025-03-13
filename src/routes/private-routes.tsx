@@ -4,21 +4,21 @@ import { Route, Routes } from "react-router";
 
 const Home = lazy(() => import("@/pages/home"));
 const StudySet = lazy(() => import("@/pages/studyset"));
-const Decks = lazy(() => import("@/pages/my-studysets"));
+const MyStudySets = lazy(() => import("@/pages/my-studysets"));
 const Leaderboard = lazy(() => import("@/pages/leaderboard"));
-const AddFlashcards = lazy(() => import("@/pages/add-flashcards"));
+const EditFlashcards = lazy(() => import("@/pages/edit-flashcards"));
 
 export const PrivateRoutes = () => {
     return (
         <Routes>
             <Route element={<MainLayout />}>
-                <Route path="/" element={<Home />} />
+                <Route index element={<Home />} />
+                <Route path="flashcards/:id" element={<StudySet />} />
+                <Route path="my-studysets" element={<MyStudySets />} />
                 <Route
-                    path="studyset/:studySetId/flashcards"
-                    element={<StudySet />}
+                    path="flashcards/:id/edit"
+                    element={<EditFlashcards />}
                 />
-                <Route path="my-studysets" element={<Decks />} />
-                <Route path="flashcards/add" element={<AddFlashcards />} />
             </Route>
 
             <Route path="leaderboard" element={<Leaderboard />} />

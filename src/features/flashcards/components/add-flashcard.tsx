@@ -1,22 +1,40 @@
+import { CircularButton } from "@/components/ui/circular-button";
 import { FormInput } from "@/components/ui/input";
-import { TStudySetWithFlashcardsSchema } from "@/features/studysets/hooks/add-study-set";
+import { TUpdateFlashcardsSchema } from "@/features/studysets/hooks/add-study-set";
 import React from "react";
 import { FieldError, UseFormRegister } from "react-hook-form";
+import { FiTrash } from "react-icons/fi";
 
 interface AddFlashcardProps {
-    register: UseFormRegister<TStudySetWithFlashcardsSchema>;
+    register: UseFormRegister<TUpdateFlashcardsSchema>;
     index: number;
     errors?: { term?: FieldError; definition?: FieldError };
+    onDelete: (index: number) => void;
+    isDeleteDisabled: boolean;
 }
 
 export const AddFlashcard: React.FC<AddFlashcardProps> = ({
     register,
     index,
     errors,
+    onDelete,
+    isDeleteDisabled,
 }) => {
     return (
         <div className="bg-primary p-6 rounded-xl flex flex-col gap-4">
-            <h4>{index + 1}</h4>
+            <div className="flex items-center">
+                <h4 className="grow">{index + 1}</h4>
+                <CircularButton
+                    size={10}
+                    className={`${!isDeleteDisabled && "hover:bg-container"}`}
+                    type="button"
+                    onClick={() => onDelete(index)}
+                    disabled={isDeleteDisabled}
+                >
+                    <FiTrash />
+                </CircularButton>
+            </div>
+
             <div className="flex gap-4">
                 <div className="w-full space-y-2">
                     <FormInput

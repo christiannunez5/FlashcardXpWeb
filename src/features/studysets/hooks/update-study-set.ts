@@ -1,0 +1,25 @@
+import { updateStudySet } from "@/api/studysets";
+import { useMutation } from "@tanstack/react-query";
+import { z } from "zod";
+
+export const flashcardSchema = z.object({
+    term: z.string().min(1, "Term is required."),
+    definition: z.string().min(1, "Definition is required."),
+});
+
+export const updateStudySetSchema = z.object({
+    title: z.string().min(6, "Title must have atleast 6 characters"),
+    description: z.string().optional(),
+    isPublic: z.boolean().optional(),
+    flashcards: z
+        .array(flashcardSchema)
+        .min(4, "Please create atleast 4 flashcards."),
+});
+
+export type TUpdateStudySetSchema = z.infer<typeof updateStudySetSchema>;
+
+export const useUpdateFlashcards = () => {
+    return useMutation({
+        mutationFn: updateStudySet,
+    });
+};
