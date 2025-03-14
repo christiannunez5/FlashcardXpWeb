@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { FormInput } from "@/components/ui/input";
-import { AddFlashcard } from "@/features/flashcards/components/add-flashcard";
+import { AddFlashcardFormSection } from "@/features/studysets/components/edit-study-sets/add-flashcard-form-section";
 import {
     updateFlashcardsSchema,
     TUpdateFlashcardsSchema,
@@ -92,7 +92,7 @@ const AddFlashcards = () => {
 
             {flashcards?.map((_, index) => {
                 return (
-                    <AddFlashcard
+                    <AddFlashcardFormSection
                         key={index}
                         register={register}
                         index={index}

@@ -1,0 +1,29 @@
+import { FormInput } from "@/components/ui/input";
+import { FieldError, UseFormRegisterReturn } from "react-hook-form";
+
+interface StudySetFormSectionProps {
+    title: string;
+    placeholder: string;
+    error?: FieldError;
+    register: UseFormRegisterReturn;
+}
+
+export const StudySetFormSection: React.FC<StudySetFormSectionProps> = ({
+    title,
+    placeholder,
+    error,
+    register,
+}) => {
+    return (
+        <div className="bg-primary p-6 rounded-2xl flex flex-col gap-2">
+            <h4 className="text-xl">{title}</h4>
+            <FormInput
+                className="w-full bg-background py-3 px-5
+                    outline-none rounded-xl font-semibold"
+                placeholder={placeholder}
+                error={error}
+                {...register}
+            />
+        </div>
+    );
+};

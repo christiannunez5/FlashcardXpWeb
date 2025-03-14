@@ -7,7 +7,7 @@ export interface TStudySet {
 }
 
 export interface TFlashcard {
-    id: string;
+    id?: string;
     term: string;
     definition: string;
 }

@@ -6,7 +6,7 @@ const Home = lazy(() => import("@/pages/home"));
 const StudySet = lazy(() => import("@/pages/studyset"));
 const MyStudySets = lazy(() => import("@/pages/my-studysets"));
 const Leaderboard = lazy(() => import("@/pages/leaderboard"));
-const EditFlashcards = lazy(() => import("@/pages/edit-flashcards"));
+const EditFlashcards = lazy(() => import("@/pages/edit-study-set"));
 
 export const PrivateRoutes = () => {
     return (

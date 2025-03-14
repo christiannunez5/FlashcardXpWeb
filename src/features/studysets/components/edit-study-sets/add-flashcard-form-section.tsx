@@ -1,23 +1,22 @@
 import { CircularButton } from "@/components/ui/circular-button";
 import { FormInput } from "@/components/ui/input";
-import { TUpdateFlashcardsSchema } from "@/features/studysets/hooks/add-study-set";
 import React from "react";
-import { FieldError, UseFormRegister } from "react-hook-form";
+import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import { FiTrash } from "react-icons/fi";
 
-interface AddFlashcardProps {
-    register: UseFormRegister<TUpdateFlashcardsSchema>;
+interface AddFlashcardFormSection {
+    registerTerm: UseFormRegisterReturn;
+    registerDefinition: UseFormRegisterReturn;
     index: number;
     errors?: { term?: FieldError; definition?: FieldError };
-    onDelete: (index: number) => void;
     isDeleteDisabled: boolean;
 }
 
-export const AddFlashcard: React.FC<AddFlashcardProps> = ({
-    register,
+export const AddFlashcardFormSection: React.FC<AddFlashcardFormSection> = ({
+    registerTerm,
+    registerDefinition,
     index,
     errors,
-    onDelete,
     isDeleteDisabled,
 }) => {
     return (
@@ -28,7 +27,6 @@ export const AddFlashcard: React.FC<AddFlashcardProps> = ({
                     size={10}
                     className={`${!isDeleteDisabled && "hover:bg-container"}`}
                     type="button"
-                    onClick={() => onDelete(index)}
                     disabled={isDeleteDisabled}
                 >
                     <FiTrash />
@@ -38,7 +36,7 @@ export const AddFlashcard: React.FC<AddFlashcardProps> = ({
             <div className="flex gap-4">
                 <div className="w-full space-y-2">
                     <FormInput
-                        {...register(`flashcards.${index}.term`)}
+                        {...registerTerm}
                         placeholder="Enter term"
                         errorStyles="border-destructive"
                         className="border-b-[3px] outline-none
@@ -52,10 +50,10 @@ export const AddFlashcard: React.FC<AddFlashcardProps> = ({
                         </p>
                     </label>
                 </div>
-
+                
                 <div className="w-full space-y-2">
                     <FormInput
-                        {...register(`flashcards.${index}.definition`)}
+                        {...registerDefinition}
                         placeholder="Enter definition"
                         errorStyles="border-destructive"
                         className="border-b-[3px] outline-none
