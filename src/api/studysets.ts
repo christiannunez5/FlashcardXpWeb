@@ -9,9 +9,9 @@ export const getCurrentUserStudySets = async () => {
     return response.data as TStudySet[];
 };
 
-export const addStudyset = async () => {
+export const addStudyset = async (): Promise<string> => {
     const response = await api.post(`${ENDPOINT}`);
-    return response.data as string;
+    return response.data;
 };
 
 export const updateStudySet = async ({

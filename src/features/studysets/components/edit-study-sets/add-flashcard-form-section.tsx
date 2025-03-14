@@ -10,6 +10,7 @@ interface AddFlashcardFormSection {
     index: number;
     errors?: { term?: FieldError; definition?: FieldError };
     isDeleteDisabled: boolean;
+    onDelete: () => void;
 }
 
 export const AddFlashcardFormSection: React.FC<AddFlashcardFormSection> = ({
@@ -18,12 +19,14 @@ export const AddFlashcardFormSection: React.FC<AddFlashcardFormSection> = ({
     index,
     errors,
     isDeleteDisabled,
+    onDelete,
 }) => {
     return (
         <div className="bg-primary p-6 rounded-xl flex flex-col gap-4">
             <div className="flex items-center">
                 <h4 className="grow">{index + 1}</h4>
                 <CircularButton
+                    onClick={onDelete}
                     size={10}
                     className={`${!isDeleteDisabled && "hover:bg-container"}`}
                     type="button"
@@ -50,7 +53,7 @@ export const AddFlashcardFormSection: React.FC<AddFlashcardFormSection> = ({
                         </p>
                     </label>
                 </div>
-                
+
                 <div className="w-full space-y-2">
                     <FormInput
                         {...registerDefinition}

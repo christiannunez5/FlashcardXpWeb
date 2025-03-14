@@ -1,21 +1,29 @@
 import {
     TUpdateStudySetSchema,
     updateStudySetSchema,
+    useUpdateFlashcards,
 } from "@/features/studysets/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { StudySetFormSection } from "./study-set-form-section";
 import { useForm, useWatch } from "react-hook-form";
 import { handleZodErrors } from "@/utils";
-import { useGetStudySetFlashcards } from "@/features/flashcards/hooks";
+import { useDeleteFlashcard } from "@/features/flashcards/hooks";
 import { AddFlashcardFormSection } from "@/features/flashcards/components";
 import { Button } from "@/components/ui/button";
+import { TFlashcardsByStudySet } from "@/types";
+import { useNavigate } from "react-router";
+import { useState } from "react";
 
 interface EditStudySetFormProps {
-    studySetId: string;
+    studySet: TFlashcardsByStudySet;
 }
 
-export const EditStudySetForm = ({ studySetId }: EditStudySetFormProps) => {
-    const { data: studySet } = useGetStudySetFlashcards(studySetId);
+export const EditStudySetForm = ({ studySet }: EditStudySetFormProps) => {
+    const { mutate: deleteFlashcard } = useDeleteFlashcard(studySet.id);
+    const { mutate: updateStudySet, isPending } = useUpdateFlashcards();
+    const [cardCount, setCardCount] = useState("1");
+
+    const navigate = useNavigate();
 
     const {
         register,
@@ -29,21 +37,58 @@ export const EditStudySetForm = ({ studySetId }: EditStudySetFormProps) => {
         defaultValues: studySet,
     });
 
-    const handleUpdateStudySet = () => {
-        const data = getValues();
-        console.log(data);
-    };
-    
     const flashcards = useWatch({
         control,
         name: "flashcards",
-        defaultValue: studySet?.flashcards,
+        defaultValue: studySet.flashcards,
     });
+
+    const handleUpdateStudySet = () => {
+        const data = getValues();
+        updateStudySet(
+            { studySetId: studySet.id, data },
+            {
+                onSuccess: () => {
+                    navigate(`/flashcards/${studySet.id}`);
+                },
+            }
+        );
+    };
 
     const handleAddFlashcardComponent = () => {
         const currentFlashcards = getValues("flashcards");
-        const newFlashcardComponent = { term: "", definition: "" };
-        setValue("flashcards", [...currentFlashcards, newFlashcardComponent]);
+
+        const newFlashcards = Array.from({ length: Number(cardCount) }, () => ({
+            term: "",
+            definition: "",
+        }));
+
+        setValue("flashcards", [...currentFlashcards, ...newFlashcards]);
+    };
+
+    const handleDeleteFlashcard = (index: number, id?: string) => {
+        if (id) {
+            deleteFlashcard(id, {
+                onSuccess: () => {
+                    deleteFlashcardComponent(index);
+                },
+            });
+            return;
+        }
+
+        deleteFlashcardComponent(index);
+    };
+
+    const deleteFlashcardComponent = (index: number) => {
+        const currentFlashcards = getValues("flashcards");
+        const updatedFlashcards = currentFlashcards.filter(
+            (_, i) => i !== index
+        );
+        setValue("flashcards", updatedFlashcards);
+    };
+    
+    const handleCardCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setCardCount(e.target.value);
     };
 
     return (
@@ -68,7 +113,7 @@ export const EditStudySetForm = ({ studySetId }: EditStudySetFormProps) => {
             />
 
             <ul className="space-y-4">
-                {flashcards.map((_, index) => {
+                {flashcards.map((flashcard, index) => {
                     return (
                         <AddFlashcardFormSection
                             key={index}
@@ -79,15 +124,42 @@ export const EditStudySetForm = ({ studySetId }: EditStudySetFormProps) => {
                             index={index}
                             errors={errors.flashcards?.[index]}
                             isDeleteDisabled={flashcards.length <= 4}
+                            onDelete={() =>
+                                handleDeleteFlashcard(index, flashcard.id)
+                            }
                         />
                     );
                 })}
             </ul>
 
-            <Button type="submit">Submit</Button>
-            <Button type="button" onClick={handleAddFlashcardComponent}>
-                Add new flashcard
-            </Button>
+            <div className="bg-primary w-full rounded-xl p-6 flex gap-2 justify-center">
+                <Button
+                    type="button"
+                    onClick={handleAddFlashcardComponent}
+                    className="px-6 "
+                >
+                    Add Card/s
+                </Button>
+
+                <input
+                    className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none
+                    border-xl outline-none ring-[1.5px] ring-gray-800 dark:ring-white 
+                    w-24 rounded-3xl px-4 focus:ring-accent"
+                    value={cardCount}
+                    type="text"
+                    onChange={handleCardCountChange}
+                />
+            </div>
+
+            <div className="flex justify-end">
+                <Button
+                    type="submit"
+                    disabled={isPending}
+                    className="py-6 px-10"
+                >
+                    Save
+                </Button>
+            </div>
         </form>
     );
 };

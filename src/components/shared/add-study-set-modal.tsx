@@ -11,9 +11,13 @@ export const AddStudySetModal = ({ children }: PropsWithChildren) => {
     const { mutate: addEmptyStudySet } = useAddStudySet();
 
     const handleAddStudySet = () => {
-        addEmptyStudySet();
+        addEmptyStudySet(undefined, {
+            onSuccess: (data) => {
+                window.location.href = `/study-set/${data}/edit`;
+            },
+        });
     };
-    
+
     return (
         <Dialog>
             <DialogTrigger asChild>{children}</DialogTrigger>
