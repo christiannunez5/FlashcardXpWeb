@@ -1,10 +1,11 @@
 import { StudySetCard } from "./study-set-card";
-import { useGetStudySets } from "../hooks";
+import { useGetCurrentUserStudySets } from "../hooks";
 
 export const StudySets = () => {
-    const { data: studySets } = useGetStudySets();
+    const { data: studySets } = useGetCurrentUserStudySets();
 
     console.log(studySets);
+
     return (
         <ul className="grid grid-cols-3 gap-5">
             {studySets?.map((s) => {

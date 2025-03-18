@@ -1,2 +1,2 @@
-export * from "./get-flashcards";
+export * from "../../studysets/hooks/get-study-set";
 export * from "./delete-flashcard";

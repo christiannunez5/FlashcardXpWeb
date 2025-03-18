@@ -4,7 +4,7 @@ import {
     CarouselContent,
     CarouselItem,
 } from "@/components/ui/carousel";
-import { CarouselFlashcard } from "@/features/flashcards/components/carousel-flashcard";
+import { FlashcardCarouselItem } from "@/features/flashcards/components/flashcard-carousel-item";
 import { TFlashcard } from "@/types";
 import { useEffect, useState } from "react";
 import { BsFullscreen } from "react-icons/bs";
@@ -32,25 +32,21 @@ export const FlashcardsCarousel = ({ flashcards }: FlashcardsCarouselProps) => {
             setCurrent(api.selectedScrollSnap());
         });
     }, [api]);
-
+    
     return (
         <div className="w-full text-foreground flex flex-col">
-            <Carousel
-                className="w-full grid "
-                setApi={setApi}
-                opts={{ loop: true }}
-            >
+            <Carousel className="" setApi={setApi} opts={{ loop: true }}>
                 <CarouselContent>
                     {flashcards.map((f) => {
                         return (
                             <CarouselItem>
-                                <CarouselFlashcard flashcard={f} />
+                                <FlashcardCarouselItem flashcard={f} />
                             </CarouselItem>
                         );
                     })}
                 </CarouselContent>
             </Carousel>
-
+                        
             <div className="flex mt-5">
                 <div>
                     <CircularButton

@@ -6,7 +6,7 @@ export const MainLayout = () => {
 
     const shouldHideSidebar =
         location.pathname === "/flashcards/add" ||
-        location.pathname.match(/^\/study-set\/[^\/]+\/edit$/);
+        location.pathname.match(/^\/study-set\/[^/]+\/edit$/);
 
     return (
         <div className="bg-background w-full flex text-foreground ">

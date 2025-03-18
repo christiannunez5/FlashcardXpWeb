@@ -1,13 +1,15 @@
-export interface TStudySet {
+export interface TStudySetSummary {
     id: string;
     title: string;
     description: string;
     createdAt: Date;
+    updatedAt: Date;
+    status: "Draft" | "Published";
     flashcardsCount: number;
 }
 
 export interface TFlashcard {
-    id?: string;
+    id: string;
     term: string;
     definition: string;
 }
@@ -19,8 +21,7 @@ export interface TUser {
     profilePicUrl: string;
 }
 
-export interface TFlashcardsByStudySet
-    extends Omit<TStudySet, "flashcardsCount" | "createdAt"> {
+export interface TStudySet extends Omit<TStudySetSummary, "flashcardsCount"> {
     flashcards: TFlashcard[];
     createdBy: TUser;
 }

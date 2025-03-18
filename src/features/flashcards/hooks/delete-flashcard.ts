@@ -1,5 +1,5 @@
 import { deleteFlashcard } from "@/api/flashcard";
-import { TFlashcardsByStudySet } from "@/types";
+import { TStudySet } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useDeleteFlashcard = (studySetId: string) => {
@@ -9,7 +9,7 @@ export const useDeleteFlashcard = (studySetId: string) => {
         onSuccess: (deletedFlashcard) => {
             queryClient.setQueryData(
                 ["flashcards", studySetId], // Update only this specific study set
-                (oldData: TFlashcardsByStudySet | undefined) => {
+                (oldData: TStudySet | undefined) => {
                     if (!oldData) return oldData; // Ensure data exists before updating
                     return {
                         ...oldData,

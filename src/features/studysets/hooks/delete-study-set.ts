@@ -1,5 +1,5 @@
 import { deleteStudySet } from "@/api/studysets";
-import { TStudySet } from "@/types";
+import { TStudySetSummary } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useDeleteStudySet() {
@@ -9,7 +9,7 @@ export function useDeleteStudySet() {
         onSuccess: (deleteStudySet) => {
             queryClient.setQueryData(
                 ["study-sets"],
-                (studySets: TStudySet[]) => {
+                (studySets: TStudySetSummary[]) => {
                     return studySets.filter((s) => s.id !== deleteStudySet.id);
                 }
             );

@@ -4,11 +4,13 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
 
-interface CarouselFlashcard {
+interface FlashcardCarouselItemProps {
     flashcard: TFlashcard;
 }
 
-export const CarouselFlashcard = ({ flashcard }: CarouselFlashcard) => {
+export const FlashcardCarouselItem = ({
+    flashcard,
+}: FlashcardCarouselItemProps) => {
     const [flipped, setFlipped] = useState(false);
 
     const handleCardClick = (e: React.MouseEvent) => {
@@ -19,7 +21,7 @@ export const CarouselFlashcard = ({ flashcard }: CarouselFlashcard) => {
     const handleEditClick = (e: React.MouseEvent) => {
         e.stopPropagation();
     };
-
+    
     return (
         <motion.div
             className="w-full h-[70vh] relative cursor-pointer "
@@ -30,7 +32,6 @@ export const CarouselFlashcard = ({ flashcard }: CarouselFlashcard) => {
             }}
             onClick={handleCardClick}
         >
-            {/* FRONT */}
             <div
                 className="absolute w-full h-full rounded-2xl shadow-md bg-primary 
                 flex flex-col gap-5 p-10"

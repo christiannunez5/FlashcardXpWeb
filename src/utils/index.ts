@@ -1,2 +1,2 @@
-export * from "./truncateText";
-export * from "./handleZodErrors";
+export * from "./truncate-text";
+export * from "./handle-zod-errors";
