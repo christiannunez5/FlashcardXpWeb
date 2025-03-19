@@ -8,15 +8,20 @@ export const flashcardSchema = z.object({
     definition: z.string().min(1, "Definition is required."),
 });
 
-export const updateStudySetSchema = z.object({
+export const updateWholeStudySetSchema = z.object({
     title: z.string().min(6, "Title must have atleast 6 characters"),
     description: z.string().optional(),
     isPublic: z.boolean().optional(),
+    flashcards: z
+        .array(flashcardSchema)
+        .min(4, "Please create atleast 4 flashcards."),
 });
 
-export type TUpdateStudySetSchema = z.infer<typeof updateStudySetSchema>;
+export type TUpdateWholeStudySetSchema = z.infer<
+    typeof updateWholeStudySetSchema
+>;
 
-export const useUpdateFlashcards = () => {
+export const useUpdateWholeStudySet = () => {
     return useMutation({
         mutationFn: updateStudySet,
     });

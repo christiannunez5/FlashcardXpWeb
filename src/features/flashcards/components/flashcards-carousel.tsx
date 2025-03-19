@@ -32,21 +32,21 @@ export const FlashcardsCarousel = ({ flashcards }: FlashcardsCarouselProps) => {
             setCurrent(api.selectedScrollSnap());
         });
     }, [api]);
-    
+
     return (
         <div className="w-full text-foreground flex flex-col">
             <Carousel className="" setApi={setApi} opts={{ loop: true }}>
                 <CarouselContent>
                     {flashcards.map((f) => {
                         return (
-                            <CarouselItem>
+                            <CarouselItem key={f.id}>
                                 <FlashcardCarouselItem flashcard={f} />
                             </CarouselItem>
                         );
                     })}
                 </CarouselContent>
             </Carousel>
-                        
+
             <div className="flex mt-5">
                 <div>
                     <CircularButton

@@ -1,4 +1,4 @@
-import { TUpdateStudySetSchema } from "@/features/studysets/hooks";
+import { TUpdateWholeStudySetSchema } from "@/features/studysets/hooks";
 import api from "@/lib/axios";
 import { TStudySetSummary, TStudySet } from "@/types";
 
@@ -24,7 +24,7 @@ export const updateStudySet = async ({
     data,
 }: {
     studySetId: string;
-    data: TUpdateStudySetSchema;
+    data: TUpdateWholeStudySetSchema;
 }) => {
     const response = await api.put(`${ENDPOINT}/${studySetId}`, data);
     return response.data as string;

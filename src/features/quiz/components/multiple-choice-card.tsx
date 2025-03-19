@@ -1,43 +1,39 @@
-import { TFlashcard } from "@/types";
-import { getChoices } from "@/utils/get-flashcard-choices";
-import { useMemo } from "react";
+import { TQuestion } from "@/types";
 
 interface MultipleChoiceCardProps {
-    flashcard: TFlashcard;
-    flashcards: TFlashcard[];
+    question: TQuestion;
     currentIndex: number;
     onAnswerSelect: (correctAnswer: string, userAnswer?: string) => void;
 }
 
 export const MultipleChoiceCard = ({
-    flashcard,
-    flashcards,
     currentIndex,
     onAnswerSelect,
+    question,
 }: MultipleChoiceCardProps) => {
-    const choices = useMemo(
-        () => getChoices(flashcard.id, flashcards),
-        [flashcard.id, flashcards]
-    );
-
     return (
         <div
-            className="min-w-full h-full bg-primary flex flex-col p-12 rounded-lg shadow-md"
+            className="min-w-full h-full bg-primary 
+            flex flex-col p-12 rounded-lg shadow-md transition-transform duration-500 ease-in-out"
             style={{
                 transform: `translate(-${currentIndex * 100}%)`,
             }}
         >
             <div className="grow flex flex-col">
                 <p>Definition</p>
-                <h5 className="flex items-center"> {flashcard.definition}</h5>
+                <h5 className="flex items-center">
+                    {" "}
+                    {question.flashcard.definition}
+                </h5>
             </div>
+
             <div className="w-full grid grid-cols-2 gap-5">
-                {choices.map((choice) => {
+                {question.choices.map((choice) => {
                     return (
                         <ChoiceItem
-                            term={choice?.term}
+                            term={choice}
                             onClick={() =>
-                                onAnswerSelect(flashcard.term, choice?.term)
+                                onAnswerSelect(question.flashcard.term, choice)
                             }
                         />
                     );

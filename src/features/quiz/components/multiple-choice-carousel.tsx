@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MultipleChoiceCard } from "./multiple-choice-card";
 import { TFlashcard } from "@/types";
+import { createQuestionsFromFlashcards } from "@/utils";
 
 interface MultipleChoiceCarouselProps {
     flashcards: TFlashcard[];
@@ -24,15 +25,16 @@ export const MultipleChoiceCarousel = ({
         }
         alert("Wrong answer");
     };
-    
+
+    const questions = createQuestionsFromFlashcards(flashcards);
+
     return (
         <div className="h-full w-full flex flex-nowrap overflow-hidden">
-            {flashcards.map((flashcard, index) => {
+            {questions.map((question, index) => {
                 return (
                     <MultipleChoiceCard
                         key={index}
-                        flashcard={flashcard}
-                        flashcards={flashcards}
+                        question={question}
                         currentIndex={currentIndex}
                         onAnswerSelect={handleOnAnswerSelect}
                     />

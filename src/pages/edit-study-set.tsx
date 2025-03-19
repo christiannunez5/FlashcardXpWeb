@@ -17,16 +17,19 @@ const EditStudySet = () => {
         return <div>Loading...</div>;
     }
 
-    console.log(studySet);
-
+    const handleBack = () => {
+        if (studySet.status === "Published") {
+            navigate(`/study-set/${params.id}`);
+        } else {
+            navigate(`/my-studysets`);
+        }
+    };
+    
     return (
         <div className="">
             <div className="w-[85%] mx-auto ">
-                <Button
-                    className="py-6 px-10"
-                    onClick={() => navigate(`/study-set/${params.id}`)}
-                >
-                    Back to set
+                <Button className="py-6 px-10" onClick={handleBack}>
+                    Back
                 </Button>
             </div>
 

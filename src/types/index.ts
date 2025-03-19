@@ -14,6 +14,11 @@ export interface TFlashcard {
     definition: string;
 }
 
+export interface TQuestion {
+    flashcard: TFlashcard;
+    choices: string[];
+}
+
 export interface TUser {
     id: string;
     username: string;

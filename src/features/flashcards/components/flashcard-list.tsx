@@ -65,11 +65,7 @@ const TermAndDefinitionCard: React.FC<TermAndDefinition> = ({ flashcard }) => {
 
             <div className="w-full flex items-center">
                 <p className="grow">{flashcard.definition}</p>
-                <EditFlashcardModal>
-                    <CircularButton size={10} className="bg-container">
-                        <FiEdit2 />
-                    </CircularButton>
-                </EditFlashcardModal>
+                <EditFlashcardModal flashcard={flashcard}></EditFlashcardModal>
             </div>
         </li>
     );

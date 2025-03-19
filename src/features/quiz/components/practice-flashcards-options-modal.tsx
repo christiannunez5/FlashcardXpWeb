@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ReactNode, useState } from "react";
 import { useNavigate } from "react-router";
-    
+
 enum PracticeType {
     Matching = "Matching Type",
     MultiplceChoice = "Multiple Choice",
@@ -104,7 +104,7 @@ export const PracticeOptionsModal = ({
             <DialogTrigger asChild>{children}</DialogTrigger>
 
             <DialogContent>
-                <div className="mt-6 space-y-3">
+                <ul className="mt-6 space-y-3">
                     {practiceOptionsType.map((option, index) => {
                         return (
                             <PracticeOptionsType
@@ -120,7 +120,7 @@ export const PracticeOptionsModal = ({
                             />
                         );
                     })}
-                </div>
+                </ul>
 
                 {/* <div className="">
                     <select

@@ -8,9 +8,9 @@ export const useDeleteFlashcard = (studySetId: string) => {
         mutationFn: deleteFlashcard,
         onSuccess: (deletedFlashcard) => {
             queryClient.setQueryData(
-                ["flashcards", studySetId], // Update only this specific study set
+                ["flashcards", studySetId],
                 (oldData: TStudySet | undefined) => {
-                    if (!oldData) return oldData; // Ensure data exists before updating
+                    if (!oldData) return oldData;
                     return {
                         ...oldData,
                         flashcards: oldData.flashcards.filter(
