@@ -4,8 +4,6 @@ import { useGetCurrentUserStudySets } from "../hooks";
 export const StudySets = () => {
     const { data: studySets } = useGetCurrentUserStudySets();
 
-    console.log(studySets);
-
     return (
         <ul className="grid grid-cols-3 gap-5">
             {studySets?.map((s) => {

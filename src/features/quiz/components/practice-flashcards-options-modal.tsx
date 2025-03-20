@@ -122,18 +122,6 @@ export const PracticeOptionsModal = ({
                     })}
                 </ul>
 
-                {/* <div className="">
-                    <select
-                        id=""
-                        className="grow border-container border-[3px] bg-background rounded-lg w-full h-full p-4 text-foreground"
-                    >
-                        <option className="" value="1">
-                            Term
-                        </option>
-                        <option value="2">Definition</option>
-                    </select>
-                </div> */}
-
                 <Button
                     className="ml-auto w-fit px-10"
                     onClick={() =>

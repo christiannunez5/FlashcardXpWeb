@@ -6,28 +6,24 @@ import { useThemeContext } from "@/hooks/use-theme-context";
 import { CircularButton } from "@/components/ui/circular-button";
 import { Button } from "@/components/ui/button";
 import { useLogout } from "@/features/auth/hooks";
-import { useGetCurrentUser } from "@/hooks";
-import { AddStudySetModal } from "@/components/shared";
+import { AddDraftStudySetModal } from "@/components/shared";
 
 export const Navbar = () => {
     const { mutate: logout } = useLogout();
-    const { data } = useGetCurrentUser();
     const handleLogout = () => {
-        console.log("hello");
         logout();
-        console.log(data);
     };
 
     return (
         <nav className="w-full flex justify-end gap-6 items-center">
-            <AddStudySetModal>
+            <AddDraftStudySetModal>
                 <CircularButton
                     className="bg-accent text-accent-foreground"
                     size={10}
                 >
                     <FiPlus />
                 </CircularButton>
-            </AddStudySetModal>
+            </AddDraftStudySetModal>
 
             <CircularButton className="bg-inherit hover:bg-container" size={10}>
                 <FaExclamation />

@@ -22,7 +22,6 @@ export const useLogin = () => {
             }
         },
         onSuccess: () => {
-            toast.success("Logged in successfully!");
             queryClient.invalidateQueries({ queryKey: ["current-user"] });
         },
     });

@@ -21,7 +21,7 @@ export const FlashcardCarouselItem = ({
     const handleEditClick = (e: React.MouseEvent) => {
         e.stopPropagation();
     };
-    
+
     return (
         <motion.div
             className="w-full h-[70vh] relative cursor-pointer "

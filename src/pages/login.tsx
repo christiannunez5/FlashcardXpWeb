@@ -4,7 +4,7 @@ const Login = () => {
     return (
         <div className="bg-primary w-screen  h-screen p-10 flex flex-col text-foreground">
             <div>Logo</div>
-            
+
             <main className="flex-1 w-[80%] flex gap-10 mx-auto ">
                 <div className="w-full flex items-center justify-center">
                     {/* <img src={background} alt="" className="h-[500px]" /> */}

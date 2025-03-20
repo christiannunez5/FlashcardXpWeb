@@ -2,7 +2,7 @@ import { updateStudySet } from "@/api/studysets";
 import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 
-export const flashcardSchema = z.object({
+const flashcardSchema = z.object({
     id: z.string().optional(),
     term: z.string().min(1, "Term is required."),
     definition: z.string().min(1, "Definition is required."),

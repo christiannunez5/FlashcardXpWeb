@@ -6,13 +6,32 @@ export function useDeleteStudySet() {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: deleteStudySet,
-        onSuccess: (deleteStudySet) => {
+
+        onMutate: async (deletedStudySetId) => {
+            await queryClient.cancelQueries({ queryKey: ["my-study-sets"] });
+
+            const previousStudySets = queryClient.getQueryData<
+                TStudySetSummary[]
+            >(["my-study-sets"]);
+
             queryClient.setQueryData(
-                ["study-sets"],
-                (studySets: TStudySetSummary[]) => {
-                    return studySets.filter((s) => s.id !== deleteStudySet.id);
-                }
+                ["my-study-sets"],
+                (oldStudySets: TStudySetSummary[]) =>
+                    oldStudySets.filter((set) => set.id !== deletedStudySetId)
             );
+
+            return { previousStudySets };
+        },
+
+        onError: (error, _, context) => {
+            queryClient.setQueryData(
+                ["my-study-sets"],
+                context?.previousStudySets
+            );
+        },
+
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: ["my-study-sets"] });
         },
     });
 }

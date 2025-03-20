@@ -7,11 +7,11 @@ import {
     updateFlashcardSchema,
     useUpdateFlashcard,
 } from "@/features/flashcards/hooks";
+
 import { TFlashcard } from "@/types";
 import { handleZodErrors } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { useQueryClient } from "@tanstack/react-query";
 
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -19,10 +19,12 @@ import { FiEdit2 } from "react-icons/fi";
 
 interface EditFlashCardModalProps {
     flashcard: TFlashcard;
+    studySetId: string;
 }
 
 export const EditFlashcardModal: React.FC<EditFlashCardModalProps> = ({
     flashcard,
+    studySetId,
 }) => {
     const { register, handleSubmit, getValues } =
         useForm<TUpdateFlashcardSchema>({
@@ -33,13 +35,14 @@ export const EditFlashcardModal: React.FC<EditFlashCardModalProps> = ({
             },
         });
 
-    const queryClient = useQueryClient();
     const [open, setOpen] = useState(false);
 
-    const { mutate: updateFlashcard } = useUpdateFlashcard();
+    const { mutate: updateFlashcard } = useUpdateFlashcard(studySetId);
 
     const handleUpdateFlashcard = () => {
         const data = getValues();
+
+        console.log(data);
         updateFlashcard(
             {
                 flashcardId: flashcard.id,
@@ -50,7 +53,6 @@ export const EditFlashcardModal: React.FC<EditFlashCardModalProps> = ({
             },
             {
                 onSuccess: () => {
-                    queryClient.invalidateQueries({ queryKey: ["study-set"] });
                     setOpen(!open);
                 },
             }

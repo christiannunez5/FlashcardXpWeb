@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router";
 import { EditStudySetForm } from "@/features/studysets/components";
-import { useGetStudySet } from "@/features/flashcards/hooks";
 import { Button } from "@/components/ui/button";
+import { useGetStudySet } from "@/features/studysets/hooks";
 
 const EditStudySet = () => {
     const params = useParams();
@@ -24,7 +24,7 @@ const EditStudySet = () => {
             navigate(`/my-studysets`);
         }
     };
-    
+
     return (
         <div className="">
             <div className="w-[85%] mx-auto ">

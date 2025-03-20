@@ -1,4 +1,4 @@
-import { AddStudySetModal } from "@/components/shared/add-study-set-modal";
+import { AddDraftStudySetModal } from "@/components/shared/add-study-set-modal";
 import { Button } from "@/components/ui/button";
 import { sidebarItems } from "@/data";
 import React, { ReactNode } from "react";
@@ -24,11 +24,11 @@ export const Sidebar = () => {
             </ul>
 
             <div className="w-full px-4">
-                <AddStudySetModal>
+                <AddDraftStudySetModal>
                     <Button className="w-full mt-2 " variant={"default"}>
                         New study set
                     </Button>
-                </AddStudySetModal>
+                </AddDraftStudySetModal>
             </div>
         </aside>
     );

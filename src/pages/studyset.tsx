@@ -3,8 +3,8 @@ import {
     FlashcardList,
     FlashcardsCarousel,
 } from "@/features/flashcards/components";
-import { useGetStudySet } from "@/features/flashcards/hooks";
 import { PracticeOptionsModal } from "@/features/quiz/components";
+import { useGetStudySet } from "@/features/studysets/hooks";
 import { useEffect } from "react";
 
 import { useNavigate, useParams } from "react-router";

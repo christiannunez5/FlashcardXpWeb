@@ -65,13 +65,13 @@ export const EditStudySetForm = ({ studySet }: EditStudySetFormProps) => {
         );
         setValue("flashcards", updatedFlashcards);
     };
-
+    
     const handleDeleteFlashcard = (index: number, id?: string) => {
         if (id) {
             deleteFlashcard(id, {
-                onSuccess: () => {
-                    deleteFlashcardComponent(index);
-                },
+                // onSuccess: () => {
+                //     deleteFlashcardComponent(index);
+                // }
             });
         }
 

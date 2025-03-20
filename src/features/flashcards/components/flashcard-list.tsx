@@ -1,10 +1,9 @@
 import { TFlashcard } from "@/types";
 import { FormInput } from "@/components/ui/input";
 import React, { ReactNode, useState } from "react";
-import { IoSearch } from "react-icons/io5";
-import { CircularButton } from "@/components/ui/circular-button";
-import { FiEdit2 } from "react-icons/fi";
 import { EditFlashcardModal } from "@/features/flashcards/components/edit-flashcard-modal";
+import { IoSearch } from "react-icons/io5";
+import { useParams } from "react-router";
 
 interface FlashcardListProps {
     flashcards: TFlashcard[];
@@ -40,7 +39,7 @@ export const FlashcardList: React.FC<FlashcardListProps> = ({
 
             <ul className="w-full flex flex-col gap-6">
                 {filteredFlashcards.map((f) => {
-                    return <TermAndDefinitionCard flashcard={f} />;
+                    return <TermAndDefinitionCard flashcard={f} key={f.id} />;
                 })}
             </ul>
 
@@ -54,18 +53,26 @@ interface TermAndDefinition {
 }
 
 const TermAndDefinitionCard: React.FC<TermAndDefinition> = ({ flashcard }) => {
+    const { id: studySetId } = useParams();
+
+    if (!studySetId) {
+        throw new Error("study set id required");
+    }
     return (
         <li className="relative flex gap-12 bg-primary rounded-3xl p-8 shadow-md">
             <div
                 className="w-96 grid place-content-center border-r-[3px] 
-                                    border-container py-5 "
+                                    border-container py-5 break-words  px-5"
             >
                 <h5 className="">{flashcard.term} </h5>
             </div>
 
-            <div className="w-full flex items-center">
-                <p className="grow">{flashcard.definition}</p>
-                <EditFlashcardModal flashcard={flashcard}></EditFlashcardModal>
+            <div className="w-full flex items-center break-words space-x-3">
+                <p className="grow ">{flashcard.definition}</p>
+                <EditFlashcardModal
+                    flashcard={flashcard}
+                    studySetId={studySetId}
+                ></EditFlashcardModal>
             </div>
         </li>
     );

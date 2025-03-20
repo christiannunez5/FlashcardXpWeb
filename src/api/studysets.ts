@@ -14,7 +14,7 @@ export const getStudySet = async (studySetId: string) => {
     return response.data as TStudySet;
 };
 
-export const addStudyset = async (): Promise<string> => {
+export const addDraftStudySet = async (): Promise<string> => {
     const response = await api.post(`${ENDPOINT}`);
     return response.data;
 };

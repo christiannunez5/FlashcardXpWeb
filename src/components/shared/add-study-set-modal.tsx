@@ -4,13 +4,13 @@ import {
     DialogHeader,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { useAddStudySet } from "@/features/studysets/hooks";
+import { useAddDraftStudySet } from "@/features/studysets/hooks";
 import { PropsWithChildren } from "react";
 
-export const AddStudySetModal = ({ children }: PropsWithChildren) => {
-    const { mutate: addEmptyStudySet } = useAddStudySet();
+export const AddDraftStudySetModal = ({ children }: PropsWithChildren) => {
+    const { mutate: addEmptyStudySet } = useAddDraftStudySet();
 
-    const handleAddStudySet = () => {
+    const handleAddEmptyStudySet = () => {
         addEmptyStudySet(undefined, {
             onSuccess: (data) => {
                 window.location.href = `/study-set/${data}/edit`;
@@ -33,7 +33,7 @@ export const AddStudySetModal = ({ children }: PropsWithChildren) => {
                     <button
                         className="relative w-full bg-accent rounded-xl px-5
                         flex flex-col justify-center text-center hover:bg-accent/90"
-                        onClick={handleAddStudySet}
+                        onClick={handleAddEmptyStudySet}
                     >
                         <p className="font-medium">Do it yourself flashcards</p>
                         <p className="text-sm text-muted-foreground">
