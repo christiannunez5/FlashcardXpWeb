@@ -7,12 +7,22 @@ import { CircularButton } from "@/components/ui/circular-button";
 import { Button } from "@/components/ui/button";
 import { useLogout } from "@/features/auth/hooks";
 import { AddDraftStudySetModal } from "@/components/shared";
+import { useGetCurrentUserQuests } from "@/features/quests/hooks";
+import { DropdownMenu, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import {
+    DropdownMenuContent,
+    DropdownMenuTrigger,
+} from "@radix-ui/react-dropdown-menu";
 
 export const Navbar = () => {
     const { mutate: logout } = useLogout();
     const handleLogout = () => {
         logout();
     };
+
+    const { data: quests } = useGetCurrentUserQuests();
+
+    console.log(quests);
 
     return (
         <nav className="w-full flex justify-end gap-6 items-center">
@@ -25,9 +35,41 @@ export const Navbar = () => {
                 </CircularButton>
             </AddDraftStudySetModal>
 
-            <CircularButton className="bg-inherit hover:bg-container" size={10}>
-                <FaExclamation />
-            </CircularButton>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <CircularButton
+                        className="bg-inherit hover:bg-container"
+                        size={10}
+                    >
+                        <FaExclamation />
+                    </CircularButton>
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent
+                    className="bg-primary rounded-lg mt-5 mr-10 h-[300px]
+                overflow-auto"
+                >
+                    {quests?.map((quest) => {
+                        return (
+                            <DropdownMenuItem className="flex">
+                                <div
+                                    className="w-full flex p-2 border-b-2 border-container
+                                justify-between gap-4"
+                                >
+                                    <div className="flex flex-col">
+                                        <h5 className="font-bold">
+                                            {quest.title}
+                                        </h5>
+                                        <p>{quest.description}</p>
+                                    </div>
+
+                                    <Button className="px-7 py-0">Claim</Button>
+                                </div>
+                            </DropdownMenuItem>
+                        );
+                    })}
+                </DropdownMenuContent>
+            </DropdownMenu>
 
             <Button onClick={handleLogout}>Logout</Button>
 

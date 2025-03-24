@@ -1,5 +1,5 @@
-import { useGetStudySet } from "@/features/flashcards/hooks";
 import { MultipleChoiceCarousel } from "@/features/quiz/components";
+import { useGetStudySet } from "@/features/studysets/hooks";
 import { useParams } from "react-router";
 
 const MultipleChoice = () => {

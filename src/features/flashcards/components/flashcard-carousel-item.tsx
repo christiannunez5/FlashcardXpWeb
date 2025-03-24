@@ -1,8 +1,8 @@
-import { CircularButton } from "@/components/ui/circular-button";
+import { EditFlashcardModal } from "@/features/flashcards/components";
 import { TFlashcard } from "@/types";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { FiEdit2 } from "react-icons/fi";
+import { useParams } from "react-router";
 
 interface FlashcardCarouselItemProps {
     flashcard: TFlashcard;
@@ -11,6 +11,12 @@ interface FlashcardCarouselItemProps {
 export const FlashcardCarouselItem = ({
     flashcard,
 }: FlashcardCarouselItemProps) => {
+    const { id: studySetId } = useParams();
+
+    if (!studySetId) {
+        throw new Error("params is required");
+    }
+
     const [flipped, setFlipped] = useState(false);
 
     const handleCardClick = (e: React.MouseEvent) => {
@@ -37,10 +43,11 @@ export const FlashcardCarouselItem = ({
                 flex flex-col gap-5 p-10"
                 style={{ backfaceVisibility: "hidden" }}
             >
-                <div onClick={handleEditClick} className="self-end ">
-                    <CircularButton size={10} className="hover:bg-container">
-                        <FiEdit2 />
-                    </CircularButton>
+                <div onClick={handleEditClick}>
+                    <EditFlashcardModal
+                        flashcard={flashcard}
+                        studySetId={studySetId}
+                    />
                 </div>
 
                 <div className="grow grid place-content-center">
@@ -53,11 +60,6 @@ export const FlashcardCarouselItem = ({
                 flex flex-col gap-5 p-10 rotate-y-180"
                 style={{ backfaceVisibility: "hidden" }}
             >
-                <div
-                    className="flex justify-end bg-amber-900"
-                    onClick={handleEditClick}
-                ></div>
-
                 <div className="grow grid place-content-center">
                     <p className="text-xl font-medium">
                         {flashcard.definition}

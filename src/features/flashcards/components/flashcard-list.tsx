@@ -66,7 +66,7 @@ const TermAndDefinitionCard: React.FC<TermAndDefinition> = ({ flashcard }) => {
             >
                 <h5 className="">{flashcard.term} </h5>
             </div>
-
+            
             <div className="w-full flex items-center break-words space-x-3">
                 <p className="grow ">{flashcard.definition}</p>
                 <EditFlashcardModal

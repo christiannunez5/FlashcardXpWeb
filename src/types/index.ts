@@ -30,3 +30,11 @@ export interface TStudySet extends Omit<TStudySetSummary, "flashcardsCount"> {
     flashcards: TFlashcard[];
     createdBy: TUser;
 }
+
+export interface TQuest {
+    id: string;
+    title: string;
+    description: string;
+    isComplete: boolean;
+    xpReward: number;
+}

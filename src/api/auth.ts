@@ -1,3 +1,4 @@
+import { TCreateUserSchema } from "@/features/auth/hooks";
 import api from "@/lib/axios";
 import { TUser } from "@/types";
 
@@ -11,6 +12,11 @@ export const login = async ({
     password: string;
 }) => {
     const response = await api.post(`${ENDPOINT}/login`, { email, password });
+    return response.data;
+};
+
+export const register = async (data: TCreateUserSchema): Promise<void> => {
+    const response = await api.post(`${ENDPOINT}/register`, data);
     return response.data;
 };
 

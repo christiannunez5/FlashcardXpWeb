@@ -5,6 +5,7 @@ import { handleZodErrors } from "@/utils/handle-zod-errors";
 import { Button } from "@/components/ui/button";
 import { FormInput } from "@/components/ui/input";
 import { CircularButton } from "@/components/ui/circular-button";
+import { useNavigate } from "react-router";
 
 export const LoginForm = () => {
     const {
@@ -15,7 +16,8 @@ export const LoginForm = () => {
     } = useForm<TLoginSchema>({
         resolver: zodResolver(loginSchema),
     });
-
+    
+    const navigate = useNavigate();
     const { mutate: login, isPending } = useLogin();
 
     const handleLogin = (data: FieldValues) => {
@@ -102,6 +104,8 @@ export const LoginForm = () => {
                     <Button
                         className="border border-gray-500 bg-primary 
                         text-foreground rounded-3xl px-5 hover:text-accent-foreground"
+                        type="button"
+                        onClick={() => navigate(`/register`)}
                     >
                         Create account
                     </Button>
