@@ -18,7 +18,7 @@ export const PracticeOptionsModal = ({
     studySetId,
     children,
 }: PracticeOptionsModalProps) => {
-    const [options, setOptions] = useState({
+    const [practiceType, setPracticeType] = useState({
         quizType: PracticeType.Written,
     });
 
@@ -98,6 +98,21 @@ export const PracticeOptionsModal = ({
     ];
 
     const navigate = useNavigate();
+    
+    const handleClick = () => {
+        let url = "";
+        switch (practiceType.quizType) {
+            case PracticeType.MultiplceChoice:
+                url = `/study-set/${studySetId}/quiz/multiple-choice`;
+                break;
+            case PracticeType.Written:
+                url = `/study-set/${studySetId}/quiz/written`;
+                break;
+        }
+
+        console.log(url);
+        navigate(url);
+    };
 
     return (
         <Dialog>
@@ -110,26 +125,21 @@ export const PracticeOptionsModal = ({
                             <PracticeOptionsType
                                 key={index}
                                 onClick={() =>
-                                    setOptions({
+                                    setPracticeType({
                                         quizType: option.type,
                                     })
                                 }
                                 icon={option.icon}
                                 practiceType={option.type}
-                                isSelected={options.quizType == option.type}
+                                isSelected={
+                                    practiceType.quizType == option.type
+                                }
                             />
                         );
                     })}
                 </ul>
 
-                <Button
-                    className="ml-auto w-fit px-10"
-                    onClick={() =>
-                        navigate(
-                            `/study-set/${studySetId}/practice/multiple-choice`
-                        )
-                    }
-                >
+                <Button className="ml-auto w-fit px-10" onClick={handleClick}>
                     Practice
                 </Button>
             </DialogContent>

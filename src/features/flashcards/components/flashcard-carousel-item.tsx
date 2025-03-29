@@ -38,18 +38,17 @@ export const FlashcardCarouselItem = ({
             }}
             onClick={handleCardClick}
         >
+            <div onClick={handleEditClick} className="absolute top-10 right-10">
+                <EditFlashcardModal
+                    flashcard={flashcard}
+                    studySetId={studySetId}
+                />
+            </div>
             <div
                 className="absolute w-full h-full rounded-2xl shadow-md bg-primary 
                 flex flex-col gap-5 p-10"
                 style={{ backfaceVisibility: "hidden" }}
             >
-                <div onClick={handleEditClick}>
-                    <EditFlashcardModal
-                        flashcard={flashcard}
-                        studySetId={studySetId}
-                    />
-                </div>
-
                 <div className="grow grid place-content-center">
                     <h2 className="">{flashcard.term}</h2>
                 </div>

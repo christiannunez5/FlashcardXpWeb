@@ -11,7 +11,6 @@ import { BsFullscreen } from "react-icons/bs";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { CircularButton } from "@/components/ui/circular-button";
 import { MdOutlineShuffle } from "react-icons/md";
-import { FlashcardsOptionsModal } from "@/features/flashcards/components/flashcards-options-modal";
 
 interface FlashcardsCarouselProps {
     flashcards: TFlashcard[];
@@ -89,8 +88,6 @@ export const FlashcardsCarousel = ({ flashcards }: FlashcardsCarouselProps) => {
                     >
                         <BsFullscreen />
                     </CircularButton>
-
-                    <FlashcardsOptionsModal />
                 </div>
             </div>
         </div>

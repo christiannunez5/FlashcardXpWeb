@@ -1,6 +1,7 @@
-import { Button } from "@/components/ui/button";
 import { useDeleteStudySet } from "@/features/studysets/hooks";
 import { TStudySetSummary } from "@/types";
+
+import { Trash2 } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router";
 
@@ -33,25 +34,24 @@ export const StudySetCard = ({ studySet }: StudySetCardProps) => {
             bg-primary hover:bg-container h-[250px] rounded-xl shadow-md flex flex-col z-0"
             onClick={handleNavigate}
         >
+            <div
+                className="absolute top-3 right-3 cursor-pointer rounded-full 
+            p-2 hover:bg-destructive/60 hover:text-white"
+                onClick={handleDeleteStudySet}
+            >
+                <Trash2 size={18} strokeWidth={1.75} />
+            </div>
+
             <div className="grow">
                 <p className="font-semibold text-xl">
                     {studySet.title}{" "}
                     {studySet.status === "Draft" && "Untitled (Draft)"}
                 </p>
 
-                <p>{studySet.description}</p>
-
-                <Button
-                    variant="destructive"
-                    onClick={handleDeleteStudySet}
-                    className="z-50"
-                    onMouseDown={(e) => e.stopPropagation()}
-                    onTouchStart={(e) => e.stopPropagation()}
-                >
-                    Delete
-                </Button>
+                <p className="text-sm text-muted-foreground">
+                    {studySet.description}
+                </p>
             </div>
-
             <p className="text-sm text-muted-foreground">
                 {studySet.flashcardsCount} terms
             </p>

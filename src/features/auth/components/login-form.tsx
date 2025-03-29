@@ -16,7 +16,7 @@ export const LoginForm = () => {
     } = useForm<TLoginSchema>({
         resolver: zodResolver(loginSchema),
     });
-    
+
     const navigate = useNavigate();
     const { mutate: login, isPending } = useLogin();
 

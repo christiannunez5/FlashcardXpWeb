@@ -27,7 +27,7 @@ export const MultipleChoiceCarousel = ({
     };
 
     const questions = createQuestionsFromFlashcards(flashcards);
-
+    
     return (
         <div className="h-full w-full flex flex-nowrap overflow-hidden">
             {questions.map((question, index) => {

@@ -22,8 +22,6 @@ export const Navbar = () => {
 
     const { data: quests } = useGetCurrentUserQuests();
 
-    console.log(quests);
-
     return (
         <nav className="w-full flex justify-end gap-6 items-center">
             <AddDraftStudySetModal>
@@ -53,14 +51,17 @@ export const Navbar = () => {
                         return (
                             <DropdownMenuItem className="flex">
                                 <div
-                                    className="w-full flex p-2 border-b-2 border-container
+                                    className="w-full flex p-2 border-b-2 border-container items-center
                                 justify-between gap-4"
                                 >
                                     <div className="flex flex-col">
                                         <h5 className="font-bold">
                                             {quest.title}
                                         </h5>
-                                        <p>{quest.description}</p>
+                                        <div className="flex gap-1">
+                                            <p>{quest.description}</p>
+                                            <p>{quest.xpReward} XP</p>
+                                        </div>
                                     </div>
 
                                     <Button className="px-7 py-0">Claim</Button>
