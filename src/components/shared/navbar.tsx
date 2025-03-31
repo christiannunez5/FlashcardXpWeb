@@ -45,7 +45,7 @@ export const Navbar = () => {
 
                 <DropdownMenuContent
                     className="bg-primary rounded-lg mt-5 mr-10 h-[300px]
-                overflow-auto"
+                overflow-auto relative z-50 border-[1.5px] border-container"
                 >
                     {quests?.map((quest) => {
                         return (
@@ -64,7 +64,12 @@ export const Navbar = () => {
                                         </div>
                                     </div>
 
-                                    <Button className="px-7 py-0">Claim</Button>
+                                    <Button
+                                        className="px-7 py-0"
+                                        disabled={!quest.isCompleted}
+                                    >
+                                        Claim
+                                    </Button>
                                 </div>
                             </DropdownMenuItem>
                         );

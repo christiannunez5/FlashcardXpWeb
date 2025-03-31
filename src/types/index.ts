@@ -35,6 +35,6 @@ export interface TQuest {
     id: string;
     title: string;
     description: string;
-    isComplete: boolean;
+    isCompleted: boolean;
     xpReward: number;
 }
