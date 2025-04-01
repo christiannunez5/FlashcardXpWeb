@@ -31,7 +31,7 @@ export const StudySetCard = ({ studySet }: StudySetCardProps) => {
     return (
         <div
             className="relative w-full text-foreground p-4
-            bg-primary hover:bg-container h-[250px] rounded-xl shadow-md flex flex-col z-0"
+            bg-primary hover:bg-container h-[150px] rounded-xl shadow-md flex flex-col z-0"
             onClick={handleNavigate}
         >
             <div

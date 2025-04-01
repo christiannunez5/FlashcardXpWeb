@@ -41,7 +41,7 @@ export const useCompleteQuest = () => {
                 ["current-user-quests"],
                 context?.previousQuests
             );
-            
+
             if (error instanceof AxiosError) {
                 toast.error(error.response?.data.message);
             }

@@ -4,14 +4,16 @@ import { TStudySetSummary, TStudySet } from "@/types";
 
 const ENDPOINT = "api/studyset";
 
-export const getCurrentUserStudySets = async () => {
+export const getCurrentUserStudySets = async (): Promise<
+    TStudySetSummary[]
+> => {
     const response = await api.get(ENDPOINT);
-    return response.data as TStudySetSummary[];
+    return response.data;
 };
 
-export const getStudySet = async (studySetId: string) => {
+export const getStudySet = async (studySetId: string): Promise<TStudySet> => {
     const response = await api.get(`${ENDPOINT}/${studySetId}`);
-    return response.data as TStudySet;
+    return response.data;
 };
 
 export const addDraftStudySet = async (): Promise<string> => {
@@ -25,9 +27,9 @@ export const updateStudySet = async ({
 }: {
     studySetId: string;
     data: TUpdateWholeStudySetSchema;
-}) => {
+}): Promise<string> => {
     const response = await api.put(`${ENDPOINT}/${studySetId}`, data);
-    return response.data as string;
+    return response.data;
 };
 
 export const deleteStudySet = async (studySetId: string) => {

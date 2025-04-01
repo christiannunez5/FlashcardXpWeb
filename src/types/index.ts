@@ -31,6 +31,12 @@ export interface TStudySet extends Omit<TStudySetSummary, "flashcardsCount"> {
     createdBy: TUser;
 }
 
+export interface TRecentStudySet {
+    id: string;
+    title: string;
+    accessedAt: string;
+}
+
 export interface TQuest {
     id: string;
     title: string;
