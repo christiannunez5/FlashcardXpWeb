@@ -27,9 +27,10 @@ export const RecentStudySetCard = ({ studySet }: RecentStudySetCardProps) => {
                         : studySet.title}
                 </p>
             </div>
-
+                        
             <p className="text-sm text-muted-foreground">
                 {formatLastViewedAt(studySet.accessedAt)}
+                {/* {studySet.accessedAt} */}
             </p>
         </div>
     );

@@ -1,7 +1,9 @@
 import { Sidebar, Navbar } from "@/components/shared";
-import { Outlet, useLocation } from "react-router";
+import { PropsWithChildren } from "react";
+import { useLocation } from "react-router";
+import "@/styles/progress-bar.css";
 
-export const MainLayout = () => {
+export const MainLayout = ({ children }: PropsWithChildren) => {
     const location = useLocation();
 
     const shouldHideSidebar =
@@ -14,7 +16,7 @@ export const MainLayout = () => {
 
             <main className="w-full flex flex-col gap-10 p-10 ">
                 <Navbar />
-                <Outlet />
+                {children}
             </main>
         </div>
     );

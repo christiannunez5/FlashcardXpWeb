@@ -1,7 +1,10 @@
 import { login } from "@/api/auth";
+import { useAuthContext } from "@/context/auth/hooks";
 import { useResetUserDailyQuest } from "@/features/quests/hooks";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import api from "@/lib/axios";
+import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -13,9 +16,9 @@ export const loginSchema = z.object({
 export type TLoginSchema = z.infer<typeof loginSchema>;
 
 export const useLogin = () => {
-    const queryClient = useQueryClient();
-
+    const navigate = useNavigate();
     const { mutate: resetQuests } = useResetUserDailyQuest();
+    const { setUser } = useAuthContext();
 
     return useMutation({
         mutationFn: login,
@@ -24,9 +27,11 @@ export const useLogin = () => {
                 toast.error(error.response?.data.message);
             }
         },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["current-user"] });
+        onSuccess: async () => {
             resetQuests();
+            const response = await api.get("api/auth/me");
+            setUser(response.data);
+            navigate("/");
         },
     });
 };

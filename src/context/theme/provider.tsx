@@ -1,4 +1,4 @@
-import { ThemeContext } from "@/context/theme-context";
+import { ThemeContext } from "@/context/theme/context";
 import { PropsWithChildren, useState, useEffect } from "react";
 
 export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
@@ -25,6 +25,7 @@ export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
             document.documentElement.classList.remove("dark");
         }
     }, [isDark]);
+
     return (
         <ThemeContext.Provider value={{ isDark, toggleMode }}>
             {children}

@@ -3,7 +3,7 @@ import { EditStudySetForm } from "@/features/studysets/components";
 import { Button } from "@/components/ui/button";
 import { useGetStudySet } from "@/features/studysets/hooks";
 
-const EditStudySet = () => {
+export const EditStudySet = () => {
     const params = useParams();
     const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ const EditStudySet = () => {
     };
 
     return (
-        <div className="">
+        <div className="my-10">
             <div className="w-[85%] mx-auto ">
                 <Button className="py-6 px-10" onClick={handleBack}>
                     Back
@@ -39,5 +39,3 @@ const EditStudySet = () => {
         </div>
     );
 };
-
-export default EditStudySet;

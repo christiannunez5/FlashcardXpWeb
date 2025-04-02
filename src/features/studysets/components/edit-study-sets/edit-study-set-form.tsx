@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { FlashcardFormSection } from "@/features/flashcards/components";
 import { handleZodErrors } from "@/utils";
 import { useDeleteFlashcard } from "@/features/flashcards/hooks";
+import { useNavigate } from "react-router";
 
 interface EditStudySetFormProps {
     studySet: TStudySet;
@@ -20,6 +21,7 @@ interface EditStudySetFormProps {
 export const EditStudySetForm = ({ studySet }: EditStudySetFormProps) => {
     const { mutate: updateStudySet } = useUpdateWholeStudySet();
     const { mutate: deleteFlashcard } = useDeleteFlashcard(studySet.id);
+    const navigate = useNavigate();
 
     const [cardCount, setCardCount] = useState("1");
 
@@ -43,8 +45,15 @@ export const EditStudySetForm = ({ studySet }: EditStudySetFormProps) => {
 
     const handleUpdateStudySet = useCallback(async () => {
         const data = getValues();
-        updateStudySet({ studySetId: studySet.id, data });
-    }, [getValues, studySet.id, updateStudySet]);
+        updateStudySet(
+            { studySetId: studySet.id, data },
+            {
+                onSuccess: () => {
+                    navigate(`/study-set/${studySet.id}`);
+                },
+            }
+        );
+    }, [getValues, studySet.id, updateStudySet, navigate]);
 
     const handleAddFlashcardComponent = () => {
         const currentFlashcards = getValues("flashcards");
@@ -65,7 +74,7 @@ export const EditStudySetForm = ({ studySet }: EditStudySetFormProps) => {
         );
         setValue("flashcards", updatedFlashcards);
     };
-    
+
     const handleDeleteFlashcard = (index: number, id?: string) => {
         if (id) {
             deleteFlashcard(id, {

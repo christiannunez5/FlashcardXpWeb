@@ -1,20 +1,23 @@
-import { TFlashcard } from "@/types";
+import { TFlashcard, TStudySet } from "@/types";
 import { FormInput } from "@/components/ui/input";
 import React, { ReactNode, useState } from "react";
 import { EditFlashcardModal } from "@/features/flashcards/components/edit-flashcard-modal";
 import { IoSearch } from "react-icons/io5";
 import { useParams } from "react-router";
+import { useAuthContext } from "@/context/auth/hooks";
+import { useGetStudySet } from "@/features/studysets/hooks";
 
 interface FlashcardListProps {
-    flashcards: TFlashcard[];
+    studySet: TStudySet;
     children: ReactNode;
 }
 
 export const FlashcardList: React.FC<FlashcardListProps> = ({
-    flashcards,
+    studySet,
     children,
 }) => {
     const [searchTerm, setSearchTerm] = useState("");
+    const flashcards = studySet.flashcards;
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
@@ -39,7 +42,13 @@ export const FlashcardList: React.FC<FlashcardListProps> = ({
 
             <ul className="w-full flex flex-col gap-6">
                 {filteredFlashcards.map((f) => {
-                    return <TermAndDefinitionCard flashcard={f} key={f.id} />;
+                    return (
+                        <TermAndDefinitionCard
+                            flashcard={f}
+                            key={f.id}
+                            studySetCreatedById={studySet.createdBy.id}
+                        />
+                    );
                 })}
             </ul>
 
@@ -50,10 +59,15 @@ export const FlashcardList: React.FC<FlashcardListProps> = ({
 
 interface TermAndDefinition {
     flashcard: TFlashcard;
+    studySetCreatedById: string;
 }
 
-const TermAndDefinitionCard: React.FC<TermAndDefinition> = ({ flashcard }) => {
+const TermAndDefinitionCard: React.FC<TermAndDefinition> = ({
+    flashcard,
+    studySetCreatedById,
+}) => {
     const { id: studySetId } = useParams();
+    const { user } = useAuthContext();
 
     if (!studySetId) {
         throw new Error("study set id required");
@@ -66,13 +80,16 @@ const TermAndDefinitionCard: React.FC<TermAndDefinition> = ({ flashcard }) => {
             >
                 <h5 className="">{flashcard.term} </h5>
             </div>
-            
+
             <div className="w-full flex items-center break-words space-x-3">
                 <p className="grow ">{flashcard.definition}</p>
-                <EditFlashcardModal
-                    flashcard={flashcard}
-                    studySetId={studySetId}
-                ></EditFlashcardModal>
+
+                {user?.id === studySetCreatedById ? (
+                    <EditFlashcardModal
+                        flashcard={flashcard}
+                        studySetId={studySetId}
+                    ></EditFlashcardModal>
+                ) : null}
             </div>
         </li>
     );

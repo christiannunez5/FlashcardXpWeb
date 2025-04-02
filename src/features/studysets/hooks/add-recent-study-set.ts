@@ -14,9 +14,22 @@ export const useAddRecentStudySet = () => {
                 TStudySetSummary[]
             >(["recent-study-sets"]);
 
+            const doesStudySetExist = previousRecentStudySets?.some(
+                (set) => set.id === newStudySet.id // Check by unique identifier (e.g., 'id')
+            );
+
             queryClient.setQueryData(
                 ["recent-study-sets"],
-                (oldData: TStudySetSummary[]) => [...oldData, newStudySet]
+                (oldData: TStudySetSummary[]) => {
+                    if (doesStudySetExist) {
+                        return oldData.map((set) =>
+                            set.id === newStudySet.id
+                                ? { ...set, accessAt: new Date() } // Update accessAt if the set exists
+                                : set
+                        );
+                    }
+                    return [...oldData, newStudySet];
+                }
             );
 
             return { previousRecentStudySets, newStudySet };

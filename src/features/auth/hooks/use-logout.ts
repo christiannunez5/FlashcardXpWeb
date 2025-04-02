@@ -1,13 +1,14 @@
 import { logoutUser } from "@/api/auth";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAuthContext } from "@/context/auth/hooks";
+import { useMutation } from "@tanstack/react-query";
 
 export const useLogout = () => {
-    const queryClient = useQueryClient();
+    const { setUser } = useAuthContext();
+
     return useMutation({
         mutationFn: logoutUser,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["current-user"] });
-            window.location.href = "/";
+            setUser(undefined);
         },
     });
 };

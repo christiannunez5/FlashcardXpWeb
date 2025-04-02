@@ -3,13 +3,13 @@ import { QuizLayout } from "@/components/layout/quiz-layout";
 import { lazy } from "react";
 import { Route, Routes } from "react-router";
 
-const Home = lazy(() => import("@/pages/home"));
-const StudySet = lazy(() => import("@/pages/studyset"));
-const MyStudySets = lazy(() => import("@/pages/my-studysets"));
-const Leaderboard = lazy(() => import("@/pages/leaderboard"));
-const EditStudySet = lazy(() => import("@/pages/edit-study-set"));
-const MultiplceChoiceQuiz = lazy(() => import("@/pages/multiple-choice"));
-const WrittenQuiz = lazy(() => import("@/pages/written-quiz"));
+const Home = lazy(() => import("@/app/routes/app/home"));
+const StudySet = lazy(() => import("@/app/routes/app/studyset"));
+const MyStudySets = lazy(() => import("@/app/routes/app/my-studysets"));
+const Leaderboard = lazy(() => import("@/app/routes/app/leaderboard"));
+const EditStudySet = lazy(() => import("@/app/routes/app/edit-study-set"));
+const MultiplceChoiceQuiz = lazy(() => import("@/app/routes/app/multiple-choice"));
+const WrittenQuiz = lazy(() => import("@/app/routes/app/written-quiz"));
 
 export const PrivateRoutes = () => {
     return (
@@ -27,7 +27,6 @@ export const PrivateRoutes = () => {
                     path="multiple-choice"
                     element={<MultiplceChoiceQuiz />}
                 />
-
                 <Route path="written" element={<WrittenQuiz />} />
             </Route>
         </Routes>
