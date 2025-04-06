@@ -3,11 +3,7 @@ import { StudySetCard, StudySets } from "@/features/studysets/components";
 import { useGetCurrentUserStudySets } from "@/features/studysets/hooks";
 
 export const MyStudySets = () => {
-    const { data: studySets, isLoading } = useGetCurrentUserStudySets();
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
+    const { data: studySets } = useGetCurrentUserStudySets();
 
     return (
         <MainLayout>

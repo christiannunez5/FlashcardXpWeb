@@ -13,12 +13,8 @@ export const EditStudySet = () => {
 
     const { data: studySet } = useGetStudySet(params.id);
 
-    if (!studySet) {
-        return <div>Loading...</div>;
-    }
-
     const handleBack = () => {
-        if (studySet.status === "Published") {
+        if (studySet?.status === "Published") {
             navigate(`/study-set/${params.id}`);
         } else {
             navigate(`/my-studysets`);
@@ -34,7 +30,11 @@ export const EditStudySet = () => {
             </div>
 
             <section className="w-[85%] mt-5 mx-auto">
-                <EditStudySetForm studySet={studySet} />
+                {!studySet ? (
+                    <h1>Loading studyset</h1>
+                ) : (
+                    <EditStudySetForm studySet={studySet} />
+                )}
             </section>
         </div>
     );

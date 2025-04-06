@@ -24,12 +24,17 @@ export const deleteFlashcard = async (id: string): Promise<TFlashcard> => {
 };
 
 export const updateFlashcard = async ({
-    flashcardId,
+    studySetId,
     data,
 }: {
-    flashcardId: string;
+    studySetId: string;
     data: TUpdateFlashcardSchema;
 }): Promise<TFlashcard> => {
-    const response = await api.patch(`${ENDPOINT}/${flashcardId}`, data);
+    const updateFlashcardData = { ...data, studySetId };
+
+    const response = await api.put(
+        `${ENDPOINT}/${data.id}`,
+        updateFlashcardData
+    );
     return response.data;
 };

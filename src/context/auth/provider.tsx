@@ -25,10 +25,6 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
         getLoggedInUser();
     }, []);
-
-    if (isLoading) {
-        return <h1>Loading NIGGA</h1>;
-    }
     
     return (
         <AuthContext.Provider value={{ user, setUser }}>

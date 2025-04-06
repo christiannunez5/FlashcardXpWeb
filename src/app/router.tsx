@@ -2,7 +2,7 @@ import { Suspense, useMemo } from "react";
 import AuthRoutes from "./routes/auth/route";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { AppRoutes } from "./routes/app/route";
-import { ProtectedRoutes } from "@/routes/protected-routes";
+import { ProtectedRoutes } from "@/lib/protected-routes";
 import { Login } from "@/app/routes/auth/login";
 
 const createAppRouter = () => {
@@ -80,7 +80,11 @@ const createAppRouter = () => {
 const AppRouter = () => {
     const router = useMemo(() => createAppRouter(), []);
 
-    return <RouterProvider router={router} />;
+    return (
+        <>
+            <RouterProvider router={router} />
+        </>
+    );
 };
 
 export default AppRouter;

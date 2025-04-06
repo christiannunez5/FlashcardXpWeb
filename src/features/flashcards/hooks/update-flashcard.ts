@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 export const updateFlashcardSchema = z.object({
+    id: z.string().optional(),
     term: z.string().min(1, "Term is required."),
     definition: z.string().min(1, "Definition is required."),
 });
@@ -14,7 +15,7 @@ export type TUpdateFlashcardSchema = z.infer<typeof updateFlashcardSchema>;
 
 export const useUpdateFlashcard = (studySetId: string) => {
     const queryClient = useQueryClient();
-
+    
     return useMutation({
         mutationFn: updateFlashcard,
         onMutate: async (updatedFlashcard) => {
@@ -30,13 +31,25 @@ export const useUpdateFlashcard = (studySetId: string) => {
             queryClient.setQueryData(
                 ["study-set", studySetId],
                 (oldData: TStudySet) => {
+                    // if request is for updating
+                    if (updatedFlashcard.data.id) {
+                        return {
+                            ...oldData,
+                            flashcards: oldData.flashcards.map((flashcard) =>
+                                flashcard.id === updatedFlashcard.data.id
+                                    ? { ...flashcard, ...updatedFlashcard }
+                                    : flashcard
+                            ),
+                        };
+                    }
+
+                    // if request is for creating new flashcard
                     return {
                         ...oldData,
-                        flashcards: oldData.flashcards.map((flashcard) =>
-                            flashcard.id === updatedFlashcard.flashcardId
-                                ? { ...flashcard, ...updatedFlashcard }
-                                : flashcard
-                        ),
+                        flashcards: [
+                            ...oldData.flashcards,
+                            updatedFlashcard.data,
+                        ],
                     };
                 }
             );

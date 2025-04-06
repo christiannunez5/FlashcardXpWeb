@@ -5,7 +5,6 @@ import { EditFlashcardModal } from "@/features/flashcards/components/edit-flashc
 import { IoSearch } from "react-icons/io5";
 import { useParams } from "react-router";
 import { useAuthContext } from "@/context/auth/hooks";
-import { useGetStudySet } from "@/features/studysets/hooks";
 
 interface FlashcardListProps {
     studySet: TStudySet;

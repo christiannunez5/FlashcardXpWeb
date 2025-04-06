@@ -4,20 +4,23 @@ import { useGetRecentStudySets } from "@/features/studysets/hooks/get-recent-stu
 
 export const Home = () => {
     const { data: recentStudySets } = useGetRecentStudySets();
-    
+
     return (
         <MainLayout>
             <div className="text-foreground">
                 <h4>Recents</h4>
-                <div className="mt-3">
+                <section className="mt-3">
                     <StudySets>
-                        {recentStudySets?.map((recentStudySet) => {
+                        {recentStudySets?.map((recentStudySet, index) => {
                             return (
-                                <RecentStudySetCard studySet={recentStudySet} />
+                                <RecentStudySetCard
+                                    studySet={recentStudySet}
+                                    key={index}
+                                />
                             );
                         })}
                     </StudySets>
-                </div>
+                </section>
             </div>
         </MainLayout>
     );

@@ -16,6 +16,7 @@ export const FlashcardField: React.FC<FlashcardFieldProps> = ({
         <div className="w-full space-y-2">
             <FormInput
                 {...register}
+                name={label.toLowerCase()}
                 placeholder="Enter definition"
                 errorStyles="border-destructive"
                 className="border-b-[3px] outline-none
