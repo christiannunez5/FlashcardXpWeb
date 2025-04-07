@@ -15,7 +15,7 @@ export type TUpdateFlashcardSchema = z.infer<typeof updateFlashcardSchema>;
 
 export const useUpdateFlashcard = (studySetId: string) => {
     const queryClient = useQueryClient();
-    
+
     return useMutation({
         mutationFn: updateFlashcard,
         onMutate: async (updatedFlashcard) => {
@@ -31,7 +31,6 @@ export const useUpdateFlashcard = (studySetId: string) => {
             queryClient.setQueryData(
                 ["study-set", studySetId],
                 (oldData: TStudySet) => {
-                    // if request is for updating
                     if (updatedFlashcard.data.id) {
                         return {
                             ...oldData,

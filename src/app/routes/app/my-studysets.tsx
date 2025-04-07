@@ -3,15 +3,22 @@ import { StudySetCard, StudySets } from "@/features/studysets/components";
 import { useGetCurrentUserStudySets } from "@/features/studysets/hooks";
 
 export const MyStudySets = () => {
-    const { data: studySets } = useGetCurrentUserStudySets();
+    const { data: studySets, isPending } = useGetCurrentUserStudySets();
 
     return (
         <MainLayout>
-            <StudySets>
-                {studySets?.map((s) => {
-                    return <StudySetCard studySet={s} key={s.id} />;
-                })}
-            </StudySets>
+            <section>
+                {/* TODO: add an actual loading screen or icon */}
+                {isPending ? (
+                    <div>Loading...</div>
+                ) : (
+                    <StudySets>
+                        {studySets?.map((s) => {
+                            return <StudySetCard studySet={s} key={s.id} />;
+                        })}
+                    </StudySets>
+                )}
+            </section>
         </MainLayout>
     );
 };

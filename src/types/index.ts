@@ -1,4 +1,4 @@
-export interface TStudySetSummary {
+export type TStudySetSummary = {
     id: string;
     title: string;
     description: string;
@@ -6,41 +6,47 @@ export interface TStudySetSummary {
     updatedAt: Date;
     status: "Draft" | "Published";
     flashcardsCount: number;
-}
+};
 
-export interface TFlashcard {
+export type TFlashcard = {
     id: string;
     term: string;
     definition: string;
-}
+};
 
-export interface TQuestion {
+export type TQuestion = {
     flashcard: TFlashcard;
     choices: string[];
-}
+};
 
-export interface TUser {
+export type TUser = {
     id: string;
     username: string;
     email: string;
     profilePicUrl: string;
-}
+};
 
 export interface TStudySet extends Omit<TStudySetSummary, "flashcardsCount"> {
     flashcards: TFlashcard[];
     createdBy: TUser;
+    isPublic: boolean;
 }
 
-export interface TRecentStudySet {
+export type TRecentStudySet = {
     id: string;
     title: string;
     accessedAt: string;
-}
+};
 
-export interface TQuest {
+export type TQuest = {
     id: string;
     title: string;
     description: string;
     isCompleted: boolean;
     xpReward: number;
-}
+};
+
+export type TUserExperience = {
+    user: TUser;
+    xp: number;
+};

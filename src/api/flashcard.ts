@@ -33,7 +33,7 @@ export const updateFlashcard = async ({
     const updateFlashcardData = { ...data, studySetId };
 
     const response = await api.put(
-        `${ENDPOINT}/${data.id}`,
+        `${ENDPOINT}/${data.id ? data.id : "123"}`, // add a random number when there is no id
         updateFlashcardData
     );
     return response.data;

@@ -1,4 +1,4 @@
-import { Suspense, useMemo } from "react";
+import { useMemo } from "react";
 import AuthRoutes from "./routes/auth/route";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { AppRoutes } from "./routes/app/route";
@@ -31,11 +31,9 @@ const createAppRouter = () => {
         {
             path: "/",
             element: (
-                <Suspense fallback={<h1>Loading pagess...</h1>}>
-                    <ProtectedRoutes>
-                        <AppRoutes />
-                    </ProtectedRoutes>
-                </Suspense>
+                <ProtectedRoutes>
+                    <AppRoutes />
+                </ProtectedRoutes>
             ),
             children: [
                 {
@@ -70,6 +68,15 @@ const createAppRouter = () => {
                             "./routes/app/edit-study-set"
                         );
                         return { Component: EditStudySet };
+                    },
+                },
+                {
+                    path: "/profile",
+                    lazy: async () => {
+                        const { Profile } = await import(
+                            "./routes/app/profile"
+                        );
+                        return { Component: Profile };
                     },
                 },
             ],

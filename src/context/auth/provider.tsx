@@ -1,9 +1,9 @@
 import { AuthContext } from "@/context/auth/context";
 import api from "@/lib/axios";
 import { TUser } from "@/types";
-import { AxiosError } from "axios";
+
 import { PropsWithChildren, useEffect, useState } from "react";
-import { toast } from "sonner";
+import { redirect } from "react-router";
 
 export const AuthContextProvider = ({ children }: PropsWithChildren) => {
     const [user, setUser] = useState<TUser | undefined>(undefined);
@@ -14,10 +14,8 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
             try {
                 const response = await api.get("/api/auth/me");
                 setUser(response.data);
-            } catch (error) {
-                if (error instanceof AxiosError) {
-                    toast.error(error.response?.data);
-                }
+            } catch {
+                throw redirect("/auth");
             } finally {
                 setIsLoading(false);
             }
@@ -25,7 +23,11 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
         getLoggedInUser();
     }, []);
-    
+
+    if (isLoading) {
+        return null;
+    }
+
     return (
         <AuthContext.Provider value={{ user, setUser }}>
             {children}

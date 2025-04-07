@@ -44,10 +44,10 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ icon, title, linkUrl }) => {
     const location = useLocation();
     const normalizedLinkUrl = linkUrl.startsWith("/") ? linkUrl : `/${linkUrl}`;
     const isActive = location.pathname === normalizedLinkUrl;
-
+    
     return (
         <Link
-            to={linkUrl}
+            to={normalizedLinkUrl}
             className={`relative py-3 px-5 gap-4 flex items-center rounded-xl
                 ${
                     isActive

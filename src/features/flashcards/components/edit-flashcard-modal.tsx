@@ -29,10 +29,7 @@ export const EditFlashcardModal: React.FC<EditFlashCardModalProps> = ({
     const { register, handleSubmit, getValues } =
         useForm<TUpdateFlashcardSchema>({
             resolver: zodResolver(updateFlashcardSchema),
-            defaultValues: {
-                term: flashcard.term,
-                definition: flashcard.definition,
-            },
+            defaultValues: flashcard,
         });
 
     const [open, setOpen] = useState(false);
@@ -41,15 +38,11 @@ export const EditFlashcardModal: React.FC<EditFlashCardModalProps> = ({
 
     const handleUpdateFlashcard = () => {
         const data = getValues();
-
-        console.log(data);
+        
         updateFlashcard(
             {
-                flashcardId: flashcard.id,
-                data: {
-                    term: data.term,
-                    definition: data.definition,
-                },
+                studySetId: studySetId,
+                data,
             },
             {
                 onSuccess: () => {
@@ -83,7 +76,7 @@ export const EditFlashcardModal: React.FC<EditFlashCardModalProps> = ({
 
                             <FormInput
                                 className="border-[2px] rounded-md
-                             border-gray-600 dark:border-container px-5 "
+                                border-gray-600 dark:border-container px-5 "
                                 {...register("term")}
                             />
                         </div>
@@ -93,7 +86,7 @@ export const EditFlashcardModal: React.FC<EditFlashCardModalProps> = ({
 
                             <FormInput
                                 className="border-[2.3px] rounded-md
-                             border-gray-600 dark:border-container px-5 "
+                                border-gray-600 dark:border-container px-5 "
                                 {...register("definition")}
                             />
                         </div>

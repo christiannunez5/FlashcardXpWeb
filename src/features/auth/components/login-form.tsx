@@ -105,7 +105,7 @@ export const LoginForm = () => {
                         className="border border-gray-500 bg-primary 
                         text-foreground rounded-3xl px-5 hover:text-accent-foreground"
                         type="button"
-                        onClick={() => navigate(`/register`)}
+                        onClick={() => navigate(`/auth/register`)}
                     >
                         Create account
                     </Button>
