@@ -2,7 +2,7 @@ import { WrittenQuizCarousel } from "@/features/quiz/components/";
 import { TStudySet } from "@/types";
 import { useOutletContext } from "react-router";
 
-const WrittenQuiz = () => {
+export const WrittenQuiz = () => {
     const { studySet } = useOutletContext<{ studySet: TStudySet }>();
 
     return (
@@ -11,5 +11,3 @@ const WrittenQuiz = () => {
         </section>
     );
 };
-
-export default WrittenQuiz;

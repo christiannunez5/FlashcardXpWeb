@@ -8,11 +8,6 @@ import { Button } from "@/components/ui/button";
 import { useLogout } from "@/features/auth/hooks";
 import { AddDraftStudySetModal } from "@/components/shared";
 import { useGetCurrentUserQuests } from "@/features/quests/hooks";
-import { DropdownMenu, DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import {
-    DropdownMenuContent,
-    DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
 import { useGetCompletedFlashcards } from "@/features/flashcards/hooks/get-completed-flashcards";
 import { QuizModal } from "@/features/quests/components";
 
@@ -21,7 +16,8 @@ export const Navbar = () => {
 
     const { data: quests } = useGetCurrentUserQuests();
     const { data: completedFlashcards } = useGetCompletedFlashcards();
-    console.log(completedFlashcards);
+    console.log("flashcards completed: ", completedFlashcards);
+
     return (
         <nav className="w-full flex justify-end gap-6 items-center">
             <AddDraftStudySetModal>

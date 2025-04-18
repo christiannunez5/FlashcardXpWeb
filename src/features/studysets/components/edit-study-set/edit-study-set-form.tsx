@@ -5,7 +5,7 @@ import {
     useUpdateStudySet,
 } from "@/features/studysets/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { TStudySet } from "@/types";
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -81,7 +81,7 @@ export const EditStudySetForm: React.FC<EditStudySetFormProps> = ({
     }, [handleUpdateStudySetBasicInfo]);
 
     const flashcards = watch("flashcards");
-    
+
     const handleUpdateFullStudySet = useCallback(async () => {
         const data = getValues();
         updateFullStudySet(

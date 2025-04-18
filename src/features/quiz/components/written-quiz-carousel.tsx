@@ -11,26 +11,20 @@ export const WrittenQuizCarousel = ({
 }: WrittenQuizCarouselProps) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const handleUserAnswer = (correctAnswer: string, userAnswer: string) => {
-        if (userAnswer == correctAnswer) {
-            alert("Congrats! You answered it correctly.");
-
-            setCurrentIndex((prevIndex) =>
-                prevIndex < flashcards.length - 1 ? prevIndex + 1 : prevIndex
-            );
-        } else {
-            alert("Stupid");
-        }
+    const handleUserAnswerCallback = () => {
+        setCurrentIndex((prev) => prev + 1);
     };
 
     return (
         <div className="h-full w-full flex flex-nowrap overflow-hidden">
-            {flashcards.map((flashcard) => {
+            {flashcards.map((flashcard, index) => {
                 return (
                     <WrittenQuizCard
-                        onAnswer={handleUserAnswer}
+                        handleAnswerCallback={handleUserAnswerCallback}
                         flashcard={flashcard}
                         currentIndex={currentIndex}
+                        isActive={index === currentIndex}
+                        key={flashcard.id}
                     />
                 );
             })}

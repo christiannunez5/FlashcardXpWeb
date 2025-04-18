@@ -72,19 +72,6 @@ export const StudySet = () => {
                         </section>
 
                         <section className="w-full">
-                            <div className="self-end">
-                                <Button
-                                    className="p-6 rounded-3xl"
-                                    onClick={() =>
-                                        navigate(
-                                            `/study-set/${studySet.id}/edit`
-                                        )
-                                    }
-                                >
-                                    <h5>Add or remove items</h5>
-                                </Button>
-                            </div>
-
                             <FlashcardList studySet={studySet}>
                                 <div className="self-end">
                                     <Button

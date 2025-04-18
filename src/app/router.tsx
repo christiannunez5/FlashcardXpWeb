@@ -99,6 +99,15 @@ const createAppRouter = () => {
                                 return { Component: MultipleChoice };
                             },
                         },
+                        {
+                            path: "written",
+                            lazy: async () => {
+                                const { WrittenQuiz } = await import(
+                                    "./routes/app/written-quiz"
+                                );
+                                return { Component: WrittenQuiz };
+                            },
+                        },
                     ],
                 },
             ],

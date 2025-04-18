@@ -6,11 +6,14 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import { useGetCompletedFlashcards } from "@/features/flashcards/hooks";
 import { useGetCurrentUserQuests } from "@/features/quests/hooks";
 import { FaExclamation } from "react-icons/fa";
 
 export const QuizModal = () => {
     const { data: quests, isLoading } = useGetCurrentUserQuests();
+
+    const { data: flashcardCompleted } = useGetCompletedFlashcards();
 
     return (
         <Dialog>
@@ -22,7 +25,7 @@ export const QuizModal = () => {
                     <FaExclamation />
                 </CircularButton>
             </DialogTrigger>
-            <DialogContent className="min-w-[70%] max-h-[500px] overflow-y-auto">
+            <DialogContent className="min-w-[70%] ">
                 <DialogTitle>
                     <h3 className="text-center">Daily Quest</h3>
                 </DialogTitle>
@@ -48,11 +51,11 @@ export const QuizModal = () => {
                                             ></div>
 
                                             <p className="relative z-30 text-sm -translate-y-3">
-                                                3/20
+                                                {flashcardCompleted?.count} / 20
                                             </p>
                                         </div>
                                     </div>
-                                    
+
                                     <div>
                                         <Button
                                             className="border-2 border-container rounded-lg

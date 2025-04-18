@@ -9,9 +9,9 @@ export const getCompletedFlashcards =
         return response.data;
     };
 
-export const addCompletedFlashcard = async (
-    flashcardId: string
-): Promise<void> => {
-    const response = await api.get(`${ENDPOINT}.${flashcardId}`);
+export const addCompletedFlashcard = async (data: {
+    flashcardId: string;
+}): Promise<void> => {
+    const response = await api.post(`${ENDPOINT}`, data);
     return response.data;
 };

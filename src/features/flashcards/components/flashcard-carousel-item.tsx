@@ -1,4 +1,3 @@
-import { EditFlashcardModal } from "@/features/flashcards/components";
 import { TFlashcard } from "@/types";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -24,13 +23,9 @@ export const FlashcardCarouselItem = ({
         setFlipped(!flipped);
     };
 
-    const handleEditClick = (e: React.MouseEvent) => {
-        e.stopPropagation();
-    };
-
     return (
         <motion.div
-            className="w-full h-[70vh] relative cursor-pointer "
+            className="w-full h-[70vh] relative cursor-pointer"
             initial={false}
             animate={{ rotateY: flipped ? 180 : 0 }}
             style={{
@@ -38,12 +33,6 @@ export const FlashcardCarouselItem = ({
             }}
             onClick={handleCardClick}
         >
-            <div onClick={handleEditClick} className="absolute top-10 right-10">
-                <EditFlashcardModal
-                    flashcard={flashcard}
-                    studySetId={studySetId}
-                />
-            </div>
             <div
                 className="absolute w-full h-full rounded-2xl shadow-md bg-primary 
                 flex flex-col gap-5 p-10"
