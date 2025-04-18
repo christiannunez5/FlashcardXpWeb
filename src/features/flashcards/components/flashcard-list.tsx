@@ -27,6 +27,8 @@ export const FlashcardList: React.FC<FlashcardListProps> = ({
             card.term.toLowerCase().includes(searchTerm.toLowerCase()) ||
             card.definition.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    console.log(studySet.flashcards);
     return (
         <div className="flex flex-col gap-5">
             <h4>{flashcards.length} terms</h4>
@@ -44,7 +46,6 @@ export const FlashcardList: React.FC<FlashcardListProps> = ({
                     return (
                         <TermAndDefinitionCard
                             flashcard={f}
-                            key={f.id}
                             studySetCreatedById={studySet.createdBy.id}
                         />
                     );

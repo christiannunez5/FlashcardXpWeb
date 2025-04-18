@@ -1,4 +1,4 @@
-import { completeQuest } from "@/api/quests";
+import { completeQuest } from "@/api/user-quests";
 import { TQuest } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";

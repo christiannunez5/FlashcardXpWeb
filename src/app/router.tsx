@@ -79,6 +79,28 @@ const createAppRouter = () => {
                         return { Component: Profile };
                     },
                 },
+
+                // quiz routes
+                {
+                    path: "/study-set/:id/quiz",
+                    lazy: async () => {
+                        const { QuizLayout } = await import(
+                            "@/components/layout/quiz-layout"
+                        );
+                        return { Component: QuizLayout };
+                    },
+                    children: [
+                        {
+                            path: "multiple-choice",
+                            lazy: async () => {
+                                const { MultipleChoice } = await import(
+                                    "./routes/app/multiple-choice"
+                                );
+                                return { Component: MultipleChoice };
+                            },
+                        },
+                    ],
+                },
             ],
         },
     ]);

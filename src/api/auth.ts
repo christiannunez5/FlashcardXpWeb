@@ -16,9 +16,8 @@ export const login = async ({
 };
 
 export const register = async (data: TCreateUserSchema): Promise<void> => {
-    console.log(data);
-    // const response = await api.post(`${ENDPOINT}/register`, data);
-    // return response.data;
+    const response = await api.post(`${ENDPOINT}/register`, data);
+    return response.data;
 };
 
 export const getCurrentLoggedInUser = async () => {

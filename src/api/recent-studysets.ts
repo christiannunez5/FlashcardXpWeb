@@ -1,7 +1,7 @@
 import api from "@/lib/axios";
 import { TRecentStudySet } from "@/types";
 
-const ENDPOINT = "api/recent-studysets";
+const ENDPOINT = "api/recent-study-sets";
 
 export const getRecentStudySets = async (): Promise<TRecentStudySet[]> => {
     const response = await api.get(`${ENDPOINT}`);

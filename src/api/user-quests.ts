@@ -1,7 +1,7 @@
 import api from "@/lib/axios";
 import { TQuest } from "@/types";
 
-const ENDPOINT = "/api/quests";
+const ENDPOINT = "/api/user-quests";
 
 export const getCurrentUserQuests = async (): Promise<TQuest[]> => {
     const response = await api.get(`${ENDPOINT}`);

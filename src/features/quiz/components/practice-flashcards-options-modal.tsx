@@ -98,7 +98,7 @@ export const PracticeOptionsModal = ({
     ];
 
     const navigate = useNavigate();
-    
+
     const handleClick = () => {
         let url = "";
         switch (practiceType.quizType) {

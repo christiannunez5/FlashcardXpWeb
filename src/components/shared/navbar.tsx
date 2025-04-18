@@ -13,16 +13,15 @@ import {
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
+import { useGetCompletedFlashcards } from "@/features/flashcards/hooks/get-completed-flashcards";
+import { QuizModal } from "@/features/quests/components";
 
 export const Navbar = () => {
     const { mutate: logout } = useLogout();
 
     const { data: quests } = useGetCurrentUserQuests();
-    
-    const handleLogout = () => {
-        logout();
-    };
-
+    const { data: completedFlashcards } = useGetCompletedFlashcards();
+    console.log(completedFlashcards);
     return (
         <nav className="w-full flex justify-end gap-6 items-center">
             <AddDraftStudySetModal>
@@ -34,7 +33,7 @@ export const Navbar = () => {
                 </CircularButton>
             </AddDraftStudySetModal>
 
-            <DropdownMenu>
+            {/* <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <CircularButton
                         className="bg-inherit hover:bg-container"
@@ -76,7 +75,9 @@ export const Navbar = () => {
                         );
                     })}
                 </DropdownMenuContent>
-            </DropdownMenu>
+            </DropdownMenu> */}
+
+            <QuizModal />
 
             <Button onClick={() => logout()}>Logout</Button>
 

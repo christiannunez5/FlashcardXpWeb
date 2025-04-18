@@ -14,6 +14,10 @@ export type TFlashcard = {
     definition: string;
 };
 
+export type TCompletedFlashcard = {
+    count: number;
+};
+
 export type TQuestion = {
     flashcard: TFlashcard;
     choices: string[];

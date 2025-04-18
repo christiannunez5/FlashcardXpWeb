@@ -13,6 +13,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
         const getLoggedInUser = async () => {
             try {
                 const response = await api.get("/api/auth/me");
+                console.log(response.status);
                 setUser(response.data);
             } catch {
                 throw redirect("/auth");

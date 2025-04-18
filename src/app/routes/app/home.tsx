@@ -5,6 +5,8 @@ import { useGetRecentStudySets } from "@/features/studysets/hooks/get-recent-stu
 export const Home = () => {
     const { data: recentStudySets, isPending } = useGetRecentStudySets();
 
+    console.log(recentStudySets);
+
     return (
         <MainLayout>
             <div className="text-foreground">

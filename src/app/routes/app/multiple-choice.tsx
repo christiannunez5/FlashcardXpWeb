@@ -2,7 +2,7 @@ import { MultipleChoiceCarousel } from "@/features/quiz/components";
 import { TStudySet } from "@/types";
 import { useOutletContext } from "react-router";
 
-const MultipleChoice = () => {
+export const MultipleChoice = () => {
     const { studySet } = useOutletContext<{ studySet: TStudySet }>();
 
     return (
@@ -11,5 +11,3 @@ const MultipleChoice = () => {
         </section>
     );
 };
-
-export default MultipleChoice;

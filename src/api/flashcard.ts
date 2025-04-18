@@ -5,16 +5,15 @@ import {
 import api from "@/lib/axios";
 import { TFlashcard } from "@/types";
 
-const ENDPOINT = "api/flashcard";
+const ENDPOINT = "api/flashcards";
 
 export const addFlashcard = async ({
-    studySetId,
     data,
 }: {
     studySetId: string;
     data: TAddFlashcardSchema;
 }) => {
-    const response = await api.post(`${ENDPOINT}/${studySetId}`, data);
+    const response = await api.post(`${ENDPOINT}`, data);
     return response.data;
 };
 
@@ -31,9 +30,9 @@ export const updateFlashcard = async ({
     data: TUpdateFlashcardSchema;
 }): Promise<TFlashcard> => {
     const updateFlashcardData = { ...data, studySetId };
-
+    
     const response = await api.put(
-        `${ENDPOINT}/${data.id ? data.id : "123"}`, // add a random number when there is no id
+        `${ENDPOINT}/${data.id}`,
         updateFlashcardData
     );
     return response.data;
