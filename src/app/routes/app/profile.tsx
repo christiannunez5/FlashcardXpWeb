@@ -1,17 +1,21 @@
 import { MainLayout } from "@/components/layout";
+import { ProgressBar } from "@/components/shared";
 import { useAuthContext } from "@/context/auth/hooks";
 import { useGetCurrentUserExperience } from "@/features/experience/hooks";
-import { convertExperienceToLevel, getExperiencePercentage } from "@/utils";
+import { getExperiencePercentage } from "@/utils";
 
 export const Profile = () => {
     const { user } = useAuthContext();
     
-    const { data: experience } = useGetCurrentUserExperience();
+    const { data: experience, isPending } = useGetCurrentUserExperience();
 
-    const levelDetails = convertExperienceToLevel(experience?.xp);
+    if (isPending || !experience) {
+        return <div>Loading...</div>;
+    }
+
     const experiencePercentage = getExperiencePercentage(
-        experience?.xp,
-        levelDetails.maxXp
+        experience?.currentExperience,
+        experience?.maxXp
     );
 
     return (
@@ -23,19 +27,24 @@ export const Profile = () => {
                     <div className="grow space-y-3">
                         <div className="flex justify-between">
                             <h4>
-                                {`${levelDetails.level} : ${levelDetails.title}`}
+                                {`${experience?.level.title} : ${experience?.level.value}`}
                             </h4>
                             <p>
-                                {experience?.xp} / {levelDetails.maxXp}
+                                {experience?.currentExperience} /{" "}
+                                {experience?.maxXp}
                             </p>
                         </div>
 
-                        <div className="rounded-lg bg-container w-full h-4">
+                        <ProgressBar
+                            height={3}
+                            percentage={experiencePercentage}
+                        />
+                        {/* <div className="rounded-lg bg-container w-full h-4">
                             <div
                                 className={`h-4 bg-green-500 rounded-l-lg`}
                                 style={{ width: `${experiencePercentage}%` }}
                             ></div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </section>

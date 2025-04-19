@@ -15,8 +15,6 @@ export const Navbar = () => {
     const { mutate: logout } = useLogout();
 
     const { data: quests } = useGetCurrentUserQuests();
-    const { data: completedFlashcards } = useGetCompletedFlashcards();
-    console.log("flashcards completed: ", completedFlashcards);
 
     return (
         <nav className="w-full flex justify-end gap-6 items-center">
@@ -75,7 +73,7 @@ export const Navbar = () => {
 
             <QuizModal />
 
-            <Button onClick={() => logout()}>Logout</Button>
+            {/* <Button onClick={() => logout()}>Logout</Button> */}
 
             <ThemeToggle />
             <div className="w-10 h-10 rounded-full bg-container"></div>

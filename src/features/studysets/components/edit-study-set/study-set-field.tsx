@@ -19,7 +19,7 @@ export const StudySetField: React.FC<StudySetFieldProps> = ({
             <h4 className="text-xl">{title}</h4>
             <FormInput
                 className="w-full bg-background py-3 px-5
-                    outline-none rounded-xl font-semibold"
+                    outline-none rounded-xl"
                 placeholder={placeholder}
                 error={error}
                 {...register}

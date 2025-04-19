@@ -1,12 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inconsolata:wght@200..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inconsolata:wght@200..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 @plugin "tailwindcss-animate";
-
-@custom-variant dark (&:is(.dark *));
 
 @import "tailwindcss";
 
 * {
-    font-family: "Space Grotesk", sans-serif;
+    font-family: "Space Mono", sans-serif;
 }
 
 a {
@@ -34,64 +32,35 @@ h3 {
 }
 
 h4 {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.8rem;
+    font-weight: 400;
 }
 
 h5 {
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: 500;
 }
 
-@theme {
-    --color-background: #f4f4f4;
-    --color-primary: #ffffff;
-    --color-foreground: #040316;
-    /* --color-accent: #3700b3; */
-    --color-accent: #07085b;
-    --color-accent-foreground: #ffffff;
-
-    --color-container: #e2e8f0;
-}
-
-@layer theme {
-    .dark {
-        --color-background: #1d1e1e;
-        --color-primary: #282929;
-        --color-foreground: #ffffffce;
-        /* --color-accent: #bb86fc; */
-
-        --color-container: #5b5b5b;
-        --color-accent: #3700b3;
-        --color-accent-foreground: white;
-    }
-}
+@custom-variant dark (&:is(.dark *));
 
 :root {
-    --color-background: #f4f4f4;
-    --color-primary: #ffffff;
-    --color-foreground: #040316;
-    /* --color-accent: #3700b3; */
-    --color-accent: #07085b;
-    --color-accent-foreground: #ffffff;
-
-    --color-container: #e2e8f0;
-
+    --accent: #533de0;
+    --accent-foreground: #ffffff;
+    --container: #e2e8f0;
     --background: #f4f4f4;
+
     --foreground: #040316;
+    --primary: #ffffff;
 
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.129 0.042 264.695);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.129 0.042 264.695);
-    --primary: #ffffff;
     --primary-foreground: oklch(0.984 0.003 247.858);
     --secondary: oklch(0.968 0.007 247.896);
     --secondary-foreground: oklch(0.208 0.042 265.755);
     --muted: oklch(0.968 0.007 247.896);
     --muted-foreground: oklch(0.554 0.046 257.417);
-    --accent: #07085b;
-    --accent-foreground: #ffffff;
     --destructive: oklch(0.577 0.245 27.325);
     --destructive-foreground: oklch(0.577 0.245 27.325);
     --border: oklch(0.929 0.013 255.508);
@@ -114,19 +83,13 @@ h5 {
 }
 
 .dark {
-    --color-background: #1d1e1e;
-    --color-primary: #282929;
-    --color-foreground: #ffffffce;
-
-    --color-container: #5b5b5b;
-
     --primary: #282929;
     --background: #1d1e1e;
-
-    --accent: #3700b3;
+    --accent: #5c51d6;
+    --container: #40444b;
+    --foreground: #ffffffce;
     --accent-foreground: #ffffff;
 
-    --foreground: oklch(0.984 0.003 247.858);
     --card: oklch(0.129 0.042 264.695);
     --card-foreground: oklch(0.984 0.003 247.858);
     --popover: oklch(0.129 0.042 264.695);
@@ -152,19 +115,20 @@ h5 {
     --sidebar-primary: oklch(0.488 0.243 264.376);
     --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
     --sidebar-accent: oklch(0.279 0.041 260.031);
-    --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
     --sidebar-border: oklch(0.279 0.041 260.031);
     --sidebar-ring: oklch(0.446 0.043 257.281);
 }
 
 @theme inline {
+    --color-container: var(--container);
     --color-background: var(--background);
     --color-foreground: var(--foreground);
+    --color-primary: var(--primary);
+
     --color-card: var(--card);
     --color-card-foreground: var(--card-foreground);
     --color-popover: var(--popover);
     --color-popover-foreground: var(--popover-foreground);
-    --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
     --color-secondary: var(--secondary);
     --color-secondary-foreground: var(--secondary-foreground);
@@ -202,5 +166,14 @@ h5 {
     }
     body {
         @apply bg-background text-foreground;
+    }
+}
+
+@layer components {
+    .sidebar-icon {
+        @apply h-14 w-14 cursor-pointer rounded-full flex items-center justify-center mx-auto 
+                bg-container text-muted-foreground hover:text-white hover:bg-accent
+                hover:rounded-xl
+                transition-all duration-75 ease-linear;
     }
 }

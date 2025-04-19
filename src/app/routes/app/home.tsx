@@ -1,18 +1,33 @@
 import { MainLayout } from "@/components/layout";
-import { RecentStudySetCard, StudySets } from "@/features/studysets/components";
+import { useAuthContext } from "@/context/auth/hooks";
+import { RecentStudySets } from "@/features/studysets/components";
 import { useGetRecentStudySets } from "@/features/studysets/hooks/get-recent-study-sets";
 
 export const Home = () => {
     const { data: recentStudySets, isPending } = useGetRecentStudySets();
-
-    console.log(recentStudySets);
+    const { user } = useAuthContext();
 
     return (
         <MainLayout>
             <div className="text-foreground">
+                <h4>Welcome, {user?.email}</h4>
                 <h4>Recents</h4>
 
                 <section className="mt-3">
+                    {isPending ||
+                    !recentStudySets ? //     {Array.from({ length: 5 }).map((_, index) => ( // <ul className="flex flex-col gap-2">
+                    //         <li
+                    //             className="w-full h-14 bg-gray-400 rounded-md"
+                    //             key={index}
+                    //         ></li>
+                    //     ))}
+                    // </ul>
+                    null : (
+                        <RecentStudySets recentStudySets={recentStudySets} />
+                    )}
+                </section>
+
+                {/* <section className="mt-3">
                     {isPending ? (
                         ""
                     ) : (
@@ -27,7 +42,7 @@ export const Home = () => {
                             })}
                         </StudySets>
                     )}
-                </section>
+                </section> */}
             </div>
         </MainLayout>
     );

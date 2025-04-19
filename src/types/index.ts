@@ -46,11 +46,14 @@ export type TQuest = {
     id: string;
     title: string;
     description: string;
+    iconUrl: string;
     isCompleted: boolean;
     xpReward: number;
 };
 
 export type TUserExperience = {
     user: TUser;
-    xp: number;
+    currentExperience: number;
+    level: { value: number; title: string };
+    maxXp: number;
 };

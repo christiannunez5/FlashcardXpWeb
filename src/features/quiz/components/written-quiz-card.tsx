@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { FormInput } from "@/components/ui/input";
 import { useAddCompletedFlashcard } from "@/features/flashcards/hooks";
 import { TFlashcard } from "@/types";
-import { Check } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { FormEvent, useEffect, useState } from "react";
 
 interface WrittenQuizCardProps {
@@ -44,7 +44,6 @@ export const WrittenQuizCard = ({
 
     useEffect(() => {
         if (!isActive) return;
-
         const handleKeyDown = (e: KeyboardEvent) => {
             if (didUserAnswer && e.key === "Enter") {
                 handleAnswerCallback();
@@ -67,14 +66,15 @@ export const WrittenQuizCard = ({
                 transform: `translate(-${currentIndex * 100}%)`,
             }}
         >
-            <p>Definition</p>
-
-            <div className="grow flex flex-col justify-center">
-                <h4 className="flex items-center">{flashcard.definition}</h4>
+            <div className="grow flex flex-col ">
+                <p>Definition</p>
+                <h4 className="flex items-center mt-6">
+                    {flashcard.definition}
+                </h4>
             </div>
 
             <form
-                className="space-y-3 flex gap-4 justify-center"
+                className="space-y-3 flex gap-4 justify-center mb-7"
                 onSubmit={handleSubmitAnswer}
             >
                 {!didUserAnswer ? (
@@ -102,18 +102,23 @@ export const WrittenQuizCard = ({
                                     : "border-2 border-red-400"
                             }`}
                         >
+                            {isAnswerCorrect ? (
+                                <Check className="text-green-400" />
+                            ) : (
+                                <X className="text-red-400" />
+                            )}
                             <p>{userAnswer}</p>
                         </div>
 
                         {!isAnswerCorrect && (
                             <>
-                                <p className="text-green-300">Correct Answer</p>
+                                <p className="text-green-400">Correct Answer</p>
                                 <div
                                     className={`w-full py-3 px-5 flex gap-2 
-                            rounded-lg border-2 border-green-300
+                            rounded-lg border-dashed border-2 border-green-400 b
                                 `}
                                 >
-                                    <Check />
+                                    <Check className="text-green-400" />
                                     <p>{flashcard.term}</p>
                                 </div>
                             </>
@@ -123,9 +128,9 @@ export const WrittenQuizCard = ({
             </form>
 
             {didUserAnswer && (
-                <footer className="absolute bottom-0 left-0 right-0 p-4 text-center">
+                <footer className="absolute bottom-2 left-0 right-0 p-4 text-center">
                     <p className="text text-gray-500">
-                        Press enter to continue
+                       PRESS ENTER TO CONTINUE
                     </p>
                 </footer>
             )}
