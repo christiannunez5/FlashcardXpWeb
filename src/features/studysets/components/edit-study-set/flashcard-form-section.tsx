@@ -3,7 +3,10 @@ import { FlashcardField } from "./flashcard-field";
 import React, { useCallback, useRef } from "react";
 import { useFormContext } from "react-hook-form";
 import { FiTrash } from "react-icons/fi";
-import { TUpdateFullStudySetSchema } from "@/features/studysets/hooks";
+import {
+    TUpdateFullStudySetSchema,
+    useUpdateFullStudySet,
+} from "@/features/studysets/hooks";
 import useDebounce from "@/hooks/use-debouce";
 import { useUpdateFlashcard } from "@/features/flashcards/hooks";
 
@@ -26,8 +29,11 @@ export const FlashcardFormSection: React.FC<FlashcardFormSection> = ({
         register,
         getValues,
         watch,
+        setValue,
         formState: { errors },
     } = useFormContext<TUpdateFullStudySetSchema>();
+
+    const { mutate: updateStudySet } = useUpdateFullStudySet();
 
     const id = getValues(`flashcards.${index}.id`);
 
@@ -37,9 +43,9 @@ export const FlashcardFormSection: React.FC<FlashcardFormSection> = ({
 
     const term = watch(`flashcards.${index}.term`);
     const definition = watch(`flashcards.${index}.definition`);
-
-    const debouncedTerm = useDebounce(term, 750);
-    const debouncedDefinition = useDebounce(definition, 750);
+    
+    const debouncedTerm = useDebounce(term);
+    const debouncedDefinition = useDebounce(definition);
 
     const handleUpdateFlashcard = useCallback(() => {
         if (debouncedTerm == "" || debouncedDefinition == "") return;
@@ -50,8 +56,23 @@ export const FlashcardFormSection: React.FC<FlashcardFormSection> = ({
             definition: debouncedDefinition,
         };
 
-        updateFlashcard({ studySetId, data });
-    }, [debouncedTerm, debouncedDefinition, id, studySetId, updateFlashcard]);
+        updateFlashcard(
+            { studySetId, data },
+            {
+                onSuccess: (updatedFlashcard) => {
+                    setValue(`flashcards.${index}.id`, updatedFlashcard.id);
+                },
+            }
+        );
+    }, [
+        debouncedTerm,
+        debouncedDefinition,
+        id,
+        studySetId,
+        updateFlashcard,
+        index,
+        setValue,
+    ]);
 
     React.useEffect(() => {
         if (isFirstRender.current) {
@@ -63,7 +84,7 @@ export const FlashcardFormSection: React.FC<FlashcardFormSection> = ({
     }, [handleUpdateFlashcard, index]);
 
     return (
-        <div className="bg-primary p-6 rounded-xl flex flex-col gap-4">
+        <div className="bg-primary p-6 rounded-xl flex flex-col gap-4 shadow-md">
             <div className="flex items-center">
                 <h4 className="grow">{index + 1}</h4>
                 <CircularButton

@@ -30,7 +30,7 @@ export const updateFlashcard = async ({
     data: TUpdateFlashcardSchema;
 }): Promise<TFlashcard> => {
     const updateFlashcardData = { ...data, studySetId };
-    
+
     const response = await api.put(
         `${ENDPOINT}/${data.id}`,
         updateFlashcardData

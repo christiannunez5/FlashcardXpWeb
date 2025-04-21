@@ -36,7 +36,7 @@ export const AddDraftStudySetModal = ({ children }: PropsWithChildren) => {
                         onClick={handleAddEmptyStudySet}
                     >
                         <p className="font-medium">Do it yourself flashcards</p>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-gray-400">
                             Upload your files and let AI do all the work
                         </p>
                     </button>
@@ -47,7 +47,7 @@ export const AddDraftStudySetModal = ({ children }: PropsWithChildren) => {
                     >
                         <a href="" className="absolute inset-0 "></a>
                         <p className="font-medium">AI generated flashcards</p>
-                        <p className="text-muted-foreground text-sm">
+                        <p className="text-gray-400 text-sm">
                             Personally create your flashcards and customize them
                             to your liking
                         </p>

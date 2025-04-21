@@ -6,17 +6,16 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { useGetCompletedFlashcards } from "@/features/flashcards/hooks";
 import { useGetCurrentUserQuests } from "@/features/quests/hooks";
 import { TQuest } from "@/types";
-import { Trophy } from "lucide-react";
+import { getExperiencePercentage } from "@/utils";
 import React from "react";
 import { FaExclamation } from "react-icons/fa";
 
 export const QuizModal = () => {
     const { data: quests, isLoading } = useGetCurrentUserQuests();
 
-    const { data: flashcardCompleted } = useGetCompletedFlashcards();
+    console.log(quests);
 
     return (
         <Dialog>
@@ -51,10 +50,17 @@ interface QuestItemProps {
 }
 
 const QuestItem: React.FC<QuestItemProps> = ({ quest }) => {
+    const questPercentage = getExperiencePercentage(
+        quest.completedFlashcards,
+        quest.goal
+    );
+
+    console.log(quest.completedFlashcards >= quest.goal);
+
     return (
         <li className="flex gap-4 items-center">
             <div className="w-full space-y-1">
-                <p>{quest.title}</p>
+                <p className="font-bold ">{quest.title}</p>
                 <p>{quest.description}</p>
 
                 <div
@@ -62,12 +68,12 @@ const QuestItem: React.FC<QuestItemProps> = ({ quest }) => {
                                             flex justify-center "
                 >
                     <div
-                        className="absolute left-0 bg-green-300 w-[60%] h-3
-                                            rounded-l-2xl"
+                        className={`absolute left-0 bg-green-600 h-3 rounded-l-2xl`}
+                        style={{ width: `${questPercentage}%` }}
                     ></div>
 
                     <p className="relative z-30 text-sm -translate-y-3">
-                        0 / 20
+                        {quest.completedFlashcards} / {quest.goal}
                     </p>
                 </div>
             </div>
@@ -80,8 +86,8 @@ const QuestItem: React.FC<QuestItemProps> = ({ quest }) => {
             <div>
                 <Button
                     className="border-2 border-container rounded-lg
-                                        py-6 bg-green-600 text-accent-foreground w-44 self-end"
-                    disabled={!quest.isCompleted}
+                                        py-3.5 bg-green-600 text-accent-foreground w-44 self-end"
+                    disabled={quest.completedFlashcards !== quest.goal}
                 >
                     Complete
                 </Button>

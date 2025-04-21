@@ -49,6 +49,8 @@ export type TQuest = {
     iconUrl: string;
     isCompleted: boolean;
     xpReward: number;
+    goal: number;
+    completedFlashcards: number;
 };
 
 export type TUserExperience = {

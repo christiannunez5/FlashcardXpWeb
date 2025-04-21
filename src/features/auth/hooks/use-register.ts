@@ -36,6 +36,8 @@ export const useRegister = () => {
             if (error instanceof AxiosError) {
                 toast.error(error.response?.data.message);
             }
+
+            console.log(error);
         },
     });
 };

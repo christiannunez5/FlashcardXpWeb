@@ -8,6 +8,6 @@ export const ProtectedRoutes = ({ children }: PropsWithChildren) => {
     if (user === undefined) {
         return <Navigate to="/auth" replace={true} />;
     }
-
+    
     return children;
 };

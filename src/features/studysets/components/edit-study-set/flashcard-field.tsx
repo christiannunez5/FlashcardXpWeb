@@ -17,8 +17,8 @@ export const FlashcardField: React.FC<FlashcardFieldProps> = ({
             <FormInput
                 {...register}
                 placeholder="Enter definition"
-                errorStyles="border-destructive"
-                className="border-b-[3px] outline-none
+                errorStyles="border-red-500"
+                className="border-b-2 outline-none
                             border-container w-full py-1 rounded-none px-0"
                 error={error}
             />

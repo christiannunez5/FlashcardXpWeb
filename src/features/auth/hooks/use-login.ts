@@ -22,16 +22,19 @@ export const useLogin = () => {
 
     return useMutation({
         mutationFn: login,
-        onError: (error) => {
-            if (error instanceof AxiosError) {
-                toast.error(error.response?.data.message);
-            }
-        },
         onSuccess: async () => {
             resetQuests();
+            console.log("success");
             const response = await api.get("api/auth/me");
             setUser(response.data);
-            navigate("/");
+            navigate("/my-studysets");
+        },
+        onError: (error) => {
+            if (error instanceof AxiosError) {
+                const message = error.response?.data?.message;
+                console.log(error.response.data);
+                toast.error(message);
+            }
         },
     });
 };

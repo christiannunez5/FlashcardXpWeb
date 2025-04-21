@@ -11,14 +11,14 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export const FormInput: React.FC<InputProps> = ({
     error,
     className,
-    errorStyles = "border-2 border-destructive",
+    errorStyles = "border-2 border-red-400",
     icon,
     ...props
 }) => {
     return (
         <div
             className={cn(
-                `p-2 rounded-xl transition-all flex gap-2 items-center`,
+                `p-2 rounded-xl transition-all flex gap-2 items-center `,
                 className,
                 `${error ? errorStyles : ""}`
             )}

@@ -1,17 +1,11 @@
-import { TCreateUserSchema } from "@/features/auth/hooks";
+import { TCreateUserSchema, TLoginSchema } from "@/features/auth/hooks";
 import api from "@/lib/axios";
 import { TUser } from "@/types";
 
 const ENDPOINT = "/api/auth";
 
-export const login = async ({
-    email,
-    password,
-}: {
-    email: string;
-    password: string;
-}) => {
-    const response = await api.post(`${ENDPOINT}/login`, { email, password });
+export const login = async (data: TLoginSchema) => {
+    const response = await api.post(`${ENDPOINT}/login`, data);
     return response.data;
 };
 

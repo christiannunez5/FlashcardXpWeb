@@ -1,1 +1,1 @@
-export * from "./quiz-modal";
+export * from "./quests-modal";

@@ -15,7 +15,7 @@ export const StudySetField: React.FC<StudySetFieldProps> = ({
     register,
 }) => {
     return (
-        <div className="bg-primary p-6 rounded-2xl flex flex-col gap-2">
+        <div className="bg-primary p-6 rounded-2xl flex flex-col gap-2 shadow-md">
             <h4 className="text-xl">{title}</h4>
             <FormInput
                 className="w-full bg-background py-3 px-5

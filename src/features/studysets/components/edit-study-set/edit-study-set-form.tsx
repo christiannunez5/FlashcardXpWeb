@@ -44,7 +44,7 @@ export const EditStudySetForm: React.FC<EditStudySetFormProps> = ({
 
     const [cardCount, setCardCount] = useState("1");
 
-    const { mutate: updateFullStudySet } = useUpdateFullStudySet();
+    const { mutate: updateFullStudySet, isPending } = useUpdateFullStudySet();
     const { mutate: deleteFlashcard } = useDeleteFlashcard(studySet.id);
     const { mutate: updateStudySetBasicInfo } = useUpdateStudySet();
 
@@ -157,7 +157,10 @@ export const EditStudySetForm: React.FC<EditStudySetFormProps> = ({
                     })}
                 </ul>
 
-                <div className="bg-primary w-full rounded-xl p-6 flex gap-2 justify-center">
+                <div
+                    className="bg-primary w-full rounded-xl p-6 flex gap-2 justify-center
+                shadow-lg"
+                >
                     <Button
                         type="button"
                         onClick={handleAddFlashcardComponent}
@@ -177,7 +180,11 @@ export const EditStudySetForm: React.FC<EditStudySetFormProps> = ({
                 </div>
 
                 <div className="flex justify-end ">
-                    <Button className="py-6 px-10 " type="submit">
+                    <Button
+                        className="py-6 px-10 "
+                        type="submit"
+                        disabled={isPending}
+                    >
                         {studySet.status === "Published" ? "Save" : "Create"}
                     </Button>
                 </div>
