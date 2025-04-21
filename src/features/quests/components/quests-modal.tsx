@@ -1,3 +1,4 @@
+import { ProgressBar } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { CircularButton } from "@/components/ui/circular-button";
 import {
@@ -6,9 +7,9 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { useGetCurrentUserQuests } from "@/features/quests/hooks";
+import { useGetCurrentUserQuests } from "../hooks";
+import { useCompleteQuest } from "../hooks";
 import { TQuest } from "@/types";
-import { getExperiencePercentage } from "@/utils";
 import React from "react";
 import { FaExclamation } from "react-icons/fa";
 
@@ -50,12 +51,11 @@ interface QuestItemProps {
 }
 
 const QuestItem: React.FC<QuestItemProps> = ({ quest }) => {
-    const questPercentage = getExperiencePercentage(
-        quest.completedFlashcards,
-        quest.goal
-    );
+    const { mutate: completeQuest } = useCompleteQuest();
 
-    console.log(quest.completedFlashcards >= quest.goal);
+    const handleCompleteQuest = () => {
+        completeQuest(quest.id);
+    };
 
     return (
         <li className="flex gap-4 items-center">
@@ -63,17 +63,14 @@ const QuestItem: React.FC<QuestItemProps> = ({ quest }) => {
                 <p className="font-bold ">{quest.title}</p>
                 <p>{quest.description}</p>
 
-                <div
-                    className="relative w-full h-3 rounded-2xl bg-container
-                                            flex justify-center "
-                >
-                    <div
-                        className={`absolute left-0 bg-green-600 h-3 rounded-l-2xl`}
-                        style={{ width: `${questPercentage}%` }}
-                    ></div>
-
-                    <p className="relative z-30 text-sm -translate-y-3">
-                        {quest.completedFlashcards} / {quest.goal}
+                <div className="relative flex flex-col items-center">
+                    <ProgressBar
+                        currentProgress={quest.completedFlashcards}
+                        maxProgress={quest.goal}
+                        height={3}
+                    />
+                    <p className="absolute z-30 text-sm -translate-y-3">
+                        {`${quest.completedFlashcards} / ${quest.goal}`}
                     </p>
                 </div>
             </div>
@@ -88,6 +85,7 @@ const QuestItem: React.FC<QuestItemProps> = ({ quest }) => {
                     className="border-2 border-container rounded-lg
                                         py-3.5 bg-green-600 text-accent-foreground w-44 self-end"
                     disabled={quest.completedFlashcards !== quest.goal}
+                    onClick={handleCompleteQuest}
                 >
                     Complete
                 </Button>

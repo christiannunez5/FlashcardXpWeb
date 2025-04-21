@@ -24,7 +24,6 @@ export const useLogin = () => {
         mutationFn: login,
         onSuccess: async () => {
             resetQuests();
-            console.log("success");
             const response = await api.get("api/auth/me");
             setUser(response.data);
             navigate("/my-studysets");

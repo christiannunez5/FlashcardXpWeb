@@ -1,3 +1,4 @@
+import { Skeleton } from "@/components/shared/skeleton";
 import { useDeleteStudySet } from "@/features/studysets/hooks";
 import { TStudySetSummary } from "@/types";
 import { Trash2 } from "lucide-react";
@@ -5,15 +6,19 @@ import React from "react";
 import { useNavigate } from "react-router";
 
 interface StudySetsProps {
-    studySets: TStudySetSummary[];
+    studySets?: TStudySetSummary[];
 }
 
 export const StudySets: React.FC<StudySetsProps> = ({ studySets }) => {
     return (
         <ul className="grid grid-cols-3 gap-5">
-            {studySets.map((studySet) => {
-                return <StudySetCard studySet={studySet} />;
-            })}
+            {!studySets
+                ? Array.from({ length: 2 }).map((_, index) => (
+                      <StudySetCardSkeleton key={index} />
+                  ))
+                : studySets.map((studySet) => (
+                      <StudySetCard key={studySet.id} studySet={studySet} />
+                  ))}
         </ul>
     );
 };
@@ -65,6 +70,18 @@ export const StudySetCard = ({ studySet }: StudySetCardProps) => {
             <p className="text-sm text-muted-foreground">
                 {studySet.flashcardsCount} terms
             </p>
+        </div>
+    );
+};
+
+const StudySetCardSkeleton = () => {
+    return (
+        <div
+            className="bg-primary w-full h-[150px] rounded-xl p-4 flex flex-col
+        justify-between"
+        >
+            <Skeleton height={10} />
+            <Skeleton width={70} height={10} />
         </div>
     );
 };

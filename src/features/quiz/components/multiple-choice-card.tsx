@@ -1,16 +1,61 @@
+import { cn } from "@/lib/utils";
 import { TQuestion } from "@/types";
+import { Check, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import correctSoundPath from "@/assets/sounds/correct.mp3";
+import wrongSoundPath from "@/assets/sounds/wrong.mp3";
 
 interface MultipleChoiceCardProps {
     question: TQuestion;
     currentIndex: number;
-    onAnswerSelect: (correctAnswer: string, userAnswer?: string) => void;
+    onAnswerSelectCallback: () => void;
+    isActive: boolean;
 }
 
 export const MultipleChoiceCard = ({
     currentIndex,
-    onAnswerSelect,
+    onAnswerSelectCallback,
     question,
+    isActive,
 }: MultipleChoiceCardProps) => {
+    const [didUserAnswer, setDidUserAnswer] = useState(false);
+    const [selectedTerm, setSelectedTerm] = useState("");
+    const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
+
+    const correctSound = new Audio(correctSoundPath);
+    const wrongSound = new Audio(wrongSoundPath);
+
+    const handleOnAnswerSelect = (term: string) => {
+        setSelectedTerm(term);
+        setDidUserAnswer(!didUserAnswer);
+        if (term === question.flashcard.term) {
+            setIsAnswerCorrect(true);
+            correctSound.play();
+            setTimeout(() => {
+                onAnswerSelectCallback();
+            }, 700);
+        } else {
+            wrongSound.play();
+        }
+    };
+
+    useEffect(() => {
+        if (!isActive) return;
+
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (didUserAnswer && e.key === "Enter") {
+                onAnswerSelectCallback();
+            }
+        };
+        if (didUserAnswer) {
+            window.addEventListener("keydown", handleKeyDown);
+        }
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [onAnswerSelectCallback, didUserAnswer, isActive]);
+
     return (
         <div
             className="min-w-full h-full bg-primary 
@@ -21,43 +66,83 @@ export const MultipleChoiceCard = ({
         >
             <div className="grow flex flex-col">
                 <p>Definition</p>
-                <h5 className="flex items-center">
+                <h5 className="flex items-center mt-10">
                     {" "}
                     {question.flashcard.definition}
                 </h5>
             </div>
 
-            <div className="w-full grid grid-cols-2 gap-5">
+            <div className="w-full grid grid-cols-2 gap-5 mb-5">
                 {question.choices.map((choice) => {
+                    const isCorrect = choice === question.flashcard.term;
+                    const isSelected = choice === selectedTerm;
+
                     return (
                         <ChoiceItem
-                            term={choice}
-                            onClick={() =>
-                                onAnswerSelect(question.flashcard.term, choice)
-                            }
+                            label={choice}
+                            onClick={handleOnAnswerSelect}
+                            isCorrect={isCorrect}
+                            isSelected={isSelected}
+                            didUserAnswer={didUserAnswer}
                         />
                     );
                 })}
             </div>
+
+            {didUserAnswer && !isAnswerCorrect && (
+                <footer className="absolute bottom-2 left-0 right-0 p-4 text-center ">
+                    <p className="text text-gray-500">
+                        PRESS ENTER TO CONTINUE
+                    </p>
+                </footer>
+            )}
         </div>
     );
 };
 
-const ChoiceItem = ({
-    term,
+interface ChoiceItemProps {
+    label: string;
+    onClick: (term: string) => void;
+    isSelected: boolean;
+    isCorrect: boolean;
+    didUserAnswer: boolean;
+}
+
+const ChoiceItem: React.FC<ChoiceItemProps> = ({
+    label,
     onClick,
-}: {
-    term?: string;
-    onClick: () => void;
+    isSelected,
+    isCorrect,
+    didUserAnswer,
 }) => {
+    let answerStatus: "correct" | "wrong" | "neutral" = "neutral";
+
+    if (didUserAnswer) {
+        if (isSelected) {
+            answerStatus = isCorrect ? "correct" : "wrong";
+        } else if (isCorrect) {
+            answerStatus = "correct";
+        }
+    }
+
+    let borderStyle = "border-container";
+    if (answerStatus === "correct")
+        borderStyle = "border-dashed border-green-400";
+    if (answerStatus === "wrong") borderStyle = "border-red-400";
+
     return (
-        <div
-            className="w-full border-[1.8px] dark:border-white 
-            rounded-lg py-3 px-7
-            over:bg-background cursor-pointer border-container"
-            onClick={onClick}
+        <button
+            className={cn(
+                `w-full border-[1.8px] rounded-lg py-4 px-5
+            hover:bg-background cursor-pointer flex gap-4 border-container`,
+                borderStyle
+            )}
+            disabled={didUserAnswer}
+            onClick={() => onClick(label)}
         >
-            {term}
-        </div>
+            {answerStatus === "correct" && <Check className="text-green-400" />}
+            {answerStatus === "wrong" && <X className="text-red-400" />}
+            {label}
+        </button>
     );
 };

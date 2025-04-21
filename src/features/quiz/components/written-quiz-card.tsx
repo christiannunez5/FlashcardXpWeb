@@ -4,6 +4,8 @@ import { useAddCompletedFlashcard } from "@/features/flashcards/hooks";
 import { TFlashcard } from "@/types";
 import { Check, X } from "lucide-react";
 import { FormEvent, useEffect, useState } from "react";
+import correctSoundPath from "@/assets/sounds/correct.mp3";
+import wrongSoundPath from "@/assets/sounds/wrong.mp3";
 
 interface WrittenQuizCardProps {
     flashcard: TFlashcard;
@@ -22,6 +24,9 @@ export const WrittenQuizCard = ({
     const [didUserAnswer, setDidUserAnswer] = useState(false);
     const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
 
+    const correctSound = new Audio(correctSoundPath);
+    const wrongSound = new Audio(wrongSoundPath);
+
     const { mutate: addCompleteFlashcard } = useAddCompletedFlashcard();
 
     const handleSubmitAnswer = (e: FormEvent) => {
@@ -33,12 +38,20 @@ export const WrittenQuizCard = ({
             userAnswer.trim().toLocaleLowerCase() ===
             flashcard.term.trim().toLocaleLowerCase()
         ) {
+            correctSound.play();
             setIsAnswerCorrect(true);
+
             const data = {
                 flashcardId: flashcard.id,
             };
 
             addCompleteFlashcard(data);
+
+            setTimeout(() => {
+                handleAnswerCallback();
+            }, 700);
+        } else {
+            wrongSound.play();
         }
     };
 
@@ -127,10 +140,10 @@ export const WrittenQuizCard = ({
                 )}
             </form>
 
-            {didUserAnswer && (
+            {didUserAnswer && !isAnswerCorrect && (
                 <footer className="absolute bottom-2 left-0 right-0 p-4 text-center">
                     <p className="text text-gray-500">
-                       PRESS ENTER TO CONTINUE
+                        PRESS ENTER TO CONTINUE
                     </p>
                 </footer>
             )}

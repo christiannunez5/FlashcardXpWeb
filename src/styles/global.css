@@ -176,4 +176,18 @@ h5 {
                 hover:rounded-xl
                 transition-all duration-75 ease-linear;
     }
+
+    .skeleton {
+        @apply dark:bg-[#333] bg-[#e0e0e0] animate-pulse;
+    }
+}
+
+@keyframes pulse {
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

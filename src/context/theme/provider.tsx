@@ -8,7 +8,7 @@ export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
         if (mode) {
             document.documentElement.classList.add("dark");
         }
-
+        
         return mode;
     });
 

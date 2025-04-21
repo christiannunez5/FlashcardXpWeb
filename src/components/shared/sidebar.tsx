@@ -1,5 +1,7 @@
+import { AddDraftStudySetModal } from "@/components/shared/add-study-set-modal";
 import { sidebarItems } from "@/data";
 import { cn } from "@/lib/utils";
+import { Plus } from "lucide-react";
 import React, { ReactNode } from "react";
 import { Link, useLocation } from "react-router";
 
@@ -30,6 +32,12 @@ export const Sidebar = () => {
                     </Button>
                 </AddDraftStudySetModal>
             </div> */}
+
+            <AddDraftStudySetModal>
+                <button className="sidebar-icon bg-accent text-accent-foreground">
+                    <Plus />
+                </button>
+            </AddDraftStudySetModal>
         </aside>
     );
 };

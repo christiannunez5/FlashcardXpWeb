@@ -1,10 +1,11 @@
+import { Skeleton } from "@/components/shared/skeleton";
 import { TRecentStudySet } from "@/types";
 import { formatLastViewedAt } from "@/utils/format-last-viewed-date";
 import React from "react";
 import { useNavigate } from "react-router";
 
 interface RecentStudySetProps {
-    recentStudySets: TRecentStudySet[];
+    recentStudySets?: TRecentStudySet[];
 }
 
 export const RecentStudySets: React.FC<RecentStudySetProps> = ({
@@ -12,9 +13,15 @@ export const RecentStudySets: React.FC<RecentStudySetProps> = ({
 }) => {
     return (
         <ul className="flex flex-col gap-4">
-            {recentStudySets.map((recentStudySet) => {
-                return <RecentStudySetCard recentStudySet={recentStudySet} />;
-            })}
+            {!recentStudySets ? (
+                <RecentStudySetSkeleton />
+            ) : (
+                recentStudySets.map((recentStudySet) => {
+                    return (
+                        <RecentStudySetCard recentStudySet={recentStudySet} />
+                    );
+                })
+            )}
         </ul>
     );
 };
@@ -47,5 +54,18 @@ const RecentStudySetCard = ({ recentStudySet }: RecentStudySetCardProps) => {
                 </p>
             </div>
         </li>
+    );
+};
+
+const RecentStudySetSkeleton = () => {
+    return (
+        <div className="p-4 rounded-lg w-full flex gap-4 items-center bg-primary">
+            <Skeleton circle width={60} height={60} className="w-[60px]" />
+            
+            <div className="grow space-y-2">
+                <Skeleton height={10} />
+                <Skeleton height={10} />
+            </div>
+        </div>
     );
 };

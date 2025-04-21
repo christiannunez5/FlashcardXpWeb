@@ -7,6 +7,9 @@ const ENDPOINT = "api/study-sets";
 export const getCurrentUserStudySets = async (): Promise<
     TStudySetSummary[]
 > => {
+    await new Promise((resolve) => {
+        setTimeout(resolve, 400);
+    });
     const response = await api.get(ENDPOINT);
     return response.data;
 };
