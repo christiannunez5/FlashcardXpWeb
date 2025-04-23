@@ -10,7 +10,10 @@ import { TStudySet } from "@/types";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { useDeleteFlashcard } from "@/features/flashcards/hooks";
+import {
+    useDeleteFlashcard,
+    useUpdateFlashcard,
+} from "@/features/flashcards/hooks";
 import { FlashcardFormSection } from "./flashcard-form-section";
 import { useNavigate } from "react-router";
 import { handleZodErrors } from "@/utils";
@@ -47,6 +50,9 @@ export const EditStudySetForm: React.FC<EditStudySetFormProps> = ({
     const { mutate: updateFullStudySet, isPending } = useUpdateFullStudySet();
     const { mutate: deleteFlashcard } = useDeleteFlashcard(studySet.id);
     const { mutate: updateStudySetBasicInfo } = useUpdateStudySet();
+    const { isPending: isUpdateFlashcardPending } = useUpdateFlashcard(
+        studySet.id
+    );
 
     const title = watch("title");
 
@@ -84,16 +90,24 @@ export const EditStudySetForm: React.FC<EditStudySetFormProps> = ({
 
     const handleUpdateFullStudySet = useCallback(async () => {
         const data = getValues();
-        updateFullStudySet(
-            { studySetId: studySet.id, data },
-            {
-                onSuccess: () => {
-                    navigate(`/study-set/${studySet.id}`);
-                },
-            }
-        );
-    }, [getValues, studySet.id, updateFullStudySet, navigate]);
-
+        if (!isUpdateFlashcardPending) {
+            updateFullStudySet(
+                { studySetId: studySet.id, data },
+                {
+                    onSuccess: () => {
+                        navigate(`/study-set/${studySet.id}`);
+                    },
+                }
+            );
+        }
+    }, [
+        getValues,
+        studySet.id,
+        updateFullStudySet,
+        navigate,
+        isUpdateFlashcardPending,
+    ]);
+    
     const handleAddFlashcardComponent = () => {
         const currentFlashcards = getValues("flashcards");
 

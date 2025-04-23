@@ -36,10 +36,17 @@ export interface TStudySet extends Omit<TStudySetSummary, "flashcardsCount"> {
     isPublic: boolean;
 }
 
+export interface TPopularStudySet {
+    title: string;
+    flashcardsCount: number;
+    createdBy: TUser;
+}
+
 export type TRecentStudySet = {
     id: string;
     title: string;
     accessedAt: string;
+    createdBy: TUser;
 };
 
 export type TQuest = {

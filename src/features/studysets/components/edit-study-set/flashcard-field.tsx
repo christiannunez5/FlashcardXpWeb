@@ -23,9 +23,7 @@ export const FlashcardField: React.FC<FlashcardFieldProps> = ({
                 error={error}
             />
             <label>
-                <p className="text-lg font-semibold text-muted-foreground">
-                    {label}
-                </p>
+                <p className="text-muted-foreground">{label}</p>
             </label>
         </div>
     );

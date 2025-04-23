@@ -11,9 +11,9 @@ export const getRecentStudySets = async (): Promise<TRecentStudySet[]> => {
     return response.data;
 };
 
-export const addRecentStudySet = async (
-    studySet: TRecentStudySet
-): Promise<TRecentStudySet> => {
-    const response = await api.post(`${ENDPOINT}/${studySet.id}`);
+export const addRecentStudySet = async (data: {
+    studySetId: string;
+}): Promise<TRecentStudySet> => {
+    const response = await api.put(`${ENDPOINT}`, data);
     return response.data;
 };

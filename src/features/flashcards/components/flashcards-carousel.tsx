@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import { BsFullscreen } from "react-icons/bs";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { CircularButton } from "@/components/ui/circular-button";
-import { MdOutlineShuffle } from "react-icons/md";
 
 interface FlashcardsCarouselProps {
     flashcards: TFlashcard[];
@@ -34,7 +33,7 @@ export const FlashcardsCarousel = ({ flashcards }: FlashcardsCarouselProps) => {
 
     return (
         <div className="w-full text-foreground flex flex-col">
-            <Carousel className="" setApi={setApi} opts={{ loop: true }}>
+            <Carousel className="bg-none" setApi={setApi} opts={{ loop: true }}>
                 <CarouselContent>
                     {flashcards.map((f) => {
                         return (
@@ -47,15 +46,6 @@ export const FlashcardsCarousel = ({ flashcards }: FlashcardsCarouselProps) => {
             </Carousel>
 
             <div className="flex mt-5">
-                <div>
-                    <CircularButton
-                        size={10}
-                        className="bg-primary hover:bg-container"
-                    >
-                        <MdOutlineShuffle className="text-xl" />
-                    </CircularButton>
-                </div>
-
                 <div
                     className="bg-primary shadow-sm text-accent-foreground flex items-center mx-auto
                     gap-2 py-2 rounded-4xl px-2"

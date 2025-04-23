@@ -3,10 +3,7 @@ import { FlashcardField } from "./flashcard-field";
 import React, { useCallback, useRef } from "react";
 import { useFormContext } from "react-hook-form";
 import { FiTrash } from "react-icons/fi";
-import {
-    TUpdateFullStudySetSchema,
-    useUpdateFullStudySet,
-} from "@/features/studysets/hooks";
+import { TUpdateFullStudySetSchema } from "@/features/studysets/hooks";
 import useDebounce from "@/hooks/use-debouce";
 import { useUpdateFlashcard } from "@/features/flashcards/hooks";
 
@@ -33,8 +30,6 @@ export const FlashcardFormSection: React.FC<FlashcardFormSection> = ({
         formState: { errors },
     } = useFormContext<TUpdateFullStudySetSchema>();
 
-    const { mutate: updateStudySet } = useUpdateFullStudySet();
-
     const id = getValues(`flashcards.${index}.id`);
 
     const fieldErrors = errors.flashcards?.[index];
@@ -43,7 +38,7 @@ export const FlashcardFormSection: React.FC<FlashcardFormSection> = ({
 
     const term = watch(`flashcards.${index}.term`);
     const definition = watch(`flashcards.${index}.definition`);
-    
+
     const debouncedTerm = useDebounce(term);
     const debouncedDefinition = useDebounce(definition);
 

@@ -1,5 +1,6 @@
 import { addRecentStudySet } from "@/api/recent-studysets";
-import { TStudySetSummary } from "@/types";
+import { updateStudySet } from "@/api/studysets";
+import { TRecentStudySet } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 
@@ -9,37 +10,35 @@ export const useAddRecentStudySet = () => {
     return useMutation({
         mutationFn: addRecentStudySet,
         onMutate: async (newStudySet) => {
-            const updatedStudySet = {
-                ...newStudySet,
-                accessedAt: format(new Date(), "yyyy-MM-dd HH:mm:ss"), // Add or update the `accessedAt` field
-            };
-
             queryClient.cancelQueries({ queryKey: ["recent-study-sets"] });
 
             const previousRecentStudySets = queryClient.getQueryData<
-                TStudySetSummary[]
+                TRecentStudySet[]
             >(["recent-study-sets"]);
 
             // Check if the study set already exists
-            const doesStudySetExist = previousRecentStudySets?.some(
-                (set) => set.id === newStudySet.id
+            const selectedStudySet = previousRecentStudySets?.find(
+                (s) => s.id === newStudySet.studySetId
             );
-
-            console.log(previousRecentStudySets);
 
             queryClient.setQueryData(
                 ["recent-study-sets"],
-                (oldData: TStudySetSummary[]) => {
-                    if (doesStudySetExist) {
+                (oldData: TRecentStudySet[]) => {
+                    const updatedRecentStudySet = {
+                        ...selectedStudySet,
+                        accessedAt: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
+                    };
+
+                    if (selectedStudySet) {
                         return [
-                            { ...updatedStudySet },
+                            { ...updatedRecentStudySet },
                             ...oldData.filter(
-                                (set) => set.id !== newStudySet.id
+                                (set) => set.id !== newStudySet.studySetId
                             ),
                         ];
                     }
 
-                    return [updatedStudySet, ...oldData];
+                    return [updatedRecentStudySet, ...oldData];
                 }
             );
 
@@ -53,12 +52,8 @@ export const useAddRecentStudySet = () => {
                 );
             }
         },
-
         onSettled: () => {
-            // queryClient.invalidateQueries({
-            //     queryKey: ["recent-study-sets"],
-            //     refetchType: "active",
-            // });
+            queryClient.invalidateQueries({ queryKey: ["recent-study-sets"] });
         },
     });
 };

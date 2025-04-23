@@ -1,14 +1,7 @@
 import { useNavigate, useParams } from "react-router";
 import { EditStudySetForm } from "@/features/studysets/components";
 import { Button } from "@/components/ui/button";
-import {
-    TUpdateFullStudySetSchema,
-    updateFullStudySetSchema,
-    useGetStudySet,
-} from "@/features/studysets/hooks";
-import { FlaschcardEditor } from "@/features/flashcards/components";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useGetStudySet } from "@/features/studysets/hooks";
 
 export const EditStudySet = () => {
     const params = useParams();
@@ -21,7 +14,6 @@ export const EditStudySet = () => {
     const studySetId = params.id;
 
     const { data: studySet } = useGetStudySet(studySetId);
-    // const { mutate: updateStudySet, isPending } = useUpdateStudySet();
 
     const handleBack = () => {
         if (studySet?.status === "Published") {
@@ -30,10 +22,6 @@ export const EditStudySet = () => {
             navigate(`/my-studysets`);
         }
     };
-
-    // const handleUpdateStudySet = () => {
-    //     updateStudySetStatus({ studySetId: studySetId });
-    // };
 
     return (
         <div className="my-10">

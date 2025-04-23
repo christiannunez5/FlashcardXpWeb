@@ -17,15 +17,11 @@ export const useCompleteQuest = () => {
             const previousQuests = queryClient.getQueryData<TQuest[]>([
                 "current-user-quests",
             ]);
-
+            
             queryClient.setQueryData(
                 ["current-user-quests"],
                 (oldQuests: TQuest[]) => {
-                    return oldQuests.map((quest) =>
-                        quest.id === questId
-                            ? { ...quest, isCompleted: true }
-                            : quest
-                    );
+                    return oldQuests.filter((quest) => quest.id !== questId);
                 }
             );
 
@@ -45,6 +41,11 @@ export const useCompleteQuest = () => {
             if (error instanceof AxiosError) {
                 toast.error(error.response?.data.message);
             }
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ["current-user-experience"],
+            });
         },
     });
 };

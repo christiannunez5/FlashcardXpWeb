@@ -1,41 +1,35 @@
 import { MainLayout } from "@/components/layout";
-import { ProgressBar } from "@/components/shared";
-import { useAuthContext } from "@/context/auth/hooks";
+import { UserExperienceCard } from "@/features/experience/components";
 import { useGetCurrentUserExperience } from "@/features/experience/hooks";
-import { getExperiencePercentage } from "@/utils";
 
 export const Profile = () => {
-    const { user } = useAuthContext();
-
-    const { data: experience, isPending } = useGetCurrentUserExperience();
+    const { data: userExperience } = useGetCurrentUserExperience();
 
     return (
         <MainLayout>
-            <section>
-                {isPending || !experience ? null : (
-                    <div className="w-full bg-primary rounded-xl p-7 flex gap-4 items-center">
-                        <div className="h-20 w-20 rounded-full border-2 border-container"></div>
+            <div className="w-[70%] mx-auto">
+                <section>
+                    <UserExperienceCard userExperience={userExperience} />
+                </section>
 
-                        <div className="grow space-y-3">
-                            <div className="flex justify-between">
-                                <h4>
-                                    {`${experience?.level.title} : ${experience?.level.value}`}
-                                </h4>
-                                <p>
-                                    {experience?.currentExperience} /{" "}
-                                    {experience?.maxXp}
-                                </p>
-                            </div>
+                {/* <section>
+                <div className="w-full p-4 bg-primary mt-5 rounded-lg">
+                    <h5>Friends</h5>
+                </div>
+            </section>  */}
 
-                            <ProgressBar
-                                height={3}
-                                currentProgress={experience?.currentExperience}
-                                maxProgress={experience?.maxXp}
-                            />
+                <section>
+                    <div className="bg-primary p-4 rounded-lg">
+                        <div className="flex">
+                            <h5>Following</h5>
+                            <h5>Followers</h5>
+                        </div>
+                        <div>
+                            <p>Some title</p>
                         </div>
                     </div>
-                )}
-            </section>
+                </section>
+            </div>
         </MainLayout>
     );
 };

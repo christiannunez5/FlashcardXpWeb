@@ -13,10 +13,10 @@ export const MainLayout = ({ children }: PropsWithChildren) => {
     return (
         <div className="bg-background w-full flex text-foreground ">
             {!shouldHideSidebar && <Sidebar />}
-            
-            <main className="w-full flex flex-col gap-10 p-10 bg-background">
+
+            <main className="w-full flex flex-col gap-10 p-10 bg-background ">
                 <Navbar />
-                {children}
+                <div className="flex-1">{children}</div>
             </main>
         </div>
     );

@@ -1,0 +1,62 @@
+import { ProgressBar } from "@/components/shared";
+import { Skeleton } from "@/components/shared/skeleton";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { useAuthContext } from "@/context/auth/hooks";
+import { TUserExperience } from "@/types";
+import React from "react";
+
+interface UserExperienceCardProps {
+    userExperience?: TUserExperience;
+}
+
+export const UserExperienceCard: React.FC<UserExperienceCardProps> = ({
+    userExperience,
+}) => {
+    const { user } = useAuthContext();
+
+    if (!userExperience || !user) {
+        return <UserExperienceCardSkeleton />;
+    }
+
+    return (
+        <div className="w-full bg-primary rounded-xl p-7 flex gap-4 items-center">
+            <Avatar className="h-28 w-28 bg-accent">
+                <AvatarImage src={user.profilePicUrl} />
+            </Avatar>
+
+            <div className="grow space-y-3">
+                <div className="flex justify-between">
+                    <h4>
+                        {`${userExperience.level.title} : ${userExperience.level.value}`}
+                    </h4>
+                    <p>
+                        {userExperience.currentExperience} /{" "}
+                        {userExperience.maxXp} XP
+                    </p>
+                </div>
+
+                <ProgressBar
+                    height={1}
+                    currentProgress={userExperience.currentExperience}
+                    maxProgress={userExperience.maxXp}
+                />
+            </div>
+        </div>
+    );
+};
+
+const UserExperienceCardSkeleton = () => {
+    return (
+        <div className="w-full bg-primary rounded-xl p-7 gap-4 flex items-center">
+            <Skeleton circle width={100} height={100} />
+
+            <div className="grow space-y-3">
+                <div className="flex justify-between">
+                    <Skeleton height={15} width={300} />
+                    <Skeleton height={15} width={150} />
+                </div>
+                <Skeleton height={15} />
+            </div>
+        </div>
+    );
+};

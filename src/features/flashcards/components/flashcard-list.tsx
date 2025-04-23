@@ -8,7 +8,7 @@ import { useAuthContext } from "@/context/auth/hooks";
 
 interface FlashcardListProps {
     studySet: TStudySet;
-    children: ReactNode;
+    children?: ReactNode;
 }
 
 export const FlashcardList: React.FC<FlashcardListProps> = ({

@@ -1,4 +1,3 @@
-import { ProgressBar } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { CircularButton } from "@/components/ui/circular-button";
 import {
@@ -12,11 +11,12 @@ import { useCompleteQuest } from "../hooks";
 import { TQuest } from "@/types";
 import React from "react";
 import { FaExclamation } from "react-icons/fa";
+import { DialogClose } from "@radix-ui/react-dialog";
+import { X } from "lucide-react";
+import { ProgressBar } from "@/components/shared";
 
-export const QuizModal = () => {
+export const QuestModal = () => {
     const { data: quests, isLoading } = useGetCurrentUserQuests();
-
-    console.log(quests);
 
     return (
         <Dialog>
@@ -29,7 +29,19 @@ export const QuizModal = () => {
                 </CircularButton>
             </DialogTrigger>
 
-            <DialogContent className="min-w-[70%] max-h-[600px] overflow-y-auto">
+            <DialogContent
+                className="min-w-[70%] max-h-[600px] overflow-y-auto"
+                hideCloseButton
+            >
+                <DialogClose className="absolute right-5 top-5">
+                    <CircularButton
+                        className="w-fit p-2 bg-destructive text-white
+                    hover:brightness-75"
+                    >
+                        <X />
+                    </CircularButton>
+                </DialogClose>
+
                 <DialogTitle>
                     <h3 className="text-center">Daily Quest</h3>
                 </DialogTitle>
@@ -60,15 +72,16 @@ const QuestItem: React.FC<QuestItemProps> = ({ quest }) => {
     return (
         <li className="flex gap-4 items-center">
             <div className="w-full space-y-1">
-                <p className="font-bold ">{quest.title}</p>
+                <p className="font-semibold">{quest.title}</p>
                 <p>{quest.description}</p>
 
                 <div className="relative flex flex-col items-center">
                     <ProgressBar
                         currentProgress={quest.completedFlashcards}
                         maxProgress={quest.goal}
-                        height={3}
+                        height={0.8}
                     />
+
                     <p className="absolute z-30 text-sm -translate-y-3">
                         {`${quest.completedFlashcards} / ${quest.goal}`}
                     </p>
