@@ -1,10 +1,8 @@
 import { MainLayout } from "@/components/layout";
 import { useAuthContext } from "@/context/auth/hooks";
-import {
-    PopularStudySets,
-    RecentStudySets,
-    StudySets,
-} from "@/features/studysets/components";
+import { Groups } from "@/features/groups/components";
+import { StudySets, RecentStudySets } from "@/features/studysets/components";
+import { useGetCurrentUserStudySets } from "@/features/studysets/hooks";
 import { useGetRecentStudySets } from "@/features/studysets/hooks/get-recent-study-sets";
 import { FileBox, SquareAsterisk } from "lucide-react";
 
@@ -12,7 +10,8 @@ export const Home = () => {
     const { data: recentStudySets } = useGetRecentStudySets();
     const { user } = useAuthContext();
 
-    console.log(user);
+    const { data: studySets } = useGetCurrentUserStudySets();
+
     return (
         <MainLayout>
             <section className="text-foreground space-y-2">
@@ -20,6 +19,12 @@ export const Home = () => {
                 <div className="">
                     <RecentStudySets recentStudySets={recentStudySets} />
                 </div>
+            </section>
+
+            <section className="space-y-3">
+                <h5 className="font-bold mt-5">Groups</h5>
+
+                <Groups />
             </section>
 
             <section className="space-y-3 mt-5">
@@ -53,7 +58,7 @@ export const Home = () => {
             <section className="mt-5">
                 <h5>Popular study sets</h5>
 
-                <PopularStudySets />
+                <StudySets studySets={studySets} />
             </section>
         </MainLayout>
     );

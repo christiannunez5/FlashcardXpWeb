@@ -1,11 +1,9 @@
 export type TStudySetSummary = {
     id: string;
     title: string;
-    description: string;
-    createdAt: Date;
-    updatedAt: Date;
     status: "Draft" | "Published";
     flashcardsCount: number;
+    createdBy: TUser;
 };
 
 export type TFlashcard = {
