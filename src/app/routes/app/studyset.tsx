@@ -81,12 +81,7 @@ export const StudySet = () => {
                             <div className="mt-5 p-6 bg-primary rounded-2xl space-y-2">
                                 <h5>Description and tags</h5>
                                 <p>{studySet.description}</p>
-                                {/* <input
-                                    type="text"
-                                    className="block border-b-2 w-full border-container
-                                    outline-none py-1.5"
-                                    value={studySet.description}
-                                /> */}
+
                                 <ul className="flex gap-2">
                                     <div className="text-sm bg-none border-1 border-foreground py-1.5 px-5 rounded-3xl cursor-pointer">
                                         Science

@@ -4,7 +4,7 @@ import { Groups } from "@/features/groups/components";
 import { StudySets, RecentStudySets } from "@/features/studysets/components";
 import { useGetCurrentUserStudySets } from "@/features/studysets/hooks";
 import { useGetRecentStudySets } from "@/features/studysets/hooks/get-recent-study-sets";
-import { FileBox, SquareAsterisk } from "lucide-react";
+import { FileBox } from "lucide-react";
 
 export const Home = () => {
     const { data: recentStudySets } = useGetRecentStudySets();
@@ -20,13 +20,6 @@ export const Home = () => {
                     <RecentStudySets recentStudySets={recentStudySets} />
                 </div>
             </section>
-
-            <section className="space-y-3">
-                <h5 className="font-bold mt-5">Groups</h5>
-
-                <Groups />
-            </section>
-
             <section className="space-y-3 mt-5">
                 <h5 className="font-bold">Create</h5>
                 <ul className="grid grid-cols-4 gap-4">
@@ -54,11 +47,18 @@ export const Home = () => {
                     </li>
                 </ul>
             </section>
+            <section className="space-y-3">
+                <h5 className="font-bold mt-5">Groups</h5>
+
+                <Groups />
+            </section>
 
             <section className="mt-5">
                 <h5>Popular study sets</h5>
 
-                <StudySets studySets={studySets} />
+                <div className="mt-5">
+                    <StudySets studySets={studySets} isPopular />
+                </div>
             </section>
         </MainLayout>
     );

@@ -64,3 +64,9 @@ export type TUserExperience = {
     level: { value: number; title: string };
     maxXp: number;
 };
+
+export type TGroupSummary = {
+    id: string;
+    name: string;
+    membersCount: number;
+};

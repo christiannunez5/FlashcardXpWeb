@@ -22,14 +22,14 @@ export const StudySets: React.FC<StudySetsProps> = ({
     }
 
     return (
-        <ul className="grid grid-cols-3 gap-4 mt-5">
+        <ul className="grid grid-cols-3 gap-4 ">
             {studySets.map((studySet) => (
-                <StudySetCard studySet={studySet} key={studySet.id} />
+                <StudySetCard
+                    studySet={studySet}
+                    key={studySet.id}
+                    isPopular={isPopular}
+                />
             ))}
-
-            <StudySetCard studySet={studySets[0]} />
-            <StudySetCard studySet={studySets[0]} />
-            <StudySetCard studySet={studySets[0]} />
         </ul>
     );
 };

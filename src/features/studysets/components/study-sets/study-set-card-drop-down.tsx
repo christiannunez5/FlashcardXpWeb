@@ -28,7 +28,7 @@ export const StudySetCardDropdown: React.FC<StudySetCardDropdownProps> = ({
                 </div>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="w-52">
+            <DropdownMenuContent className="w-52 border-2 border-container">
                 <DropdownMenuItem className="hover:bg-container rounded-none p-3.5 space-x-2 ">
                     <Pencil size={20} strokeWidth={2} />
                     <p>Edit </p>
