@@ -15,6 +15,9 @@ export const getCurrentUserStudySets = async (): Promise<
 };
 
 export const getStudySet = async (studySetId: string): Promise<TStudySet> => {
+    await new Promise((resolve) => {
+        setTimeout(resolve, 350);
+    });
     const response = await api.get(`${ENDPOINT}/${studySetId}`);
     return response.data;
 };

@@ -1,3 +1,4 @@
+import { Skeleton } from "@/components/shared/skeleton";
 import { TFlashcard } from "@/types";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -55,5 +56,13 @@ export const FlashcardCarouselItem = ({
                 </div>
             </div>
         </motion.div>
+    );
+};
+
+export const FlashcardCarouselItemSkeleton = () => {
+    return (
+        <div className="w-full flex flex-col bg-primary rounded-2xl h-[70vh] items-center justify-center">
+            <Skeleton height={10} width={500} />
+        </div>
     );
 };

@@ -4,18 +4,21 @@ import {
     CarouselContent,
     CarouselItem,
 } from "@/components/ui/carousel";
-import { FlashcardCarouselItem } from "@/features/flashcards/components/flashcard-carousel-item";
-import { TFlashcard } from "@/types";
+import {
+    FlashcardCarouselItem,
+    FlashcardCarouselItemSkeleton,
+} from "@/features/flashcards/components/flashcard-carousel-item";
+import { TStudySet } from "@/types";
 import { useEffect, useState } from "react";
 import { BsFullscreen } from "react-icons/bs";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { CircularButton } from "@/components/ui/circular-button";
 
 interface FlashcardsCarouselProps {
-    flashcards: TFlashcard[];
+    studySet: TStudySet | undefined;
 }
 
-export const FlashcardsCarousel = ({ flashcards }: FlashcardsCarouselProps) => {
+export const FlashcardsCarousel = ({ studySet }: FlashcardsCarouselProps) => {
     const [api, setApi] = useState<CarouselApi>();
     const [current, setCurrent] = useState(0);
 
@@ -31,11 +34,15 @@ export const FlashcardsCarousel = ({ flashcards }: FlashcardsCarouselProps) => {
         });
     }, [api]);
 
+    if (!studySet) {
+        return <FlashcardCarouselItemSkeleton />;
+    }
+
     return (
         <div className="w-full text-foreground flex flex-col">
             <Carousel className="bg-none" setApi={setApi} opts={{ loop: true }}>
                 <CarouselContent>
-                    {flashcards.map((f) => {
+                    {studySet.flashcards.map((f) => {
                         return (
                             <CarouselItem key={f.id}>
                                 <FlashcardCarouselItem flashcard={f} />
@@ -59,7 +66,7 @@ export const FlashcardsCarousel = ({ flashcards }: FlashcardsCarouselProps) => {
                     </CircularButton>
 
                     <p className="text-foreground mx-8">
-                        {current + 1}/{flashcards.length}
+                        {current + 1}/{studySet.flashcards.length}
                     </p>
 
                     <CircularButton

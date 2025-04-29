@@ -1,6 +1,7 @@
 import { Skeleton } from "@/components/shared/skeleton";
 import { useGetCurrentUserGroups } from "@/features/groups/hooks";
 import { TGroupSummary } from "@/types";
+import { useNavigate } from "react-router";
 
 export const Groups = () => {
     const { data: groups, isLoading } = useGetCurrentUserGroups();
@@ -29,10 +30,13 @@ interface GroupCardProps {
 }
 
 const GroupCard: React.FC<GroupCardProps> = ({ group }) => {
+    const navigate = useNavigate();
+
     return (
         <li
             className="p-4 rounded-lg bg-primary shadow-md cursor-pointer
-                hover:border-2 border-container h-[150px] flex "
+                hover:border-2 border-container h-[150px] flex"
+            onClick={() => navigate(`/groups/${group.id}`)}
         >
             <div className="flex flex-col gap-3 w-full">
                 <h5 className="grow">{group.name}</h5>

@@ -110,6 +110,17 @@ const createAppRouter = () => {
                         },
                     ],
                 },
+                // quiz routes ends
+
+                // group routes
+
+                {
+                    path: "groups/:id",
+                    lazy: async () => {
+                        const { Group } = await import("./routes/app/group");
+                        return { Component: Group };
+                    },
+                },
             ],
         },
     ]);

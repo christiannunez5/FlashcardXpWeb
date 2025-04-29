@@ -5,9 +5,10 @@ import { EditFlashcardModal } from "@/features/flashcards/components/edit-flashc
 import { IoSearch } from "react-icons/io5";
 import { useParams } from "react-router";
 import { useAuthContext } from "@/context/auth/hooks";
+import { Skeleton } from "@/components/shared/skeleton";
 
 interface FlashcardListProps {
-    studySet: TStudySet;
+    studySet: TStudySet | undefined;
     children?: ReactNode;
 }
 
@@ -16,6 +17,25 @@ export const FlashcardList: React.FC<FlashcardListProps> = ({
     children,
 }) => {
     const [searchTerm, setSearchTerm] = useState("");
+
+    if (!studySet) {
+        return (
+            <div className="space-y-4">
+                <Skeleton width={100} height={10} />
+
+                <ul className="space-y-5">
+                    {Array.from({ length: 5 }).map(() => {
+                        return (
+                            <li className="relative flex gap-12 bg-primary rounded-3xl p-8 shadow-md">
+                                <Skeleton height={10} />
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>
+        );
+    }
+
     const flashcards = studySet.flashcards;
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,8 +47,6 @@ export const FlashcardList: React.FC<FlashcardListProps> = ({
             card.term.toLowerCase().includes(searchTerm.toLowerCase()) ||
             card.definition.toLowerCase().includes(searchTerm.toLowerCase())
     );
-
-    console.log(studySet.flashcards);
     return (
         <div className="flex flex-col gap-5">
             <h4>{flashcards.length} terms</h4>

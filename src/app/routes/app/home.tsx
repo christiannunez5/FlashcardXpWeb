@@ -20,6 +20,7 @@ export const Home = () => {
                     <RecentStudySets recentStudySets={recentStudySets} />
                 </div>
             </section>
+
             <section className="space-y-3 mt-5">
                 <h5 className="font-bold">Create</h5>
                 <ul className="grid grid-cols-4 gap-4">
@@ -47,9 +48,9 @@ export const Home = () => {
                     </li>
                 </ul>
             </section>
-            <section className="space-y-3">
-                <h5 className="font-bold mt-5">Groups</h5>
 
+            <section className="space-y-3">
+                <h5 className="font-bold mt-5">Popular Groups</h5>
                 <Groups />
             </section>
 
