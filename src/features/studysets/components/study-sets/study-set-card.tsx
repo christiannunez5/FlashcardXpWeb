@@ -34,6 +34,8 @@ export const StudySetCard: React.FC<StudySetCardProps> = ({
     ) => {
         e.stopPropagation();
 
+        console.log("Hello");
+
         switch (name) {
             case "delete":
                 deleteStudySet(studySet.id);
@@ -48,11 +50,13 @@ export const StudySetCard: React.FC<StudySetCardProps> = ({
     return (
         <div
             className="p-4 rounded-lg bg-primary shadow-md cursor-pointer
-        hover:border-2 border-container space-y-3"
+        hover:border-2 border-container space-y-5"
             onClick={handleNavigate}
         >
             <div className="flex justify-between">
-                <h5>{studySet.title}</h5>
+                <h5>
+                    {studySet.title} {studySet.status === "Draft" && "(Draft)"}
+                </h5>
                 {!isPopular && (
                     <StudySetCardDropdown
                         handleDropdownClick={handleDropdownClick}

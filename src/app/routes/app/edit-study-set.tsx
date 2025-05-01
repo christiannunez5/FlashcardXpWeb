@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useNavigationType, useParams } from "react-router";
 import { EditStudySetForm } from "@/features/studysets/components";
 import { Button } from "@/components/ui/button";
 import { useGetStudySet } from "@/features/studysets/hooks";
@@ -6,6 +6,7 @@ import { useGetStudySet } from "@/features/studysets/hooks";
 export const EditStudySet = () => {
     const params = useParams();
     const navigate = useNavigate();
+    const navigationType = useNavigationType();
 
     if (!params.id) {
         throw new Error("Params is required");
@@ -16,11 +17,12 @@ export const EditStudySet = () => {
     const { data: studySet } = useGetStudySet(studySetId);
 
     const handleBack = () => {
-        if (studySet?.status === "Published") {
-            navigate(`/study-set/${studySetId}`);
-        } else {
-            navigate(`/my-studysets`);
+        if (navigationType === "POP") {
+            navigate("/");
+            return;
         }
+
+        navigate(-1);
     };
 
     return (

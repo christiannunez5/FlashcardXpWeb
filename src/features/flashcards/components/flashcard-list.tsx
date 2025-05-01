@@ -18,7 +18,7 @@ export const FlashcardList: React.FC<FlashcardListProps> = ({
 }) => {
     const [searchTerm, setSearchTerm] = useState("");
 
-    if (!studySet) {
+    if (!studySet || !studySet.flashcards) {
         return (
             <div className="space-y-4">
                 <Skeleton width={100} height={10} />
@@ -91,7 +91,10 @@ const TermAndDefinitionCard: React.FC<TermAndDefinition> = ({
         throw new Error("study set id required");
     }
     return (
-        <li className="relative flex gap-12 bg-primary rounded-3xl p-8 shadow-md">
+        <li
+            className="relative flex gap-12 bg-primary rounded-3xl p-8 shadow-md"
+            draggable="true"
+        >
             <div
                 className="w-96 grid place-content-center border-r-[3px] 
                                     border-container py-5 break-words  px-5"

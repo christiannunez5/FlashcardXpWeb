@@ -1,4 +1,7 @@
-import { TUpdateFullStudySetSchema } from "@/features/studysets/hooks";
+import {
+    TAddStudySetRatingSchema,
+    TUpdateFullStudySetSchema,
+} from "@/features/studysets/hooks";
 import api from "@/lib/axios";
 import { TStudySetSummary, TStudySet } from "@/types";
 
@@ -52,4 +55,20 @@ export const updateStudySet = async ({
 export const deleteStudySet = async (studySetId: string) => {
     const response = await api.delete(`${ENDPOINT}/${studySetId}`);
     return response.data as TStudySetSummary;
+};
+
+export const addStudySetRating = async ({
+    studySetId,
+    data,
+}: {
+    studySetId: string;
+    data: TAddStudySetRatingSchema;
+}) => {
+    const response = await api.post(`${ENDPOINT}/${studySetId}/ratings`, data);
+    return response.data;
+};
+
+export const getStudySetRating = async (studySetId: string) => {
+    const response = await api.get(`${ENDPOINT}/${studySetId}/ratings`);
+    return response.data;
 };

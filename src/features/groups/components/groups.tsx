@@ -1,4 +1,5 @@
 import { Skeleton } from "@/components/shared/skeleton";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useGetCurrentUserGroups } from "@/features/groups/hooks";
 import { TGroupSummary } from "@/types";
 import { useNavigate } from "react-router";
@@ -17,7 +18,7 @@ export const Groups = () => {
     }
 
     return (
-        <ul className="grid grid-cols-3 gap-4">
+        <ul className="grid grid-cols-4 gap-4">
             {groups.map((group) => {
                 return <GroupCard group={group} key={group.id} />;
             })}
@@ -34,11 +35,11 @@ const GroupCard: React.FC<GroupCardProps> = ({ group }) => {
 
     return (
         <li
-            className="p-4 rounded-lg bg-primary shadow-md cursor-pointer
+            className="rounded-lg bg-primary shadow-md cursor-pointer
                 hover:border-2 border-container h-[150px] flex"
             onClick={() => navigate(`/groups/${group.id}`)}
         >
-            <div className="flex flex-col gap-3 w-full">
+            <div className="flex flex-col gap-3 w-full p-4">
                 <h5 className="grow">{group.name}</h5>
                 <p
                     className="text-sm text-muted-foreground 

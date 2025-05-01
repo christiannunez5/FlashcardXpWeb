@@ -12,12 +12,12 @@ export const MyStudySets = () => {
     const [selectedMenu, setSelectedMenu] = useState("Studysets");
 
     const menuItems = ["Studysets", "Groups"];
-
+    
     return (
         <MainLayout>
             <section className="w-full h-full flex flex-col">
                 <div className="flex justify-between">
-                    <menu className="flex gap-4 w-fit rounded-3xl p-2">
+                    <menu className="flex gap-10 w-fit rounded-3xl p-2">
                         {menuItems.map((menu) => {
                             return (
                                 <li

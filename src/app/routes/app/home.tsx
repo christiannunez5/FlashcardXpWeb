@@ -5,17 +5,21 @@ import { StudySets, RecentStudySets } from "@/features/studysets/components";
 import { useGetCurrentUserStudySets } from "@/features/studysets/hooks";
 import { useGetRecentStudySets } from "@/features/studysets/hooks/get-recent-study-sets";
 import { FileBox } from "lucide-react";
+import * as signalR from "@microsoft/signalr";
+import { Button } from "@/components/ui/button";
+import { connected } from "process";
 
 export const Home = () => {
     const { data: recentStudySets } = useGetRecentStudySets();
     const { user } = useAuthContext();
 
     const { data: studySets } = useGetCurrentUserStudySets();
-
+    
     return (
         <MainLayout>
             <section className="text-foreground space-y-2">
                 <h4>Welcome, {user?.email}</h4>
+
                 <div className="">
                     <RecentStudySets recentStudySets={recentStudySets} />
                 </div>

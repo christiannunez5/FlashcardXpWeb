@@ -22,14 +22,16 @@ export const StudySetCardDropdown: React.FC<StudySetCardDropdownProps> = ({
                 <div
                     className="w-8 h-8 rounded-full flex items-center justify-center
                                         hover:bg-container cursor-pointer"
-                    onClick={(e) => handleDropdownClick(e, "edit")}
                 >
                     <EllipsisVertical size={14} />
                 </div>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="w-52 border-2 border-container">
-                <DropdownMenuItem className="hover:bg-container rounded-none p-3.5 space-x-2 ">
+                <DropdownMenuItem
+                    className="hover:bg-container rounded-none p-3.5 space-x-2 "
+                    onClick={(e) => handleDropdownClick(e, "edit")}
+                >
                     <Pencil size={20} strokeWidth={2} />
                     <p>Edit </p>
                 </DropdownMenuItem>

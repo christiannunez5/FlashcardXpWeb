@@ -10,13 +10,16 @@ import {
     useAddRecentStudySet,
     useGetStudySet,
 } from "@/features/studysets/hooks";
+
 import brain from "@/assets/brain.svg";
 
 import { useEffect } from "react";
 
 import { useNavigate, useParams } from "react-router";
-import { Ellipsis, Star } from "lucide-react";
+import { Ellipsis } from "lucide-react";
 import { Skeleton } from "@/components/shared/skeleton";
+import { StudySetRatingModal } from "@/features/studysets/components";
+import StarRatings from "react-star-ratings";
 
 export const StudySet = () => {
     const params = useParams();
@@ -48,12 +51,11 @@ export const StudySet = () => {
         }
     }, [studySet, navigate, addNewRecentStudySet]);
 
-    console.log(studySet);
     return (
         <MainLayout>
             <div className="w-[80%] mx-auto flex flex-col gap-4">
-                <div className="p-8 bg-primary rounded-xl flex justify-between">
-                    <div className="flex justify-between">
+                <div className="p-8 bg-primary space-y-6 rounded-xl">
+                    <div className="flex w-full justify-between">
                         {!studySet ? (
                             <Skeleton
                                 height={10}
@@ -63,13 +65,34 @@ export const StudySet = () => {
                         ) : (
                             <h3>{studySet.title}</h3>
                         )}
+
+                        <div
+                            className="grid place-content-center w-12 h-12 rounded-full
+                                border-2 border-container hover:border-accent cursor-pointer"
+                        >
+                            <Ellipsis />
+                        </div>
                     </div>
 
-                    <div
-                        className="grid place-content-center w-12 h-12 rounded-full
-                                border-2 border-foreground hover:border-accent cursor-pointer"
-                    >
-                        <Ellipsis />
+                    <div className="flex gap-2">
+                        <div className="flex gap-3 items-center text-sm">
+                            <p>4.5</p>
+                            <StarRatings
+                                rating={4.5}
+                                starRatedColor="#FAAF00"
+                                numberOfStars={5}
+                                starEmptyColor="gray"
+                                starHoverColor="#FAAF00"
+                                starDimension="20"
+                            />
+                            <p>(12)</p>
+                            <StudySetRatingModal />
+                        </div>
+
+                        <div className="flex items-center ">
+                            <img src={brain} alt="" className="h-12" />
+                            <p className="font-medium">Studied by 427 people</p>
+                        </div>
                     </div>
                 </div>
 
@@ -78,7 +101,10 @@ export const StudySet = () => {
                         <Skeleton width={200} height={10} />
                     ) : (
                         <PracticeOptionsModal studySetId={studySet.id}>
-                            <Button className="py-6 px-12 bg-primary rounded-2xl">
+                            <Button
+                                className="py-6 px-12 bg-primary rounded-2xl
+                                text-foreground hover:text-accent-foreground"
+                            >
                                 Practice
                             </Button>
                         </PracticeOptionsModal>
@@ -107,62 +133,6 @@ export const StudySet = () => {
                         )}
                     </FlashcardList>
                 </section>
-                {/*
-                    <section className="space-x-2">
-                        <div className="mt-5 ">
-                            <PracticeOptionsModal studySetId={studySet.id}>
-                                <Button className="py-6 px-12 bg-primary rounded-2xl">
-                                    Practice
-                                </Button>
-                            </PracticeOptionsModal>
-                        </div>
-
-                        <div className="flex gap-10 mt-5">
-                            <FlashcardsCarousel
-                                flashcards={studySet?.flashcards}
-                            />
-                        </div>
-
-                        <div className="mt-5 p-6 bg-primary rounded-2xl space-y-2">
-                            <h5>Description and tags</h5>
-                            { <p>{studySet.description}</p> }
-
-                            <ul className="flex gap-2">
-                                <div className="text-sm bg-none border-1 border-foreground py-1.5 px-5 rounded-3xl cursor-pointer">
-                                    Science
-                                </div>
-
-                                <button
-                                    className="text-sm bg-none border-2 border-container
-                                py-1.5 px-5 rounded-3xl cursor-pointer hover:bg-accent
-                                hover:text-accent-foreground
-                                transition-colors duration-100 ease-in-out "
-                                >
-                                    Add tags
-                                </button>
-                            </ul>
-                        </div>
-                    </section>
-
-                    <section className="w-full">
-                        <FlashcardList studySet={studySet}>
-                            {user?.id === studySet.createdBy.id && (
-                                <div className="self-end">
-                                    <Button
-                                        className="p-6 rounded-3xl"
-                                        onClick={() =>
-                                            navigate(
-                                                `/study-set/${studySet.id}/edit`
-                                            )
-                                        }
-                                    >
-                                        <h5>Add or remove items</h5>
-                                    </Button>
-                                </div>
-                            )}
-                        </FlashcardList>
-                    </section>
-                </> */}
             </div>
         </MainLayout>
     );

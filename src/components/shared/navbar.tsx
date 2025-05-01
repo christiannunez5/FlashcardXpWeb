@@ -15,7 +15,7 @@ export const Navbar = () => {
 
     return (
         <nav className="w-full flex justify-end gap-6 items-center">
-            <div
+            {/* <div
                 className="w-[60%] flex p-[0.9rem] outline-none rounded-xl
             bg-background border-2 border-container gap-3"
             >
@@ -26,7 +26,7 @@ export const Navbar = () => {
                     className="w-full outline-none"
                     placeholder="Search anything.."
                 />
-            </div>
+            </div> */}
 
             <QuestModal />
             <ThemeToggle />

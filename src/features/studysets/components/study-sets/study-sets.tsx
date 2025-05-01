@@ -22,7 +22,7 @@ export const StudySets: React.FC<StudySetsProps> = ({
     }
 
     return (
-        <ul className="grid grid-cols-3 gap-4 ">
+        <ul className="grid grid-cols-4 gap-4 ">
             {studySets.map((studySet) => (
                 <StudySetCard
                     studySet={studySet}

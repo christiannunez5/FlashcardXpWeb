@@ -19,6 +19,7 @@ import { useNavigate } from "react-router";
 import { handleZodErrors } from "@/utils";
 import { StudySetField } from "./study-set-field";
 import useDebounce from "@/hooks/use-debouce";
+import { arrayMove, List } from "react-movable";
 
 interface EditStudySetFormProps {
     studySet: TStudySet;
@@ -107,7 +108,7 @@ export const EditStudySetForm: React.FC<EditStudySetFormProps> = ({
         navigate,
         isUpdateFlashcardPending,
     ]);
-    
+
     const handleAddFlashcardComponent = () => {
         const currentFlashcards = getValues("flashcards");
 
@@ -130,6 +131,18 @@ export const EditStudySetForm: React.FC<EditStudySetFormProps> = ({
             (_, i) => i !== index
         );
         setValue("flashcards", updatedFlashcards);
+    };
+
+    // TODO : save to database the flashcards order
+    const handleReOrder = async (oldIndex: number, newIndex: number) => {
+        const updated = arrayMove(flashcards, oldIndex, newIndex).map(
+            (card, index) => ({
+                id: card.id,
+                position: index,
+            })
+        );
+
+        setValue("flashcards", arrayMove(flashcards, oldIndex, newIndex));
     };
 
     return (
@@ -155,7 +168,32 @@ export const EditStudySetForm: React.FC<EditStudySetFormProps> = ({
                     register={register("description")}
                 />
 
-                <ul className="space-y-4">
+                <List
+                    values={flashcards}
+                    onChange={({ oldIndex, newIndex }) =>
+                        handleReOrder(oldIndex, newIndex)
+                    }
+                    renderList={({ children, props }) => (
+                        <ul {...props} className="space-y-4">
+                            {children}
+                        </ul>
+                    )}
+                    renderItem={({ value, props, index }) => (
+                        <li {...props} className="list-none">
+                            <FlashcardFormSection
+                                key={index}
+                                studySetId={studySet.id}
+                                index={index}
+                                isDeleteDisabled={flashcards.length <= 4}
+                                onDelete={() => {
+                                    handleDeleteFlashcard(index, value.id);
+                                }}
+                            />
+                        </li>
+                    )}
+                />
+
+                {/* <ul className="space-y-4">
                     {flashcards.map((flashcard, index) => {
                         return (
                             <FlashcardFormSection
@@ -169,7 +207,7 @@ export const EditStudySetForm: React.FC<EditStudySetFormProps> = ({
                             />
                         );
                     })}
-                </ul>
+                </ul> */}
 
                 <div
                     className="bg-primary w-full rounded-xl p-6 flex gap-2 justify-center
