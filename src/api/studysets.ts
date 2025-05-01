@@ -3,7 +3,7 @@ import {
     TUpdateFullStudySetSchema,
 } from "@/features/studysets/hooks";
 import api from "@/lib/axios";
-import { TStudySetSummary, TStudySet } from "@/types";
+import { TStudySetSummary, TStudySet, TStudySetRating } from "@/types";
 
 const ENDPOINT = "api/study-sets";
 
@@ -68,7 +68,27 @@ export const addStudySetRating = async ({
     return response.data;
 };
 
-export const getStudySetRating = async (studySetId: string) => {
+export const updateStudySetRating = async ({
+    studySetId,
+    data,
+}: {
+    studySetId: string;
+    data: TAddStudySetRatingSchema;
+}) => {
+    const response = await api.patch(`${ENDPOINT}/${studySetId}/ratings`, data);
+    return response.data;
+};
+
+export const getStudySetRating = async (
+    studySetId: string
+): Promise<TStudySetRating> => {
     const response = await api.get(`${ENDPOINT}/${studySetId}/ratings`);
+    return response.data;
+};
+
+export const getUserStudySetRating = async (
+    studySetId: string
+): Promise<number> => {
+    const response = await api.get(`${ENDPOINT}/${studySetId}/ratings/me`);
     return response.data;
 };

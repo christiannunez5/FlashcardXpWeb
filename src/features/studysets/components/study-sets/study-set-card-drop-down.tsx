@@ -4,27 +4,25 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { EllipsisVertical, Pencil, GitMerge, Trash } from "lucide-react";
+import { Pencil, GitMerge, Trash } from "lucide-react";
+import { ReactNode } from "react";
 
 interface StudySetCardDropdownProps {
     handleDropdownClick: (
         e: React.MouseEvent,
         name: "edit" | "delete" | "combine"
     ) => void;
+    children?: ReactNode;
 }
 
 export const StudySetCardDropdown: React.FC<StudySetCardDropdownProps> = ({
     handleDropdownClick,
+    children,
 }) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild className="outline-none">
-                <div
-                    className="w-8 h-8 rounded-full flex items-center justify-center
-                                        hover:bg-container cursor-pointer"
-                >
-                    <EllipsisVertical size={14} />
-                </div>
+                {children}
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="w-52 border-2 border-container">

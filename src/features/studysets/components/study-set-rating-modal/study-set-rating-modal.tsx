@@ -7,24 +7,31 @@ import {
 } from "@/components/ui/dialog";
 import { StudySetRatingForm } from "./study-set-rating-form";
 import { Button } from "@/components/ui/button";
+import { ReactNode, useState } from "react";
 
-export const StudySetRatingModal = () => {
+interface StudySetRatingModalProps {
+    children: ReactNode;
+    userRating: number;
+}
+
+export const StudySetRatingModal: React.FC<StudySetRatingModalProps> = ({
+    children,
+    userRating,
+}) => {
+    const [openModal, setOpenModal] = useState(false);
+    
     return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <button
-                    className="p-2 px-5 border-[0.2px] border-container cursor-pointer
-                        rounded-2xl hover:bg-foreground hover:text-primary-foreground"
-                >
-                    Rate it
-                </button>
-            </DialogTrigger>
+        <Dialog open={openModal} onOpenChange={setOpenModal}>
+            <DialogTrigger asChild>{children}</DialogTrigger>
 
             <DialogContent className="p-0 pb-4 border-none" hideCloseButton>
                 <DialogTitle className="p-6 text-center border-b-2 border-container">
                     <h3>Rate your experience</h3>
                 </DialogTitle>
-                <StudySetRatingForm>
+                <StudySetRatingForm
+                    userRating={userRating}
+                    onSubmitCallback={() => setOpenModal(!openModal)}
+                >
                     <DialogClose>
                         <Button
                             variant="outline"

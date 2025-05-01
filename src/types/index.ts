@@ -1,3 +1,5 @@
+// study sets
+
 export type TStudySetSummary = {
     id: string;
     title: string;
@@ -5,6 +7,34 @@ export type TStudySetSummary = {
     flashcardsCount: number;
     createdBy: TUser;
 };
+
+export interface TStudySet extends Omit<TStudySetSummary, "flashcardsCount"> {
+    flashcards: TFlashcard[];
+    createdBy: TUser;
+    isPublic: boolean;
+}
+
+export type TRecentStudySet = {
+    id: string;
+    title: string;
+    accessedAt: string;
+    createdBy: TUser;
+};
+
+export interface TPopularStudySet {
+    title: string;
+    flashcardsCount: number;
+    createdBy: TUser;
+}
+
+export type TStudySetRating = {
+    averageRating: number;
+    ratedByCount: number;
+};
+
+// study set section ends
+
+// flashcard section
 
 export type TFlashcard = {
     id: string;
@@ -16,6 +46,8 @@ export type TCompletedFlashcard = {
     count: number;
 };
 
+// flashcard section ends
+
 export type TQuestion = {
     flashcard: TFlashcard;
     choices: string[];
@@ -26,25 +58,6 @@ export type TUser = {
     username: string;
     email: string;
     profilePicUrl: string;
-};
-
-export interface TStudySet extends Omit<TStudySetSummary, "flashcardsCount"> {
-    flashcards: TFlashcard[];
-    createdBy: TUser;
-    isPublic: boolean;
-}
-
-export interface TPopularStudySet {
-    title: string;
-    flashcardsCount: number;
-    createdBy: TUser;
-}
-
-export type TRecentStudySet = {
-    id: string;
-    title: string;
-    accessedAt: string;
-    createdBy: TUser;
 };
 
 export type TQuest = {
@@ -65,8 +78,12 @@ export type TUserExperience = {
     maxXp: number;
 };
 
+// group section
+
 export type TGroupSummary = {
     id: string;
     name: string;
     membersCount: number;
 };
+
+// group section ends

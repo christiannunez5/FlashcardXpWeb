@@ -5,4 +5,7 @@ export * from "./update-study-set";
 export * from "./get-study-set";
 export * from "./add-recent-study-set";
 export * from "./update-full-study-set";
-export * from './add-rating'
+export * from "./add-rating";
+export * from "./get-study-set-rating";
+export * from "./get-user-study-set-rating";
+export * from "./update-study-set-rating";

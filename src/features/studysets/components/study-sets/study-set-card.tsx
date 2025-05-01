@@ -5,6 +5,7 @@ import { TStudySetSummary } from "@/types";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import React from "react";
 import { useNavigate } from "react-router";
+import { EllipsisVertical } from "lucide-react";
 
 interface StudySetCardProps {
     studySet: TStudySetSummary;
@@ -60,7 +61,14 @@ export const StudySetCard: React.FC<StudySetCardProps> = ({
                 {!isPopular && (
                     <StudySetCardDropdown
                         handleDropdownClick={handleDropdownClick}
-                    />
+                    >
+                        <div
+                            className="w-8 h-8 rounded-full flex items-center justify-center
+                                        hover:bg-container cursor-pointer"
+                        >
+                            <EllipsisVertical size={14} />
+                        </div>
+                    </StudySetCardDropdown>
                 )}
             </div>
 

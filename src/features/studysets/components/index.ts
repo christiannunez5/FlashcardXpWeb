@@ -4,3 +4,4 @@ export * from "./edit-study-set/flashcard-form-section";
 export * from "./recent-study-sets";
 export * from "./study-sets";
 export * from "./study-set-rating-modal";
+export * from "./study-set-basic-info-card";

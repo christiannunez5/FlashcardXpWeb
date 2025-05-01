@@ -9,17 +9,13 @@ import { PracticeOptionsModal } from "@/features/quiz/components";
 import {
     useAddRecentStudySet,
     useGetStudySet,
+    useGetStudySetRating,
+    useGetUserStudySetRating,
 } from "@/features/studysets/hooks";
-
-import brain from "@/assets/brain.svg";
-
 import { useEffect } from "react";
-
 import { useNavigate, useParams } from "react-router";
-import { Ellipsis } from "lucide-react";
 import { Skeleton } from "@/components/shared/skeleton";
-import { StudySetRatingModal } from "@/features/studysets/components";
-import StarRatings from "react-star-ratings";
+import { StudySetBasicInfoCard } from "@/features/studysets/components";
 
 export const StudySet = () => {
     const params = useParams();
@@ -32,6 +28,10 @@ export const StudySet = () => {
     }
 
     const { data: studySet } = useGetStudySet(params.id);
+    const { data: studySetRating } = useGetStudySetRating(params.id);
+    const { data: userRating } = useGetUserStudySetRating(params.id);
+
+    console.log(userRating);
 
     useEffect(() => {
         return () => {
@@ -54,47 +54,11 @@ export const StudySet = () => {
     return (
         <MainLayout>
             <div className="w-[80%] mx-auto flex flex-col gap-4">
-                <div className="p-8 bg-primary space-y-6 rounded-xl">
-                    <div className="flex w-full justify-between">
-                        {!studySet ? (
-                            <Skeleton
-                                height={10}
-                                width={300}
-                                className="mt-5"
-                            />
-                        ) : (
-                            <h3>{studySet.title}</h3>
-                        )}
-
-                        <div
-                            className="grid place-content-center w-12 h-12 rounded-full
-                                border-2 border-container hover:border-accent cursor-pointer"
-                        >
-                            <Ellipsis />
-                        </div>
-                    </div>
-
-                    <div className="flex gap-2">
-                        <div className="flex gap-3 items-center text-sm">
-                            <p>4.5</p>
-                            <StarRatings
-                                rating={4.5}
-                                starRatedColor="#FAAF00"
-                                numberOfStars={5}
-                                starEmptyColor="gray"
-                                starHoverColor="#FAAF00"
-                                starDimension="20"
-                            />
-                            <p>(12)</p>
-                            <StudySetRatingModal />
-                        </div>
-
-                        <div className="flex items-center ">
-                            <img src={brain} alt="" className="h-12" />
-                            <p className="font-medium">Studied by 427 people</p>
-                        </div>
-                    </div>
-                </div>
+                <StudySetBasicInfoCard
+                    studySet={studySet}
+                    rating={studySetRating}
+                    userRating={userRating}
+                />
 
                 <div className="">
                     {!studySet ? (
