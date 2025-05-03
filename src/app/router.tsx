@@ -55,8 +55,8 @@ const createAppRouter = () => {
                 {
                     path: "my-studysets",
                     lazy: async () => {
-                        const { MyStudySets } = await import(
-                            "./routes/app/my-studysets"
+                        const { MyFiles: MyStudySets } = await import(
+                            "./routes/app/my-files"
                         );
                         return { Component: MyStudySets };
                     },

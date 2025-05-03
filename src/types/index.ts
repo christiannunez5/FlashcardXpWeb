@@ -87,3 +87,14 @@ export type TGroupSummary = {
 };
 
 // group section ends
+
+// folder section
+
+export type TFolderSummary = {
+    id: string;
+    name: string;
+};
+
+export type TFolder = TFolderSummary & {
+    subFolders: TFolderSummary[];
+};

@@ -27,7 +27,7 @@ export const useUpdateStudySetRating = (studySetId: string) => {
                 (oldData: TStudySetRating) => {
                     const newAverage =
                         (oldData.averageRating * oldData.ratedByCount -
-                            userStudySetRating +
+                            userStudySetRating! +
                             data.data.rating) /
                         oldData.ratedByCount;
 
@@ -37,7 +37,7 @@ export const useUpdateStudySetRating = (studySetId: string) => {
                     };
                 }
             );
-            
+
             return { previousStudySetRating };
         },
     });

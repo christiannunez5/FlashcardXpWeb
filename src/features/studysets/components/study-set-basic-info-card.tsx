@@ -22,10 +22,6 @@ export const StudySetBasicInfoCard: React.FC<StudySetBasicInfoCardProps> = ({
     const navigate = useNavigate();
     const { mutate: deleteStudySet } = useDeleteStudySet();
 
-    console.log("studyset: ", studySet);
-    console.log("average rating: ", rating);
-    console.log("user rating: ", rating);
-
     if (!studySet || !rating || !userRating) {
         return (
             <div className="px-8 py-12 bg-primary space-y-10 rounded-xl">
@@ -45,8 +41,6 @@ export const StudySetBasicInfoCard: React.FC<StudySetBasicInfoCardProps> = ({
         e: React.MouseEvent,
         name: "delete" | "edit" | "combine"
     ) => {
-        e.stopPropagation();
-
         switch (name) {
             case "delete":
                 deleteStudySet(studySet.id);

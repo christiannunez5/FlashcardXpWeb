@@ -10,7 +10,7 @@ import { PropsWithChildren } from "react";
 
 export const AddDraftStudySetModal = ({ children }: PropsWithChildren) => {
     const { mutate: addEmptyStudySet } = useAddDraftStudySet();
-
+    
     const handleAddEmptyStudySet = () => {
         addEmptyStudySet(undefined, {
             onSuccess: (data) => {

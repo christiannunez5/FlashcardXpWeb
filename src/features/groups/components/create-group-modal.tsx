@@ -14,12 +14,20 @@ import {
 import { handleZodErrors } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Boxes } from "lucide-react";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 import { useForm } from "react-hook-form";
 
-export const CreateGroupModal = ({ children }: PropsWithChildren) => {
-    const { mutate: createGroup } = useCreateGroup();
+interface CreateGroupModalProps {
+    children: ReactNode;
+    open: boolean;
+}
 
+export const CreateGroupModal: React.FC<CreateGroupModalProps> = ({
+    children,
+    open,
+}) => {
+    const { mutate: createGroup } = useCreateGroup();
+    
     const {
         register,
         handleSubmit,
@@ -35,7 +43,7 @@ export const CreateGroupModal = ({ children }: PropsWithChildren) => {
     };
 
     return (
-        <Dialog>
+        <Dialog open={open}>
             <DialogTrigger asChild>{children}</DialogTrigger>
 
             <DialogContent>

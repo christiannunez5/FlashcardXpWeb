@@ -53,17 +53,25 @@ export const useAddStudySetRating = (studySetId: string) => {
                 }
             );
 
-            return { previousStudySetRating };
+            return { previousStudySetRating, previousUserRating };
         },
         onSettled: () => {
             queryClient.invalidateQueries({
                 queryKey: ["study-set-rating", studySetId],
+            });
+
+            queryClient.invalidateQueries({
+                queryKey: ["study-set-user-review", studySetId],
             });
         },
         onError: (_, __, context) => {
             queryClient.setQueryData(
                 ["study-set-rating", studySetId],
                 context?.previousStudySetRating
+            );
+            queryClient.setQueryData(
+                ["study-set-user-review", studySetId],
+                context?.previousUserRating
             );
         },
     });
