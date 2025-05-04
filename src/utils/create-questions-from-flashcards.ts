@@ -25,7 +25,7 @@ export const createQuestionsFromFlashcards = (
  * @param { TFlashcard[] } flashcards - List of flashcards to get choices from
  * @returns {string[]} - Array of 4 shuffled choices (including the correct answer).
  */
-
+    
 const getChoices = (correctFlashcard: TFlashcard, flashcards: TFlashcard[]) => {
     const otherChoices = flashcards
         .filter((item) => item.term !== correctFlashcard.term)

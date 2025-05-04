@@ -32,7 +32,7 @@ export const EditStudySet = () => {
                     Back
                 </Button>
             </div>
-
+            
             <section className="w-[85%] mt-5 mx-auto">
                 {!studySet ? null : (
                     <>

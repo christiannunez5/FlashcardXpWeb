@@ -76,7 +76,7 @@ export const StudySet = () => {
                 <section>
                     <FlashcardsCarousel studySet={studySet} />
                 </section>
-
+                        
                 <section>
                     <FlashcardList studySet={studySet}>
                         {user?.id === studySet?.createdBy.id && (

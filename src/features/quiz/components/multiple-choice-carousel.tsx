@@ -17,7 +17,7 @@ export const MultipleChoiceCarousel = ({
             prevIndex < flashcards.length - 1 ? prevIndex + 1 : prevIndex
         );
     };
-    
+
     const questions = createQuestionsFromFlashcards(flashcards);
 
     return (

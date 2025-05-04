@@ -4,12 +4,14 @@ import { Check, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import correctSoundPath from "@/assets/sounds/correct.mp3";
 import wrongSoundPath from "@/assets/sounds/wrong.mp3";
+import { useAddCompletedFlashcard } from "@/features/flashcards/hooks";
 
 interface MultipleChoiceCardProps {
     question: TQuestion;
     currentIndex: number;
     onAnswerSelectCallback: () => void;
     isActive: boolean;
+    flashcardId: string;
 }
 
 export const MultipleChoiceCard = ({
@@ -17,7 +19,10 @@ export const MultipleChoiceCard = ({
     onAnswerSelectCallback,
     question,
     isActive,
+    flashcardId,
 }: MultipleChoiceCardProps) => {
+    const { mutate: addCompleteFlashcard } = useAddCompletedFlashcard();
+
     const [didUserAnswer, setDidUserAnswer] = useState(false);
     const [selectedTerm, setSelectedTerm] = useState("");
     const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
@@ -31,6 +36,11 @@ export const MultipleChoiceCard = ({
         if (term === question.flashcard.term) {
             setIsAnswerCorrect(true);
             correctSound.play();
+            
+            const data = {
+                flashcardId: question.flashcard.id,
+            };
+            addCompleteFlashcard(data);
             setTimeout(() => {
                 onAnswerSelectCallback();
             }, 700);
