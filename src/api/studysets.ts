@@ -25,8 +25,12 @@ export const getStudySet = async (studySetId: string): Promise<TStudySet> => {
     return response.data;
 };
 
-export const addDraftStudySet = async (): Promise<string> => {
-    const response = await api.post(`${ENDPOINT}/draft`);
+export const createDraftStudySet = async ({
+    data,
+}: {
+    data: { folderId: string | undefined };
+}): Promise<string> => {
+    const response = await api.post(`${ENDPOINT}/draft`, data);
     return response.data;
 };
 

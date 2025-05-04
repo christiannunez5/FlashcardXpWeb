@@ -1,20 +1,17 @@
 import { MainLayout } from "@/components/layout";
 import { useAuthContext } from "@/context/auth/hooks";
+import { studySetMenuData } from "@/data/study-set-menu-data";
 import { Groups } from "@/features/groups/components";
 import { StudySets, RecentStudySets } from "@/features/studysets/components";
 import { useGetCurrentUserStudySets } from "@/features/studysets/hooks";
 import { useGetRecentStudySets } from "@/features/studysets/hooks/get-recent-study-sets";
-import { FileBox } from "lucide-react";
-import * as signalR from "@microsoft/signalr";
-import { Button } from "@/components/ui/button";
-import { connected } from "process";
 
 export const Home = () => {
     const { data: recentStudySets } = useGetRecentStudySets();
     const { user } = useAuthContext();
 
     const { data: studySets } = useGetCurrentUserStudySets();
-    
+
     return (
         <MainLayout>
             <section className="text-foreground space-y-2">
@@ -27,29 +24,24 @@ export const Home = () => {
 
             <section className="space-y-3 mt-5">
                 <h5 className="font-bold">Create</h5>
-                <ul className="grid grid-cols-4 gap-4">
-                    <li
-                        className="rounded-lg bg-primary p-5 space-y-2 shadow-md 
-                    hover:border-2 hover:border-container cursor-pointer"
-                    >
-                        <div
-                            className="h-12 w-12 rounded-full bg-accent text-accent-foreground
-                        grid place-content-center"
-                        >
-                            <FileBox />
-                        </div>
-                        <p>Upload a pdf, ppt, or docx and let AI do the work</p>
-                    </li>
 
-                    <li
-                        className="rounded-lg bg-primary p-5 space-y-2 shadow-md
-                    hover:border-2 hover:border-container transition-colors cursor-pointer"
-                    >
-                        <div className="h-12 w-12 rounded-full">
-                            <img src="" alt="" />
-                        </div>
-                        <p>Create your flashcards manually</p>
-                    </li>
+                <ul className="grid grid-cols-4 gap-4">
+                    {studySetMenuData.map((data) => {
+                        return (
+                            <li
+                                className="rounded-lg bg-primary p-5 space-y-2 shadow-md 
+                    hover:border-2 hover:border-container cursor-pointer"
+                            >
+                                <img
+                                    src={data.icon}
+                                    alt=""
+                                    className="h-12 w-12"
+                                />
+
+                                <p>{data.title}</p>
+                            </li>
+                        );
+                    })}
                 </ul>
             </section>
 
@@ -58,13 +50,7 @@ export const Home = () => {
                 <Groups />
             </section>
 
-            <section className="mt-5">
-                <h5>Popular study sets</h5>
-
-                <div className="mt-5">
-                    <StudySets studySets={studySets} isPopular />
-                </div>
-            </section>
+            <StudySets studySets={studySets} isPopular />
         </MainLayout>
     );
 };

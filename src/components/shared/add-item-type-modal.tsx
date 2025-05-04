@@ -12,39 +12,89 @@ import flashcard from "@/assets/flash-card.png";
 import { studySetMenuData } from "@/data/study-set-menu-data";
 import { folderMenuData } from "@/data/folder-menu-data";
 import { CreateGroupModal } from "@/features/groups/components";
+import group from "@/assets/group.png";
+import { groupMenuData } from "@/data/group-menu-data";
+import { TCreateMenuType } from "@/types";
+import { useCreateDraftStudySet } from "@/features/studysets/hooks";
+import { CreateFolderModal } from "@/features/folders/components";
+import { useParams } from "react-router";
 
 interface AddItemTypeModalProps {
     children: ReactNode;
 }
 
+type MenuItemKey = "Flashcards" | "Groups" | "Folders";
+
+const ALL_MENU_ITEMS: Record<MenuItemKey, { icon: string }> = {
+    Flashcards: { icon: flashcard },
+    Folders: { icon: folder },
+    Groups: { icon: group },
+};
+
+const ALL_MENU_DATA_MAP: Record<MenuItemKey, TCreateMenuType[]> = {
+    Flashcards: studySetMenuData,
+    Folders: folderMenuData,
+    Groups: groupMenuData,
+};
+
 export const AddItemTypeModal: React.FC<AddItemTypeModalProps> = ({
     children,
 }) => {
-    const [selectedItem, setSelectedItem] = useState("Flashcards");
+    const params = useParams();
+    const { mutate: createDraftStudySet } = useCreateDraftStudySet();
 
-    const menuItems = [
-        {
-            title: "Flashcards",
-            icon: flashcard,
-        },
-        {
-            title: "Folders",
-            icon: folder,
-        },
-        {
-            title: "Groups",
-            icon: folder,
-        },
-    ];
+    const menuKeys: MenuItemKey[] = params.id
+        ? ["Flashcards", "Folders"]
+        : ["Flashcards", "Folders", "Groups"];
 
-    const selectedData =
-        selectedItem === "Flashcards" ? studySetMenuData : folderMenuData;
+    const [selectedItem, setSelectedItem] = useState<MenuItemKey>(menuKeys[0]);
+    const [openModal, setOpenModal] = useState(false);
+
+    const menuItems = menuKeys.map((key) => ({
+        title: key,
+        icon: ALL_MENU_ITEMS[key].icon,
+    }));
+
+    const selectedData = ALL_MENU_DATA_MAP[selectedItem] ?? [];
+
+    const handleMenuClick = (type: "modal" | "navigate", action: string) => {
+        if (type === "modal") {
+            setOpenModal(true);
+            return;
+        }
+
+        if (type === "navigate" && action == "create-study-set") {
+            const data = {
+                folderId: params.id,
+            };
+
+            createDraftStudySet(
+                { data },
+                {
+                    onSuccess: (createdStudySetId) => {
+                        window.location.href = `/study-set/${createdStudySetId}/edit`;
+                    },
+                }
+            );
+        }
+
+        if (type === "navigate" && action === "create-study-set-ai") {
+            alert("Ai studyset");
+        }
+    };
 
     return (
         <Dialog>
             <DialogTrigger>{children}</DialogTrigger>
 
-            <CreateGroupModal />
+            <CreateGroupModal
+                open={openModal && selectedItem === "Groups"}
+                setOpen={setOpenModal}
+            />
+            <CreateFolderModal
+                open={openModal && selectedItem === "Folders"}
+                setOpen={setOpenModal}
+            />
 
             <DialogContent
                 className=" flex gap-2 p-0 min-w-[70%] max-h-[600px]"
@@ -91,14 +141,9 @@ export const AddItemTypeModal: React.FC<AddItemTypeModalProps> = ({
                                 <li
                                     className="rounded-lg bg-primary p-5 space-y-2 shadow-md 
                                     hover:border-2 hover:border-container cursor-pointer"
-                                    onClick={() => {
-                                        if (
-                                            data.type === "modal" &&
-                                            data.action === "createFolder"
-                                        ) {
-                                            alert("Create folder");
-                                        }
-                                    }}
+                                    onClick={() =>
+                                        handleMenuClick(data.type, data.action)
+                                    }
                                 >
                                     <img
                                         src={data.icon}

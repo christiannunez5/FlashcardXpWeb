@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
+import { CircularButton } from "@/components/ui/circular-button";
 import {
     Dialog,
+    DialogClose,
     DialogContent,
     DialogTitle,
     DialogTrigger,
@@ -13,21 +15,23 @@ import {
 } from "@/features/groups/hooks";
 import { handleZodErrors } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Boxes } from "lucide-react";
-import { PropsWithChildren, ReactNode } from "react";
+import { Boxes, X } from "lucide-react";
+import { ReactNode } from "react";
 import { useForm } from "react-hook-form";
 
 interface CreateGroupModalProps {
-    children: ReactNode;
+    children?: ReactNode;
     open: boolean;
+    setOpen: (open: boolean) => void;
 }
 
 export const CreateGroupModal: React.FC<CreateGroupModalProps> = ({
     children,
     open,
+    setOpen,
 }) => {
     const { mutate: createGroup } = useCreateGroup();
-    
+
     const {
         register,
         handleSubmit,
@@ -39,14 +43,30 @@ export const CreateGroupModal: React.FC<CreateGroupModalProps> = ({
 
     const handleCreateGroup = () => {
         const data = getValues();
-        createGroup(data);
+        createGroup(data, {
+            onSuccess: () => {
+                setOpen(false);
+            },
+        });
     };
 
     return (
-        <Dialog open={open}>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>{children}</DialogTrigger>
 
-            <DialogContent>
+            <DialogContent hideCloseButton>
+                <DialogClose
+                    onClick={() => setOpen(false)}
+                    className="w-fit ml-auto "
+                >
+                    <CircularButton
+                        size={10}
+                        className="bg-destructive text-accent-foreground"
+                    >
+                        <X />
+                    </CircularButton>
+                </DialogClose>
+
                 <DialogTitle className="flex flex-col items-center gap-4">
                     <Boxes size={50} className="text-accent" />
                     <h4 className="text-center">Create your new group</h4>

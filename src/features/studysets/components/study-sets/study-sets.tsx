@@ -13,23 +13,33 @@ export const StudySets: React.FC<StudySetsProps> = ({
 }) => {
     if (!studySets) {
         return (
-            <ul className="grid grid-cols-3 gap-4 mt-5">
-                {Array.from({ length: 5 }).map(() => (
-                    <StudySetCardSkeleton />
-                ))}
-            </ul>
+            <section className="space-y-3 mt-5">
+                <h5>Studysets</h5>
+                <ul className="grid grid-cols-4 gap-4 mt-5">
+                    {Array.from({ length: 5 }).map(() => (
+                        <StudySetCardSkeleton />
+                    ))}
+                </ul>
+            </section>
         );
     }
 
+    if (studySets.length === 0) {
+        return null;
+    }
+
     return (
-        <ul className="grid grid-cols-4 gap-4 ">
-            {studySets.map((studySet) => (
-                <StudySetCard
-                    studySet={studySet}
-                    key={studySet.id}
-                    isPopular={isPopular}
-                />
-            ))}
-        </ul>
+        <section className="space-y-3 mt-5">
+            <h5>{!isPopular ? "Studysets" : "Popular studysets"}</h5>
+            <ul className="grid grid-cols-4 gap-4 ">
+                {studySets.map((studySet) => (
+                    <StudySetCard
+                        studySet={studySet}
+                        key={studySet.id}
+                        isPopular={isPopular}
+                    />
+                ))}
+            </ul>
+        </section>
     );
 };

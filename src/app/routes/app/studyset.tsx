@@ -31,8 +31,6 @@ export const StudySet = () => {
     const { data: studySetRating } = useGetStudySetRating(params.id);
     const { data: userRating } = useGetUserStudySetRating(params.id);
 
-    console.log(userRating);
-
     useEffect(() => {
         return () => {
             if (studySet) {
@@ -62,7 +60,7 @@ export const StudySet = () => {
 
                 <div className="">
                     {!studySet ? (
-                        <Skeleton width={200} height={10} />
+                        <Skeleton className="h-2 w-36" />
                     ) : (
                         <PracticeOptionsModal studySetId={studySet.id}>
                             <Button

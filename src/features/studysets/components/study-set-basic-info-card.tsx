@@ -26,12 +26,11 @@ export const StudySetBasicInfoCard: React.FC<StudySetBasicInfoCardProps> = ({
         return (
             <div className="px-8 py-12 bg-primary space-y-10 rounded-xl">
                 <div className="">
-                    <Skeleton height={10} width={300} className="" />
+                    <Skeleton className="h-2 w-full" />
                 </div>
 
                 <div className="flex gap-5 items-center ">
-                    <Skeleton height={10} width={300} />
-                    <Skeleton height={10} width={300} />
+                    <Skeleton className="h-2 w-48" />
                 </div>
             </div>
         );
@@ -54,12 +53,8 @@ export const StudySetBasicInfoCard: React.FC<StudySetBasicInfoCardProps> = ({
 
     return (
         <div className="p-8 bg-primary space-y-6 rounded-xl">
-            <div className="flex w-full justify-between">
-                {!studySet ? (
-                    <Skeleton height={10} width={300} className="mt-5" />
-                ) : (
-                    <h3>{studySet.title}</h3>
-                )}
+            <div className="flex w-full justify-between ">
+                <h3>{studySet.title} Asdasd</h3>
 
                 <StudySetCardDropdown handleDropdownClick={handleDropdownClick}>
                     <div

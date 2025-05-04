@@ -4,7 +4,7 @@ import { useDeleteStudySet } from "@/features/studysets/hooks";
 import { TStudySetSummary } from "@/types";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import React from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { EllipsisVertical } from "lucide-react";
 
 interface StudySetCardProps {
@@ -17,8 +17,9 @@ export const StudySetCard: React.FC<StudySetCardProps> = ({
     isPopular = false,
 }) => {
     const navigate = useNavigate();
+    const params = useParams();
 
-    const { mutate: deleteStudySet } = useDeleteStudySet();
+    const { mutate: deleteStudySet } = useDeleteStudySet(params.id);
 
     const handleNavigate = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -34,8 +35,6 @@ export const StudySetCard: React.FC<StudySetCardProps> = ({
         name: "delete" | "edit" | "combine"
     ) => {
         e.stopPropagation();
-
-        console.log("Hello");
 
         switch (name) {
             case "delete":
@@ -91,11 +90,13 @@ export const StudySetCard: React.FC<StudySetCardProps> = ({
 export const StudySetCardSkeleton = () => {
     return (
         <div className="p-4 rounded-lg bg-primary space-y-3 flex flex-col">
-            <Skeleton height={10} width={200} />
-            <Skeleton height={10} width={150} />
+            <div className="flex flex-col gap-12">
+                <Skeleton className="h-3 w-[50%]" />
+                <Skeleton className="h-3 w-[50%]" />
+            </div>
             <div className="flex items-center gap-2 mt-auto">
-                <Skeleton circle height={50} width={50} />
-                <Skeleton width={100} height={10} />
+                <Skeleton circle className="h-10 w-10" />
+                <Skeleton className="h-2 grow" />
             </div>
         </div>
     );

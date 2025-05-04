@@ -1,5 +1,7 @@
 // study sets
 
+import { ReactNode } from "react";
+
 export type TStudySetSummary = {
     id: string;
     title: string;
@@ -93,8 +95,18 @@ export type TGroupSummary = {
 export type TFolderSummary = {
     id: string;
     name: string;
+    parentFolderId: string | undefined;
 };
 
 export type TFolder = TFolderSummary & {
     subFolders: TFolderSummary[];
+};
+
+// utilities
+
+export type TCreateMenuType = {
+    title: string;
+    icon: string;
+    type: "modal" | "navigate";
+    action: string;
 };

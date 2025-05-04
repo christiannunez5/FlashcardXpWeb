@@ -5,12 +5,12 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { useAddDraftStudySet } from "@/features/studysets/hooks";
+import { useCreateDraftStudySet } from "@/features/studysets/hooks";
 import { PropsWithChildren } from "react";
 
 export const AddDraftStudySetModal = ({ children }: PropsWithChildren) => {
-    const { mutate: addEmptyStudySet } = useAddDraftStudySet();
-    
+    const { mutate: addEmptyStudySet } = useCreateDraftStudySet();
+
     const handleAddEmptyStudySet = () => {
         addEmptyStudySet(undefined, {
             onSuccess: (data) => {

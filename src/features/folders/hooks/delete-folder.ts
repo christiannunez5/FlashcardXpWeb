@@ -1,29 +1,59 @@
 import { deleteFolder } from "@/api/folders";
-import { TFolderSummary } from "@/types";
+import { TFolder, TFolderSummary } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { toast } from "sonner";
 
-export const useDeleteFolder = (folderId: string) => {
+export const useDeleteFolder = (parentFolderId?: string) => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: deleteFolder,
-        onMutate: async () => {
-            queryClient.invalidateQueries({ queryKey: ["folders", folderId] });
+        onMutate: async (deletedFolderId) => {
+            let previousParentFolder;
+            let previousFolders;
 
-            const previousFolders = queryClient.getQueryData<TFolderSummary[]>([
-                "folders",
-                folderId,
-            ]);
+            queryClient.invalidateQueries({
+                queryKey: ["folders", parentFolderId],
+            });
 
-            queryClient.setQueryData(
-                ["folders", folderId],
-                (oldFolders: TFolderSummary[]) => {
-                    return oldFolders.filter((f) => f.id !== folderId);
-                }
-            );
+            queryClient.invalidateQueries({
+                queryKey: ["folders"],
+            });
+            
+            if (!parentFolderId) {
+                previousFolders = queryClient.getQueryData<TFolderSummary[]>([
+                    "folders",
+                ]);
+                queryClient.setQueryData(
+                    ["folders"],
+                    (oldFolders: TFolderSummary[]) => {
+                        return oldFolders.filter(
+                            (f) => f.id !== deletedFolderId
+                        );
+                    }
+                );
+            } else {
+                previousParentFolder = queryClient.getQueryData<TFolder>([
+                    "folders",
+                    parentFolderId,
+                ]);
 
-            return { previousFolders };
+                console.log(previousParentFolder);
+
+                queryClient.setQueryData(
+                    ["folders", parentFolderId],
+                    (oldFolderData: TFolder) => {
+                        return {
+                            ...oldFolderData,
+                            subFolders: oldFolderData.subFolders.filter(
+                                (f) => f.id !== deletedFolderId
+                            ),
+                        };
+                    }
+                );
+            }
+
+            return { previousFolders, previousParentFolder };
         },
 
         onError(error, _, context) {
@@ -32,13 +62,21 @@ export const useDeleteFolder = (folderId: string) => {
             }
 
             queryClient.setQueryData(
-                ["folders", folderId],
-                context?.previousFolders
+                ["folders", parentFolderId],
+                context?.previousParentFolder
             );
+
+            queryClient.setQueryData(["folders"], context?.previousFolders);
         },
 
         onSuccess() {
-            queryClient.invalidateQueries({ queryKey: ["folders", folderId] });
+            queryClient.invalidateQueries({
+                queryKey: ["folders", parentFolderId],
+            });
+
+            queryClient.invalidateQueries({
+                queryKey: ["folders"],
+            });
         },
     });
 };

@@ -9,15 +9,16 @@ import { useState } from "react";
 import folder from "@/assets/opened-folder.svg";
 import { FolderList } from "@/features/folders/components";
 import { AddItemTypeModal } from "@/components/shared/add-item-type-modal";
+import { useGetFolders } from "@/features/folders/hooks";
 
 export const MyFiles = () => {
     const { data: studySets } = useGetCurrentUserStudySets();
 
-    const [selectedMenu, setSelectedMenu] = useState("Studysets");
-
     const menuItems = ["Studysets", "Groups"];
 
     const [isGrid, setIsGrid] = useState<"grid" | "list">("grid");
+    
+    const { data: folders } = useGetFolders();
 
     return (
         <MainLayout>
@@ -107,15 +108,9 @@ export const MyFiles = () => {
                 </div>
             </div>
 
-            <section className="space-y-3 mt-5">
-                <h5>Folders</h5>
-                <FolderList />
-            </section>
+            <FolderList folders={folders} />
 
-            <section className="space-y-3 mt-5">
-                <h5>Study sets</h5>
-                <StudySets studySets={studySets} />
-            </section>
+            <StudySets studySets={studySets} />
         </MainLayout>
     );
 };

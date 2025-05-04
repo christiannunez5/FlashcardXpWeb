@@ -121,6 +121,15 @@ const createAppRouter = () => {
                         return { Component: Group };
                     },
                 },
+
+                // folder routes
+                {
+                    path: "folders/:id",
+                    lazy: async () => {
+                        const { Folder } = await import("./routes/app/folder");
+                        return { Component: Folder };
+                    },
+                },
             ],
         },
     ]);
