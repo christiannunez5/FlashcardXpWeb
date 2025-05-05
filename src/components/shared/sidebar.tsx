@@ -33,11 +33,11 @@ export const Sidebar = () => {
                 </AddDraftStudySetModal>
             </div> */}
 
-            <AddDraftStudySetModal>
+            {/* <AddDraftStudySetModal>
                 <button className="sidebar-icon bg-accent text-accent-foreground">
                     <Plus />
                 </button>
-            </AddDraftStudySetModal>
+            </AddDraftStudySetModal> */}
         </aside>
     );
 };

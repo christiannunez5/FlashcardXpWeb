@@ -4,7 +4,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Pencil, GitMerge, Trash } from "lucide-react";
+import { Pencil, GitMerge, Trash, FolderInput, Lock } from "lucide-react";
 import { ReactNode } from "react";
 
 interface StudySetCardDropdownProps {
@@ -34,9 +34,22 @@ export const StudySetCardDropdown: React.FC<StudySetCardDropdownProps> = ({
                     <p>Edit </p>
                 </DropdownMenuItem>
 
+                <DropdownMenuItem
+                    className="hover:bg-container rounded-none p-3.5 space-x-2 "
+                    onClick={(e) => handleDropdownClick(e, "edit")}
+                >
+                    <Lock size={20} strokeWidth={2} />
+                    <p>Manage sharing </p>
+                </DropdownMenuItem>
+
                 <DropdownMenuItem className="hover:bg-container rounded-none p-3.5 space-x-2 ">
                     <GitMerge size={20} strokeWidth={2} />
                     <p>Combine </p>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem className="hover:bg-container rounded-none p-3.5 space-x-2 ">
+                    <FolderInput size={20} strokeWidth={2} />
+                    <p>Move to </p>
                 </DropdownMenuItem>
 
                 <DropdownMenuItem

@@ -15,7 +15,7 @@ export const FolderList: React.FC<FolderListProps> = ({ folders }) => {
         return (
             <section className="space-y-3 mt-5">
                 <h5>Folders</h5>
-                <ul className="grid grid-cols-4 gap-3">
+                <ul className="grid grid-cols-4 gap-4">
                     {Array.from({ length: 4 }).map((_, index) => {
                         return <FolderCardSkeleton key={index} />;
                     })}
@@ -31,7 +31,7 @@ export const FolderList: React.FC<FolderListProps> = ({ folders }) => {
     return (
         <section className="space-y-3 mt-5">
             <h5>Folders</h5>
-            <ul className="grid grid-cols-4 gap-3">
+            <ul className="grid grid-cols-4 gap-4">
                 {folders.map((folder) => {
                     return (
                         <FolderCard

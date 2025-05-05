@@ -31,7 +31,7 @@ export const StudySets: React.FC<StudySetsProps> = ({
     return (
         <section className="space-y-3 mt-5">
             <h5>{!isPopular ? "Studysets" : "Popular studysets"}</h5>
-            <ul className="grid grid-cols-4 gap-4 ">
+            <ul className="grid grid-cols-4 gap-4">
                 {studySets.map((studySet) => (
                     <StudySetCard
                         studySet={studySet}

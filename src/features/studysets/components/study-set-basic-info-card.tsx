@@ -68,7 +68,7 @@ export const StudySetBasicInfoCard: React.FC<StudySetBasicInfoCardProps> = ({
 
             <div className="flex gap-2">
                 <div className="flex gap-3 items-center text-sm">
-                    <p>{rating.averageRating}</p>
+                    <p>{rating.averageRating.toFixed(1)}</p>
                     <div className="pb-1">
                         <StarRatings
                             rating={rating.averageRating}

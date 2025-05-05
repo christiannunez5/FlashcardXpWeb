@@ -2,6 +2,7 @@ import { useNavigate, useNavigationType, useParams } from "react-router";
 import { EditStudySetForm } from "@/features/studysets/components";
 import { Button } from "@/components/ui/button";
 import { useGetStudySet } from "@/features/studysets/hooks";
+import { MainLayout } from "@/components/layout";
 
 export const EditStudySet = () => {
     const params = useParams();
@@ -26,20 +27,16 @@ export const EditStudySet = () => {
     };
 
     return (
-        <div className="my-10">
-            <div className="w-[85%] mx-auto ">
-                <Button className="py-6 px-10" onClick={handleBack}>
-                    Back
-                </Button>
+        <MainLayout>
+            <div className="my-10">
+                <section className="w-[85%] mt-5 mx-auto">
+                    {!studySet ? null : (
+                        <>
+                            <EditStudySetForm studySet={studySet} />
+                        </>
+                    )}
+                </section>
             </div>
-            
-            <section className="w-[85%] mt-5 mx-auto">
-                {!studySet ? null : (
-                    <>
-                        <EditStudySetForm studySet={studySet} />
-                    </>
-                )}
-            </section>
-        </div>
+        </MainLayout>
     );
 };

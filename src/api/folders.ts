@@ -41,6 +41,17 @@ export const createFolder = async ({
     return response.data;
 };
 
+export const renameFolder = async ({
+    folderId,
+    data,
+}: {
+    folderId: string;
+    data: TCreateFolderSchema;
+}) => {
+    const response = await api.patch(`${ENDPOINT}/${folderId}`, data);
+    return response.data;
+};
+
 export const getStudySetsByFolder = async (
     folderId: string
 ): Promise<TStudySetSummary[]> => {

@@ -10,6 +10,7 @@ import folder from "@/assets/opened-folder.svg";
 import { FolderList } from "@/features/folders/components";
 import { AddItemTypeModal } from "@/components/shared/add-item-type-modal";
 import { useGetFolders } from "@/features/folders/hooks";
+import { CircularButton } from "@/components/ui/circular-button";
 
 export const MyFiles = () => {
     const { data: studySets } = useGetCurrentUserStudySets();
@@ -17,7 +18,7 @@ export const MyFiles = () => {
     const menuItems = ["Studysets", "Groups"];
 
     const [isGrid, setIsGrid] = useState<"grid" | "list">("grid");
-    
+
     const { data: folders } = useGetFolders();
 
     return (
@@ -71,7 +72,7 @@ export const MyFiles = () => {
                 <AddItemTypeModal>
                     <button
                         className="bg-accent flex items-center text-accent-foreground
-                py-3 rounded-4xl justify-center gap-2 w-32 cursor-pointer"
+                py-3 rounded-4xl justify-center gap-2 w-36 cursor-pointer"
                     >
                         <Plus />
                         <p className="font-medium">Create</p>
@@ -88,7 +89,7 @@ export const MyFiles = () => {
                     <ChevronDown size={15} />
                 </div>
 
-                <div
+                {/* <div
                     className="bg-primary rounded-3xl flex w-20 items-center
                 justify-center gap-2"
                 >
@@ -105,11 +106,10 @@ export const MyFiles = () => {
                     >
                         <List size={20} />
                     </div>
-                </div>
+                </div> */}
             </div>
 
             <FolderList folders={folders} />
-
             <StudySets studySets={studySets} />
         </MainLayout>
     );

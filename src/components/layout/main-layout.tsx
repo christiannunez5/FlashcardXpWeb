@@ -20,7 +20,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
 
     return (
         <div className="bg-background w-full flex text-foreground ">
-            {!shouldHideSidebar && <Sidebar />}
+            <Sidebar />
 
             <main className="w-full flex flex-col gap-10 p-10 bg-background ">
                 <Navbar />

@@ -21,13 +21,13 @@ export const FlashcardList: React.FC<FlashcardListProps> = ({
     if (!studySet || !studySet.flashcards) {
         return (
             <div className="space-y-4">
-                <Skeleton width={100} height={10} />
+                <Skeleton className="h-2 w-24" />
 
                 <ul className="space-y-5">
                     {Array.from({ length: 5 }).map(() => {
                         return (
-                            <li className="relative flex gap-12 bg-primary rounded-3xl p-8 shadow-md">
-                                <Skeleton height={10} />
+                            <li className="relative flex gap-12 bg-primary rounded-3xl p-14 shadow-md">
+                                <Skeleton className="h-2 w-full" />
                             </li>
                         );
                     })}
