@@ -1,40 +1,87 @@
 import { renameFolder } from "@/api/folders";
-import { TFolderSummary } from "@/types";
+import { TFolder, TFolderSummary } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export const useRenameFolder = () => {
+export const useRenameFolder = (folderId: string | undefined) => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: renameFolder,
         onMutate: async (data) => {
-            queryClient.cancelQueries({ queryKey: ["folders"] });
+            let previousMyFolders;
+            let folder;
 
-            const previousMyFolders = queryClient.getQueryData<
-                TFolderSummary[]
-            >(["folders"]);
+            if (folderId) {
+                queryClient.cancelQueries({ queryKey: ["folders"] });
 
-            queryClient.setQueryData(
-                ["folders"],
-                (oldFolders: TFolderSummary[]) => {
-                    return oldFolders.map((folder) => {
-                        if (data.folderId === folder.id) {
-                            return {
-                                ...folder,
-                                name: data.data.name,
-                            };
-                        }
-                        return folder;
-                    });
-                }
-            );
+                folder = queryClient.getQueryData<TFolder[]>([
+                    "folders",
+                    folderId,
+                ]);
 
-            return { previousMyFolders };
+                queryClient.setQueryData(
+                    ["folders", folderId],
+                    (oldFolder: TFolder) => {
+                        return {
+                            ...oldFolder,
+                            subFolders: oldFolder.subFolders.map((folder) => {
+                                if (data.folderId === folder.id) {
+                                    return {
+                                        ...folder,
+                                        name: data.data.name,
+                                    };
+                                }
+                                return folder;
+                            }),
+                        };
+                    }
+                );
+            } else {
+                queryClient.cancelQueries({ queryKey: ["folders"] });
+
+                previousMyFolders = queryClient.getQueryData<TFolderSummary[]>([
+                    "folders",
+                ]);
+
+                queryClient.setQueryData(
+                    ["folders"],
+                    (oldFolders: TFolderSummary[]) => {
+                        return oldFolders.map((folder) => {
+                            if (data.folderId === folder.id) {
+                                return {
+                                    ...folder,
+                                    name: data.data.name,
+                                };
+                            }
+                            return folder;
+                        });
+                    }
+                );
+            }
+
+            return { previousMyFolders, folder };
         },
+
         onError(error, variables, context) {
-            queryClient.setQueryData(["folders"], context?.previousMyFolders);
+            if (folderId) {
+                queryClient.setQueryData(
+                    ["folders"],
+                    context?.previousMyFolders
+                );
+            } else {
+                queryClient.setQueryData(
+                    ["folders", folderId],
+                    context?.folder
+                );
+            }
         },
         onSettled: () => {
-            queryClient.invalidateQueries({ queryKey: ["folders"] });
+            if (folderId) {
+                queryClient.invalidateQueries({ queryKey: ["folders"] });
+            } else {
+                queryClient.invalidateQueries({
+                    queryKey: ["folders", folderId],
+                });
+            }
         },
     });
 };

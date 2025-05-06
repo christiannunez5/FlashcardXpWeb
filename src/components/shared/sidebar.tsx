@@ -1,7 +1,5 @@
-import { AddDraftStudySetModal } from "@/components/shared/add-study-set-modal";
 import { sidebarItems } from "@/data";
 import { cn } from "@/lib/utils";
-import { Plus } from "lucide-react";
 import React, { ReactNode } from "react";
 import { Link, useLocation } from "react-router";
 

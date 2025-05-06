@@ -4,13 +4,16 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Pencil, GitMerge, Trash, FolderInput, Lock } from "lucide-react";
+import {
+    StudySetDropdownAction,
+    studySetDropdownData,
+} from "./study-set-drop-down-data";
 import { ReactNode } from "react";
 
 interface StudySetCardDropdownProps {
     handleDropdownClick: (
         e: React.MouseEvent,
-        name: "edit" | "delete" | "combine"
+        action: StudySetDropdownAction
     ) => void;
     children?: ReactNode;
 }
@@ -26,15 +29,27 @@ export const StudySetCardDropdown: React.FC<StudySetCardDropdownProps> = ({
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="w-52 border-2 border-container">
-                <DropdownMenuItem
-                    className="hover:bg-container rounded-none p-3.5 space-x-2 "
-                    onClick={(e) => handleDropdownClick(e, "edit")}
-                >
-                    <Pencil size={20} strokeWidth={2} />
-                    <p>Edit </p>
-                </DropdownMenuItem>
+                {studySetDropdownData.map((item) => {
+                    return (
+                        <DropdownMenuItem
+                            className={`hover:bg-container rounded-none p-3.5 space-x-4 
+                            ${item.destructive && "text-red-400 "}`}
+                            onClick={(e) => handleDropdownClick(e, item.action)}
+                        >
+                            {/* <Pencil size={20} strokeWidth={2} /> */}
+                            <item.icon
+                                size={20}
+                                strokeWidth={2}
+                                className={
+                                    item.destructive ? "text-red-400" : ""
+                                }
+                            />
+                            <p>{item.label}</p>
+                        </DropdownMenuItem>
+                    );
+                })}
 
-                <DropdownMenuItem
+                {/* <DropdownMenuItem
                     className="hover:bg-container rounded-none p-3.5 space-x-2 "
                     onClick={(e) => handleDropdownClick(e, "edit")}
                 >
@@ -52,6 +67,8 @@ export const StudySetCardDropdown: React.FC<StudySetCardDropdownProps> = ({
                     <p>Move to </p>
                 </DropdownMenuItem>
 
+                <DropdownMenuItem></DropdownMenuItem>
+
                 <DropdownMenuItem
                     className="hover:bg-container rounded-none p-3.5 space-x-2"
                     onClick={(e) => handleDropdownClick(e, "delete")}
@@ -62,7 +79,7 @@ export const StudySetCardDropdown: React.FC<StudySetCardDropdownProps> = ({
                         className="text-destructive"
                     />
                     <p className="text-destructive">Delete set</p>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
             </DropdownMenuContent>
         </DropdownMenu>
     );

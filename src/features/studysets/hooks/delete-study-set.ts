@@ -16,7 +16,6 @@ export function useDeleteStudySet(folderId?: string) {
                     queryKey: ["my-study-sets"],
                 });
 
-                alert("no folder id");
                 previousMyStudySets = queryClient.getQueryData<
                     TStudySetSummary[]
                 >(["my-study-sets"]);

@@ -23,14 +23,14 @@ export const Home = () => {
             </section>
 
             <section className="space-y-3 mt-5">
-                <h5 className="font-bold">Create</h5>
+                <h5>Create</h5>
 
                 <ul className="grid grid-cols-4 gap-4">
                     {studySetMenuData.map((data) => {
                         return (
                             <li
                                 className="rounded-lg bg-primary p-5 space-y-2 shadow-md 
-                    hover:border-2 hover:border-container cursor-pointer"
+                                hover:border-2 hover:border-container cursor-pointer"
                             >
                                 <img
                                     src={data.icon}

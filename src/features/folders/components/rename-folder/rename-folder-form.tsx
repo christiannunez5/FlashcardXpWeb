@@ -11,10 +11,11 @@ import { handleZodErrors } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router";
 
 interface RenameFolderFormProps {
     folder: TFolderSummary;
-    onSubmitCallback?: () => void;
+    onSubmitCallback: () => void;
 }
 
 export const RenameFolderForm: React.FC<RenameFolderFormProps> = ({
@@ -28,7 +29,9 @@ export const RenameFolderForm: React.FC<RenameFolderFormProps> = ({
         },
     });
 
-    const { mutate: renameFolder } = useRenameFolder();
+    const params = useParams();
+
+    const { mutate: renameFolder } = useRenameFolder(params.id);
 
     const handleRenameFolder = () => {
         const formData = getValues();

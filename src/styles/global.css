@@ -179,6 +179,11 @@ h5 {
     .skeleton {
         @apply dark:bg-[#333] bg-[#e0e0e0] animate-pulse;
     }
+
+    .card {
+        @apply bg-primary shadow-xs px-5 py-4 rounded-lg cursor-pointer border-container hover:border-2
+        dark:shadow-none;
+    }
 }
 
 @keyframes pulse {
