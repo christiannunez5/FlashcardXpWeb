@@ -3,9 +3,10 @@ import folderIcon from "@/assets/opened-folder.svg";
 import { useDeleteFolder } from "@/features/folders/hooks";
 import { cn } from "@/lib/utils";
 import { TFolderSummary } from "@/types";
-import { EllipsisVertical } from "lucide-react";
+import { EllipsisVertical, Folder } from "lucide-react";
 import React, { useState } from "react";
-import { DragEndEvent, useDraggable, useDroppable } from "@dnd-kit/core";
+import { useDraggable, useDroppable } from "@dnd-kit/core";
+import { useUpdateStudySetFolder } from "@/features/studysets/hooks";
 
 interface FolderCardProps {
     folder: TFolderSummary;
@@ -104,7 +105,7 @@ export const FolderCard: React.FC<FolderCardProps> = ({
 
         <li
             className={cn(
-                "relative bg-primary rounded-xl p-4 space-y-4 shadow-xs",
+                "card relative bg-primary rounded-xl p-4 space-y-4 shadow-xs",
                 `${isFolderHovered && "border-accent"}`,
                 `${isFolderHovered && "border-2"}`
             )}
@@ -117,7 +118,11 @@ export const FolderCard: React.FC<FolderCardProps> = ({
             style={{ ...style, pointerEvents: "auto" }}
         >
             <div className="flex justify-between">
-                <div className="bg-container h-14 w-14 rounded-full p-3">
+                <a
+                    href={`/folders/${folder.id}`}
+                    className="absolute inset-0"
+                ></a>
+                <div className="bg-container h-16 w-16 rounded-full p-3">
                     <img src={folderIcon} />
                 </div>
                 <EllipsisVertical

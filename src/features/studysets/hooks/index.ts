@@ -9,3 +9,4 @@ export * from "./add-rating";
 export * from "./get-study-set-rating";
 export * from "./get-user-study-set-rating";
 export * from "./update-study-set-rating";
+export * from "./update-study-set-folder";

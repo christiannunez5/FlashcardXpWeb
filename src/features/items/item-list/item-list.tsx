@@ -2,6 +2,7 @@ import { Skeleton } from "@/components/shared/skeleton";
 import { FolderCard } from "@/features/folders/components/folder-list/folder-card";
 import { useDeleteFolder } from "@/features/folders/hooks";
 import { StudySetCard } from "@/features/studysets/components/study-sets/study-set-card";
+import { useUpdateStudySetFolder } from "@/features/studysets/hooks";
 import { TFolderSummary, TStudySetSummary } from "@/types";
 import {
     closestCenter,
@@ -19,6 +20,7 @@ interface ItemListProps {
 export const ItemList: React.FC<ItemListProps> = ({ studySets, folders }) => {
     const [hoveredFolder, setHoveredFolder] = useState<string | null>(null);
     const { mutate: deleteFolder } = useDeleteFolder();
+    const { mutate: updateStudySetFolder } = useUpdateStudySetFolder();
 
     if (!studySets || !folders) {
         return (
@@ -27,7 +29,7 @@ export const ItemList: React.FC<ItemListProps> = ({ studySets, folders }) => {
                     return (
                         <li
                             className="bg-primary rounded-xl h-[180px] p-4
-                        flex flex-col justify-between"
+                            flex flex-col justify-between"
                         >
                             <Skeleton circle className="h-14 w-14" />
 
@@ -56,16 +58,29 @@ export const ItemList: React.FC<ItemListProps> = ({ studySets, folders }) => {
         setHoveredFolder(null);
 
         if (!over) return;
-        
+
         if (over.id === active.id) return;
-        const folderId = active.id as string;
+
         const parentFolderId = over.id as string;
+        if (active.data.current?.type === "folder") {
+            const folderId = active.id;
+        } else {
+            const studySetId = active.id as string;
+
+            updateStudySetFolder({
+                studySetId,
+                data: { folderId: parentFolderId },
+            });
+        }
     }
 
     function handleDragOver(event: DragOverEvent) {
         const { active, over } = event;
 
-        if (!over) return;
+        if (!over) {
+            setHoveredFolder(null);
+            return;
+        }
 
         if (over.id === active.id) return;
 

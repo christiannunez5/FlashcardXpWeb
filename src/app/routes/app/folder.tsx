@@ -9,6 +9,7 @@ import {
     useGetFolderById,
     useGetStudySetsByFolder,
 } from "@/features/folders/hooks";
+import { ItemList } from "@/features/items";
 import { StudySets } from "@/features/studysets/components";
 import { Plus } from "lucide-react";
 import { useParams } from "react-router";
@@ -49,9 +50,16 @@ export const Folder = () => {
                 </AddItemTypeModal>
             </div>
 
-            <FolderList folders={currentFolder?.subFolders} />
+            {/* <FolderList folders={currentFolder?.subFolders} />
 
-            <StudySets studySets={studySets} />
+            <StudySets studySets={studySets} /> */}
+
+            <div className="mt-6">
+                <ItemList
+                    folders={currentFolder?.subFolders}
+                    studySets={studySets}
+                />
+            </div>
         </MainLayout>
     );
 };

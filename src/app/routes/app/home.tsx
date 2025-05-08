@@ -17,9 +17,9 @@ export const Home = () => {
             <section className="text-foreground space-y-2">
                 <h4>Welcome, {user?.email}</h4>
 
-                <div className="">
+                {/* <div className="">
                     <RecentStudySets recentStudySets={recentStudySets} />
-                </div>
+                </div> */}
             </section>
 
             <section className="space-y-3 mt-5">

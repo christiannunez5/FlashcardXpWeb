@@ -4,6 +4,7 @@ import {
 } from "@/features/studysets/hooks";
 import api from "@/lib/axios";
 import { TStudySetSummary, TStudySet, TStudySetRating } from "@/types";
+import { data } from "react-router";
 
 const ENDPOINT = "api/study-sets";
 
@@ -16,7 +17,7 @@ export const getCurrentUserStudySets = async (): Promise<
     const response = await api.get(ENDPOINT);
     return response.data;
 };
-    
+
 export const getStudySet = async (studySetId: string): Promise<TStudySet> => {
     await new Promise((resolve) => {
         setTimeout(resolve, 350);
@@ -94,5 +95,21 @@ export const getUserStudySetRating = async (
     studySetId: string
 ): Promise<number> => {
     const response = await api.get(`${ENDPOINT}/${studySetId}/ratings/me`);
+    return response.data;
+};
+
+export const updateStudySetFolder = async ({
+    studySetId,
+    data,
+}: {
+    studySetId: string;
+    data: { folderId: string };
+}) => {
+    console.log(data);
+
+    const response = await api.patch(
+        `${ENDPOINT}/${studySetId}/folders/move`,
+        data
+    );
     return response.data;
 };
