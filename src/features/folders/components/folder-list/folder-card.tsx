@@ -1,12 +1,14 @@
-import folderIcon from "@/assets/opened-folder.svg";
+import folderIcon from "@/assets/folder-2.png";
 
 import { useDeleteFolder } from "@/features/folders/hooks";
 import { cn } from "@/lib/utils";
 import { TFolderSummary } from "@/types";
-import { EllipsisVertical, Folder } from "lucide-react";
+import { EllipsisVertical, GripVertical } from "lucide-react";
 import React, { useState } from "react";
 import { useDraggable, useDroppable } from "@dnd-kit/core";
-import { useUpdateStudySetFolder } from "@/features/studysets/hooks";
+import { useNavigate } from "react-router";
+import { FolderCardDropdown } from "@/features/folders/components/folder-list/folder-card-drop-down";
+import { RenameFolderModal } from "@/features/folders/components/rename-folder";
 
 interface FolderCardProps {
     folder: TFolderSummary;
@@ -21,13 +23,13 @@ export const FolderCard: React.FC<FolderCardProps> = ({
 }) => {
     const { mutate: deleteFolder } = useDeleteFolder(parentFolderId);
     const [openRenameModal, setOpenRenameModal] = useState(false);
+    const navigate = useNavigate();
 
     const handleDropdownClick = (
         e: React.MouseEvent,
         name: "rename" | "delete"
     ) => {
         e.stopPropagation();
-
         switch (name) {
             case "delete":
                 deleteFolder(folder.id);
@@ -54,85 +56,63 @@ export const FolderCard: React.FC<FolderCardProps> = ({
               transform: `translate(${transform.x}px, ${transform.y}px)`,
           }
         : undefined;
+
     return (
-        // <li className="card rounded-2xl flex gap-5 items-center py-3 px-5 relative">
-        //     <a href={`/folders/${folder.id}`} className="absolute inset-0 "></a>
+        <>
+            <RenameFolderModal
+                folder={folder}
+                open={openRenameModal}
+                setOpen={setOpenRenameModal}
+            />
 
-        //     <div className="flex gap-5 grow">
-        //         <img src={folderIcon} alt="" className="h-6" />
-        //         <p>{folder.name}</p>
-        //     </div>
+            <li
+                className={cn(
+                    "card relative bg-primary rounded-xl p-4 space-y-4 shadow-xs",
+                    `${isFolderHovered && "border-accent"}`,
+                    `${isFolderHovered && "border-2"}`
+                )}
+                ref={(node) => {
+                    setDroppableNodeRef(node);
+                    setNodeRef(node);
+                }}
+                style={{ ...style }}
+                onClick={() => navigate(`/folders/${folder.id}`)}
+            >
+                <div className="flex justify-between">
+                    <div className="bg-container h-16 w-16 rounded-full p-3">
+                        <img src={folderIcon} />
+                    </div>
 
-        //     <RenameFolderModal
-        //         open={openRenameModal}
-        //         setOpen={setOpenRenameModal}
-        //         folder={folder}
-        //     />
+                    <div className="flex gap-2 ">
+                        <div
+                            {...listeners}
+                            {...attributes}
+                            className="h-6 w-6 p-2 border-container hover:border
+                                rounded-full grid place-content-center cursor-pointer"
+                        >
+                            <GripVertical size={16} />
+                        </div>
 
-        //     <DropdownMenu>
-        //         <DropdownMenuTrigger>
-        //             <div
-        //                 className="h-6 w-6 rounded-full grid place-content-center hover:bg-container
-        //             cursor-pointer relative z-20"
-        //             >
-        //                 <Ellipsis size={14} />
-        //             </div>
-        //         </DropdownMenuTrigger>
-
-        //         <DropdownMenuContent className="w-52 border-2 border-container">
-        //             <DropdownMenuItem
-        //                 className="hover:bg-container rounded-none p-3.5 space-x-2"
-        //                 onClick={(e) => handleDropdownClick(e, "rename")}
-        //             >
-        //                 <Pencil size={20} strokeWidth={2} />
-        //                 <p>Rename </p>
-        //             </DropdownMenuItem>
-
-        //             <DropdownMenuItem
-        //                 className="hover:bg-container rounded-none p-3.5 space-x-2"
-        //                 onClick={(e) => handleDropdownClick(e, "delete")}
-        //             >
-        //                 <Trash
-        //                     size={20}
-        //                     strokeWidth={2}
-        //                     className="text-destructive"
-        //                 />
-        //                 <p className="text-destructive">Delete folder</p>
-        //             </DropdownMenuItem>
-        //         </DropdownMenuContent>
-        //     </DropdownMenu>
-        // </li>
-
-        <li
-            className={cn(
-                "card relative bg-primary rounded-xl p-4 space-y-4 shadow-xs",
-                `${isFolderHovered && "border-accent"}`,
-                `${isFolderHovered && "border-2"}`
-            )}
-            ref={(node) => {
-                setDroppableNodeRef(node);
-                setNodeRef(node);
-            }}
-            {...listeners}
-            {...attributes}
-            style={{ ...style, pointerEvents: "auto" }}
-        >
-            <div className="flex justify-between">
-                <a
-                    href={`/folders/${folder.id}`}
-                    className="absolute inset-0"
-                ></a>
-                <div className="bg-container h-16 w-16 rounded-full p-3">
-                    <img src={folderIcon} />
+                        <div>
+                            <FolderCardDropdown
+                                handleDropdownClick={handleDropdownClick}
+                            >
+                                <div
+                                    className="h-6 w-6 p-2 border-container
+                                    cursor-pointer hover:border 
+                                    rounded-full grid place-content-center"
+                                >
+                                    <EllipsisVertical size={16} />
+                                </div>
+                            </FolderCardDropdown>
+                        </div>
+                    </div>
                 </div>
-                <EllipsisVertical
-                    className="text-gray-400"
-                    size={20}
-                    strokeWidth={3}
-                />
-            </div>
 
-            <p>{folder.name}</p>
-        </li>
+                <div className="flex justify-between">
+                    <p>{folder.name}</p>
+                </div>
+            </li>
+        </>
     );
 };

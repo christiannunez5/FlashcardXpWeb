@@ -42,7 +42,6 @@ export const RenameFolderForm: React.FC<RenameFolderFormProps> = ({
         };
 
         renameFolder(renameFolderData);
-
         onSubmitCallback();
     };
 

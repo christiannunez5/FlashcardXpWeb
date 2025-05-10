@@ -21,10 +21,7 @@ export const QuestModal = () => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <CircularButton
-                    className="bg-inherit hover:bg-container"
-                    size={10}
-                >
+                <CircularButton className="bg-inherit hover:bg-container h-10 w-10">
                     <FaExclamation />
                 </CircularButton>
             </DialogTrigger>

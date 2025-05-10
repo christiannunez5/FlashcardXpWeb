@@ -53,7 +53,7 @@ const createAppRouter = () => {
                     },
                 },
                 {
-                    path: "my-studysets",
+                    path: "my-files",
                     lazy: async () => {
                         const { MyFiles: MyStudySets } = await import(
                             "./routes/app/my-files"
@@ -128,6 +128,17 @@ const createAppRouter = () => {
                     lazy: async () => {
                         const { Folder } = await import("./routes/app/folder");
                         return { Component: Folder };
+                    },
+                },
+
+                // challenge routes
+                {
+                    path: "/challenge",
+                    lazy: async () => {
+                        const { Challenge } = await import(
+                            "./routes/app/challenge"
+                        );
+                        return { Component: Challenge };
                     },
                 },
             ],

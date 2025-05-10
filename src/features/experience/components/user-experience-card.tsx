@@ -1,7 +1,5 @@
-import { ProgressBar } from "@/components/shared";
 import { Skeleton } from "@/components/shared/skeleton";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { useAuthContext } from "@/context/auth/hooks";
 import { TUserExperience } from "@/types";
 import React from "react";
@@ -98,14 +96,11 @@ export const UserExperienceCard: React.FC<UserExperienceCardProps> = ({
 const UserExperienceCardSkeleton = () => {
     return (
         <div className="w-full bg-primary rounded-xl p-7 gap-4 flex items-center">
-            <Skeleton circle width={100} height={100} />
+            <Skeleton circle className="w-36 h-36" />
 
-            <div className="grow space-y-3">
-                <div className="flex justify-between">
-                    <Skeleton height={15} width={300} />
-                    <Skeleton height={15} width={150} />
-                </div>
-                <Skeleton height={15} />
+            <div className="grow space-y-5">
+                <Skeleton className="h-2 w-full" />
+                <Skeleton className="h-2 w-full" />
             </div>
         </div>
     );

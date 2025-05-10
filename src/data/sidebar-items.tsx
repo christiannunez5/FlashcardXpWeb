@@ -1,4 +1,4 @@
-import { Waypoints } from "lucide-react";
+import { Telescope } from "lucide-react";
 
 export const sidebarItems = [
     {
@@ -25,7 +25,7 @@ export const sidebarItems = [
     },
     {
         title: "My study sets",
-        linkUrl: "my-studysets",
+        linkUrl: "my-files",
         icon: (
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -71,9 +71,9 @@ export const sidebarItems = [
         ),
     },
     {
-        title: "Groups",
+        title: "Explore",
         linkUrl: "popular",
-        icon: <Waypoints />,
+        icon: <Telescope />,
     },
     {
         title: "Profile",

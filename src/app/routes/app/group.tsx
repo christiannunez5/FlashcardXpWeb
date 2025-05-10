@@ -23,7 +23,7 @@ export const Group = () => {
             bg-primary rounded-lg"
             >
                 <div
-                    className="w-full absolute bottom-0 p-5 text-accent-foreground
+                    className="w-full absolute bottom-0 p-5 
                 flex justify-between"
                 >
                     <h2>HCI 101</h2>

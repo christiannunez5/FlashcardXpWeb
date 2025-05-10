@@ -54,7 +54,7 @@ export const StudySetBasicInfoCard: React.FC<StudySetBasicInfoCardProps> = ({
     return (
         <div className="p-8 bg-primary space-y-6 rounded-xl">
             <div className="flex w-full justify-between ">
-                <h3>{studySet.title} Asdasd</h3>
+                <h3>{studySet.title}</h3>
 
                 <StudySetCardDropdown handleDropdownClick={handleDropdownClick}>
                     <div

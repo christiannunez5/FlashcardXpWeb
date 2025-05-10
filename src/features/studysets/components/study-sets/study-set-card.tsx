@@ -1,11 +1,8 @@
-import {
-    useDeleteStudySet,
-    useUpdateStudySetFolder,
-} from "@/features/studysets/hooks";
+import { useDeleteStudySet } from "@/features/studysets/hooks";
 import { TStudySetSummary } from "@/types";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { EllipsisVertical, GripVertical, Hand } from "lucide-react";
+import { EllipsisVertical, GripVertical, Move } from "lucide-react";
 import { StudySetDropdownAction } from "./study-set-drop-down-data";
 import flashcardIcon from "@/assets/flash-card.png";
 import { StudySetCardDropdown } from "@/features/studysets/components/study-sets/study-set-card-drop-down";
@@ -18,6 +15,8 @@ interface StudySetCardProps {
 export const StudySetCard: React.FC<StudySetCardProps> = ({ studySet }) => {
     const navigate = useNavigate();
     const params = useParams();
+
+    const [isHovered, setIsHovered] = useState(false);
 
     const { mutate: deleteStudySet } = useDeleteStudySet(params.id);
 
@@ -66,35 +65,43 @@ export const StudySetCard: React.FC<StudySetCardProps> = ({ studySet }) => {
             className="relative card bg-primary rounded-xl p-4 space-y-4 shadow-xs "
             ref={setNodeRef}
             style={style}
+            onClick={handleNavigate}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
         >
-            {/* <a href="" className="absolute inset-0 bg-red-500"></a> */}
             <div className="flex justify-between">
                 <div className="bg-container h-16 w-16 rounded-full p-3">
                     <img src={flashcardIcon} />
                 </div>
-                <StudySetCardDropdown handleDropdownClick={handleDropdownClick}>
-                    <EllipsisVertical
-                        className="text-gray-400"
-                        size={20}
-                        strokeWidth={3}
-                    />
-                </StudySetCardDropdown>
+
+                <div className="flex gap-2">
+                    <div
+                        {...listeners}
+                        {...attributes}
+                        className="h-6 w-6 p-2 border border-container
+                                rounded-full grid place-content-center"
+                    >
+                        <GripVertical size={16} />
+                    </div>
+
+                    <StudySetCardDropdown
+                        handleDropdownClick={handleDropdownClick}
+                    >
+                        <div
+                            className="h-6 w-6 p-2 border border-container
+                        rounded-full grid place-content-center"
+                        >
+                            <EllipsisVertical size={16} />
+                        </div>
+                    </StudySetCardDropdown>
+                </div>
             </div>
 
             <div className="flex justify-between items-center ">
-                <div className="flex justify-between items-center">
-                    {" "}
+                <div className="flex justify-between items-center gap-2">
+                    {studySet.status === "Draft" && <p>(Draft)</p>}
                     <p>{studySet.title}</p>
                     <p>({studySet.flashcardsCount})</p>
-                </div>
-
-                <div
-                    {...listeners}
-                    {...attributes}
-                    className="h-8 w-8 bg-accent text-accent-foreground grid place-content-center
-                    rounded-full"
-                >
-                    <GripVertical size={14} className="" />
                 </div>
             </div>
 

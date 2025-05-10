@@ -28,7 +28,7 @@ export const FolderBreadCrumb: React.FC<FolderBreadCrumbProps> = ({
         <Breadcrumb>
             <BreadcrumbList className="text-lg">
                 <BreadcrumbItem>
-                    <BreadcrumbLink href="/my-studysets">Files</BreadcrumbLink>
+                    <BreadcrumbLink href="/my-files">Files</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
 

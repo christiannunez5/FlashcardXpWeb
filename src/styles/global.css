@@ -184,6 +184,10 @@ h5 {
         @apply bg-primary shadow-xs px-5 py-4 rounded-lg cursor-pointer border-container hover:border-2
         dark:shadow-none;
     }
+
+    .hover-border {
+        @apply hover:border-2 hover:border-container;
+    }
 }
 
 @keyframes pulse {

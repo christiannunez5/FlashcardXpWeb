@@ -61,3 +61,14 @@ export const getStudySetsByFolder = async (
     const response = await api.get(`${ENDPOINT}/${folderId}/study-sets`);
     return response.data;
 };
+
+export const updateParentFolder = async ({
+    folderId,
+    data,
+}: {
+    folderId: string;
+    data: { parentFolderId: string };
+}) => {
+    const response = await api.patch(`${ENDPOINT}/${folderId}/move`, data);
+    return response.data;
+};

@@ -32,12 +32,8 @@ export const CreateFolderForm: React.FC<CreateFolderFormProps> = ({
 
     const handleCreateFolder = () => {
         const data = getValues();
-        createFolder(
-            { data, folderId: params.id },
-            {
-                onSuccess: onDeleteSuccessCallback,
-            }
-        );
+        createFolder({ data, folderId: params.id });
+        onDeleteSuccessCallback();
     };
 
     return (

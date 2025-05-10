@@ -1,7 +1,9 @@
 import { Sidebar, Navbar } from "@/components/shared";
-import React, { PropsWithChildren, ReactNode } from "react";
-import { useLocation } from "react-router";
+import React, { ReactNode, useState } from "react";
 import "@/styles/progress-bar.css";
+
+import { ChallengeAlertDialog } from "@/features/challenge/components/challenge-alert-dialog";
+import { useSocket } from "@/hooks/use-socket";
 
 interface MainLayoutProps {
     children: ReactNode;
@@ -12,15 +14,17 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     size = 100,
     children,
 }) => {
-    const location = useLocation();
-
-    const shouldHideSidebar =
-        location.pathname === "/flashcards/add" ||
-        location.pathname.match(/^\/study-set\/[^/]+\/edit$/);
+    const { receive } = useSocket();
+    const [openChallengeModal, setOpenChallengeModal] = useState(false);
 
     return (
         <div className="bg-background w-full flex text-foreground ">
             <Sidebar />
+
+            <ChallengeAlertDialog
+                open={openChallengeModal}
+                setOpen={setOpenChallengeModal}
+            />
 
             <main className="w-full flex flex-col gap-10 p-10 bg-background ">
                 <Navbar />

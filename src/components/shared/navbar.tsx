@@ -4,7 +4,6 @@ import { useThemeContext } from "@/hooks/use-theme-context";
 import { CircularButton } from "@/components/ui/circular-button";
 import { useLogout } from "@/features/auth/hooks";
 import { QuestModal } from "@/features/quests/components";
-import { Search } from "lucide-react";
 import { useAuthContext } from "@/context/auth/hooks";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
