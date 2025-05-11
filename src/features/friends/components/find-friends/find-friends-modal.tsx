@@ -14,13 +14,13 @@ export const FindFriendsModal = () => {
                 <Button
                     variant={"outline"}
                     className="bg-primary rounded-full
-                            px-6 py-3"
+                            "
                 >
                     Find friends
                 </Button>
             </DialogTrigger>
 
-            <DialogContent>
+            <DialogContent className="min-w-[40%]">
                 <DialogTitle className="text-center">
                     <h3>Find Friends</h3>
                 </DialogTitle>

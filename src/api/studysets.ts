@@ -4,7 +4,6 @@ import {
 } from "@/features/studysets/hooks";
 import api from "@/lib/axios";
 import { TStudySetSummary, TStudySet, TStudySetRating } from "@/types";
-import { data } from "react-router";
 
 const ENDPOINT = "api/study-sets";
 
@@ -12,9 +11,17 @@ export const getCurrentUserStudySets = async (): Promise<
     TStudySetSummary[]
 > => {
     await new Promise((resolve) => {
-        setTimeout(resolve, 400);
+        setTimeout(resolve, 350);
     });
     const response = await api.get(ENDPOINT);
+    return response.data;
+};
+
+export const getPopularStudySets = async (): Promise<TStudySetSummary[]> => {
+    await new Promise((resolve) => {
+        setTimeout(resolve, 350);
+    });
+    const response = await api.get(`${ENDPOINT}/popular`);
     return response.data;
 };
 
@@ -111,5 +118,21 @@ export const updateStudySetFolder = async ({
         `${ENDPOINT}/${studySetId}/folders/move`,
         data
     );
+    return response.data;
+};
+
+// study set records
+
+export const getStudySetRecord = async (
+    studySetId: string
+): Promise<number> => {
+    const response = await api.get(`${ENDPOINT}/${studySetId}/records`);
+    return response.data;
+};
+
+export const createStudySetRecord = async (
+    studySetId: string
+): Promise<void> => {
+    const response = await api.post(`${ENDPOINT}/${studySetId}/records`);
     return response.data;
 };

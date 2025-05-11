@@ -8,8 +8,10 @@ import {
 import { PracticeOptionsModal } from "@/features/quiz/components";
 import {
     useAddRecentStudySet,
+    useAddStudySetRecord,
     useGetStudySet,
     useGetStudySetRating,
+    useGetStudySetRecord,
     useGetUserStudySetRating,
 } from "@/features/studysets/hooks";
 import { useEffect } from "react";
@@ -21,15 +23,23 @@ export const StudySet = () => {
     const params = useParams();
     const navigate = useNavigate();
     const { user } = useAuthContext();
-    const { mutate: addNewRecentStudySet } = useAddRecentStudySet();
 
     if (!params.id) {
         throw new Error("params missing");
     }
 
+    const { mutate: addNewRecentStudySet } = useAddRecentStudySet();
+    const { mutate: addStudySetRecord } = useAddStudySetRecord(params.id);
     const { data: studySet } = useGetStudySet(params.id);
     const { data: studySetRating } = useGetStudySetRating(params.id);
     const { data: userRating } = useGetUserStudySetRating(params.id);
+    const { data: studySetRecord } = useGetStudySetRecord(params.id);
+
+    useEffect(() => {
+        if (studySet) {
+            addStudySetRecord(studySet.id);
+        }
+    }, [studySet, addStudySetRecord]);
 
     useEffect(() => {
         return () => {
@@ -56,6 +66,7 @@ export const StudySet = () => {
                     studySet={studySet}
                     rating={studySetRating}
                     userRating={userRating}
+                    studySetRecord={studySetRecord}
                 />
 
                 <div className="">
@@ -76,7 +87,7 @@ export const StudySet = () => {
                 <section>
                     <FlashcardsCarousel studySet={studySet} />
                 </section>
-                        
+
                 <section>
                     <FlashcardList studySet={studySet}>
                         {user?.id === studySet?.createdBy.id && (

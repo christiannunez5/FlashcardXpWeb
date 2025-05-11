@@ -1,7 +1,6 @@
 import { MainLayout } from "@/components/layout";
 import { useGetCurrentUserStudySets } from "@/features/studysets/hooks";
 import { Plus, Search } from "lucide-react";
-import { useState } from "react";
 import { AddItemTypeModal } from "@/components/shared/add-item-type-modal";
 import { useGetFolders } from "@/features/folders/hooks";
 import { ItemList } from "@/features/items/item-list/item-list";
@@ -10,9 +9,9 @@ import { FormInput } from "@/components/ui/input";
 export const MyFiles = () => {
     const { data: studySets } = useGetCurrentUserStudySets();
 
-    const [view, setView] = useState<"grid" | "list">("grid");
-    
     const { data: folders } = useGetFolders();
+
+    console.log(studySets);
 
     return (
         <MainLayout>
