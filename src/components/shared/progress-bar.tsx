@@ -12,16 +12,14 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
     maxProgress,
 }) => {
     const percentage = getExperiencePercentage(currentProgress, maxProgress);
-
-    console.log(`current: ${currentProgress}, max: ${maxProgress}`);
-
+    
     return (
         <div
             className={`bg-primary border-2 border-container w-full rounded-lg `}
             style={{ height: `${height}rem` }}
         >
             <div
-                className={`bg-green-400 h-[inherit]
+                className={`bg-green-400 h-[inherit] border-2 border-red-600
                 ${percentage >= 100 ? "rounded-lg" : "rounded-l-lg"}`}
                 style={{ width: `${percentage}%` }}
             ></div>

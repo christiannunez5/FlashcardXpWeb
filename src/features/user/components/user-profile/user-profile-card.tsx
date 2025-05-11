@@ -9,7 +9,7 @@ export const UserProfileCard = () => {
 
     return (
         <div className="bg-primary rounded-xl p-5 shadow-xs">
-            <div className="bg-container h-72 rounded-xl relative">
+            <div className="bg-background h-72 rounded-xl relative">
                 <Avatar className="h-24 w-24 bg-accent absolute left-5 -bottom-10">
                     <AvatarImage src={user?.profilePicUrl} />
                 </Avatar>
