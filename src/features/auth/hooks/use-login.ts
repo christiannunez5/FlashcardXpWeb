@@ -26,7 +26,7 @@ export const useLogin = () => {
             resetQuests();
             const response = await api.get("api/auth/me");
             setUser(response.data);
-            navigate("/my-studysets");
+            navigate("/my-files");
         },
         onError: (error) => {
             if (error instanceof AxiosError) {

@@ -3,7 +3,7 @@ import {
     TUpdateFullStudySetSchema,
 } from "@/features/studysets/hooks";
 import api from "@/lib/axios";
-import { TStudySetSummary, TStudySet, TStudySetRating } from "@/types";
+import { TStudySetSummary, TStudySet, TStudySetRating, TTag } from "@/types";
 
 const ENDPOINT = "api/study-sets";
 
@@ -11,7 +11,7 @@ export const getCurrentUserStudySets = async (): Promise<
     TStudySetSummary[]
 > => {
     await new Promise((resolve) => {
-        setTimeout(resolve, 350);
+        setTimeout(resolve, 200);
     });
     const response = await api.get(ENDPOINT);
     return response.data;
@@ -19,7 +19,7 @@ export const getCurrentUserStudySets = async (): Promise<
 
 export const getPopularStudySets = async (): Promise<TStudySetSummary[]> => {
     await new Promise((resolve) => {
-        setTimeout(resolve, 350);
+        setTimeout(resolve, 200);
     });
     const response = await api.get(`${ENDPOINT}/popular`);
     return response.data;
@@ -27,7 +27,7 @@ export const getPopularStudySets = async (): Promise<TStudySetSummary[]> => {
 
 export const getStudySet = async (studySetId: string): Promise<TStudySet> => {
     await new Promise((resolve) => {
-        setTimeout(resolve, 350);
+        setTimeout(resolve, 200);
     });
     const response = await api.get(`${ENDPOINT}/${studySetId}`);
     return response.data;
@@ -134,5 +134,24 @@ export const createStudySetRecord = async (
     studySetId: string
 ): Promise<void> => {
     const response = await api.post(`${ENDPOINT}/${studySetId}/records`);
+    return response.data;
+};
+
+// studysets tags
+export const getStudySetTags = async (studySetId: string): Promise<TTag[]> => {
+    const response = await api.get(`${ENDPOINT}/${studySetId}/tags`);
+    return response.data;
+};
+
+export const addStudySetTag = async ({
+    studySetId,
+    tag,
+}: {
+    studySetId: string;
+    tag: TTag;
+}): Promise<TTag[]> => {
+    const data = { tagId: tag.id };
+
+    const response = await api.post(`${ENDPOINT}/${studySetId}/tags`, data);
     return response.data;
 };

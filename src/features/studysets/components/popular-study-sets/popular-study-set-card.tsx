@@ -1,4 +1,5 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { useAuthContext } from "@/context/auth/hooks";
 import { TStudySetSummary } from "@/types";
 import { useNavigate } from "react-router";
 
@@ -10,6 +11,8 @@ export const PopularStudySetCard: React.FC<PopularStudySetCardProps> = ({
     studySet,
 }) => {
     const navigate = useNavigate();
+
+    const { user } = useAuthContext();
 
     return (
         <li
@@ -23,7 +26,10 @@ export const PopularStudySetCard: React.FC<PopularStudySetCardProps> = ({
                 </Avatar>
 
                 <p className="text-sm text-gray-400">
-                    Created by {studySet.createdBy.username}
+                    Created by{" "}
+                    {studySet.createdBy.id === user?.id
+                        ? "You"
+                        : studySet.createdBy.username}
                 </p>
             </div>
         </li>

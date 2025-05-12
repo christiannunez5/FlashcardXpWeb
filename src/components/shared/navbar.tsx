@@ -6,6 +6,7 @@ import { useLogout } from "@/features/auth/hooks";
 import { QuestModal } from "@/features/quests/components";
 import { useAuthContext } from "@/context/auth/hooks";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 
 export const Navbar = () => {
     const { mutate: logout } = useLogout();
@@ -14,6 +15,7 @@ export const Navbar = () => {
 
     return (
         <nav className="w-full flex justify-end gap-6 items-center">
+            <Button onClick={() => logout()}>Logout</Button>
             {/* <div
                 className="w-[60%] flex p-[0.9rem] outline-none rounded-xl
             bg-background border-2 border-container gap-3"

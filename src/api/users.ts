@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
-import { TUser } from "@/types";
+import { TTopStudySetCreator, TUser } from "@/types";
 
 const ENDPOINT = "api/users";
 
@@ -30,5 +30,15 @@ export const isUserFollowed = async (
     const response = await api.get(
         `${ENDPOINT}/${userFollowingId}/is-followed`
     );
+    return response.data;
+};
+
+export const getTopStudySetCreator = async (): Promise<
+    TTopStudySetCreator[]
+> => {
+    await new Promise((resolve) => {
+        setTimeout(resolve, 150);
+    });
+    const response = await api.get(`${ENDPOINT}/top-creators`);
     return response.data;
 };

@@ -72,7 +72,7 @@ export const sidebarItems = [
     },
     {
         title: "Explore",
-        linkUrl: "popular",
+        linkUrl: "explore",
         icon: <Telescope />,
     },
     {

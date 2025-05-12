@@ -1,21 +1,12 @@
 import { AddItemTypeModal } from "@/components/shared/add-item-type-modal";
-import { Skeleton } from "@/components/shared/skeleton";
 import { Button } from "@/components/ui/button";
 import { FolderCard } from "@/features/folders/components/folder-list/folder-card";
 import { FolderCardSkeleton } from "@/features/folders/components/folder-list/folder-card-skeleton";
-import {
-    useDeleteFolder,
-    useUpdateParentFolder,
-} from "@/features/folders/hooks";
+import { useUpdateParentFolder } from "@/features/folders/hooks";
 import { StudySetCard } from "@/features/studysets/components/study-sets/study-set-card";
 import { useUpdateStudySetFolder } from "@/features/studysets/hooks";
 import { TFolderSummary, TStudySetSummary } from "@/types";
-import {
-    closestCenter,
-    DndContext,
-    DragEndEvent,
-    DragOverEvent,
-} from "@dnd-kit/core";
+import { DndContext, DragEndEvent, DragOverEvent } from "@dnd-kit/core";
 import { Layers } from "lucide-react";
 import React, { useState } from "react";
 import { useParams } from "react-router";
@@ -28,7 +19,6 @@ interface ItemListProps {
 export const ItemList: React.FC<ItemListProps> = ({ studySets, folders }) => {
     const params = useParams();
     const [hoveredFolder, setHoveredFolder] = useState<string | null>(null);
-    const { mutate: deleteFolder } = useDeleteFolder();
     const { mutate: updateStudySetFolder } = useUpdateStudySetFolder(params.id);
     const { mutate: updateParentFolder } = useUpdateParentFolder(params.id);
 
@@ -127,6 +117,7 @@ export const ItemList: React.FC<ItemListProps> = ({ studySets, folders }) => {
                         if (item.type === "folder") {
                             return (
                                 <FolderCard
+                                    parentFolderId={params.id}
                                     folder={item.data}
                                     key={item.data.id}
                                     isFolderHovered={

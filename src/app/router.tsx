@@ -141,6 +141,28 @@ const createAppRouter = () => {
                         return { Component: Challenge };
                     },
                 },
+
+                // leaderboard routes
+                {
+                    path: "/leaderboard",
+                    lazy: async () => {
+                        const { Leaderboard } = await import(
+                            "./routes/app/leaderboard"
+                        );
+                        return { Component: Leaderboard };
+                    },
+                },
+
+                // explore
+                {
+                    path: "/explore",
+                    lazy: async () => {
+                        const { Explore } = await import(
+                            "./routes/app/explore"
+                        );
+                        return { Component: Explore };
+                    },
+                },
             ],
         },
     ]);

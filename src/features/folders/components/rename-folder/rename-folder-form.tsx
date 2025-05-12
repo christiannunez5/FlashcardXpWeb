@@ -70,7 +70,7 @@ export const RenameFolderForm: React.FC<RenameFolderFormProps> = ({
                     </Button>
                 </DialogClose>
                 <Button className="px-10 border-2 border-container ">
-                    Create
+                    Save
                 </Button>
             </div>
         </form>

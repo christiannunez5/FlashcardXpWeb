@@ -6,16 +6,43 @@ import {
     PopularStudySets,
     RecentStudySets,
 } from "@/features/studysets/components";
-import { useGetPopularStudySets } from "@/features/studysets/hooks";
+import {
+    useCreateDraftStudySet,
+    useGetPopularStudySets,
+} from "@/features/studysets/hooks";
 import { useGetRecentStudySets } from "@/features/studysets/hooks/get-recent-study-sets";
+import { useParams } from "react-router";
 
 export const Home = () => {
+    const { mutate: createDraftStudySet } = useCreateDraftStudySet();
+    const params = useParams();
     const { data: recentStudySets } = useGetRecentStudySets();
     const { user } = useAuthContext();
     const { data: popularStudySets } = useGetPopularStudySets();
 
+    const handleCreateDraftStudySet = (action: string) => {
+        if (action === "create-study-set") {
+            const data = {
+                folderId: params.id,
+            };
+
+            createDraftStudySet(
+                { data },
+                {
+                    onSuccess: (createdStudySetId) => {
+                        window.location.href = `/study-set/${createdStudySetId}/edit`;
+                    },
+                }
+            );
+        }
+    };
+
     return (
         <MainLayout>
+            <img
+                src=""
+                className="bg-red-400"
+            />
             <section className="text-foreground space-y-2">
                 <h4>Welcome, {user?.email}</h4>
 
@@ -33,6 +60,9 @@ export const Home = () => {
                             <li
                                 className="rounded-lg bg-primary p-5 space-y-2 shadow-xs
                                 hover:border-2 hover:border-container cursor-pointer"
+                                onClick={() =>
+                                    handleCreateDraftStudySet(data.action)
+                                }
                             >
                                 <img
                                     src={data.icon}

@@ -1,6 +1,20 @@
-// study sets
+// users
 
-import { ReactNode } from "react";
+export type TUser = {
+    id: string;
+    username: string;
+    email: string;
+    profilePicUrl: string;
+};
+
+export type TTopStudySetCreator = {
+    user: TUser;
+    studySetsCreatedCount: number;
+};
+
+// users ends
+
+// study sets
 
 export type TStudySetSummary = {
     id: string;
@@ -55,13 +69,6 @@ export type TQuestion = {
     choices: string[];
 };
 
-export type TUser = {
-    id: string;
-    username: string;
-    email: string;
-    profilePicUrl: string;
-};
-
 export type TQuest = {
     id: string;
     title: string;
@@ -109,4 +116,12 @@ export type TCreateMenuType = {
     icon: string;
     type: "modal" | "navigate";
     action: string;
+};
+
+// tags
+
+export type TTag = {
+    id: string;
+    name: string;
+    imageUrl: string;
 };

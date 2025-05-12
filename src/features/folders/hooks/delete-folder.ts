@@ -9,18 +9,15 @@ export const useDeleteFolder = (parentFolderId?: string) => {
     return useMutation({
         mutationFn: deleteFolder,
         onMutate: async (deletedFolderId) => {
+            console.log(parentFolderId);
             let previousParentFolder;
             let previousFolders;
 
-            queryClient.invalidateQueries({
-                queryKey: ["folders", parentFolderId],
-            });
-
-            queryClient.invalidateQueries({
-                queryKey: ["folders"],
-            });
-            
             if (!parentFolderId) {
+                queryClient.invalidateQueries({
+                    queryKey: ["folders"],
+                });
+
                 previousFolders = queryClient.getQueryData<TFolderSummary[]>([
                     "folders",
                 ]);
@@ -33,12 +30,13 @@ export const useDeleteFolder = (parentFolderId?: string) => {
                     }
                 );
             } else {
+                queryClient.invalidateQueries({
+                    queryKey: ["folders", parentFolderId],
+                });
                 previousParentFolder = queryClient.getQueryData<TFolder>([
                     "folders",
                     parentFolderId,
                 ]);
-
-                console.log(previousParentFolder);
 
                 queryClient.setQueryData(
                     ["folders", parentFolderId],
@@ -61,12 +59,14 @@ export const useDeleteFolder = (parentFolderId?: string) => {
                 toast.error(error.response?.data.message);
             }
 
-            queryClient.setQueryData(
-                ["folders", parentFolderId],
-                context?.previousParentFolder
-            );
-
-            queryClient.setQueryData(["folders"], context?.previousFolders);
+            if (parentFolderId) {
+                queryClient.setQueryData(
+                    ["folders", parentFolderId],
+                    context?.previousParentFolder
+                );
+            } else {
+                queryClient.setQueryData(["folders"], context?.previousFolders);
+            }
         },
 
         onSuccess() {

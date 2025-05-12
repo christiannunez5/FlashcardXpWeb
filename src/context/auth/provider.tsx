@@ -1,4 +1,5 @@
 import { AuthContext } from "@/context/auth/context";
+import { useResetUserDailyQuest } from "@/features/quests/hooks";
 import api from "@/lib/axios";
 import { TUser } from "@/types";
 
@@ -6,6 +7,7 @@ import { PropsWithChildren, useEffect, useState } from "react";
 import { redirect } from "react-router";
 
 export const AuthContextProvider = ({ children }: PropsWithChildren) => {
+    const { mutate: resetQuests } = useResetUserDailyQuest();
     const [user, setUser] = useState<TUser | undefined>(undefined);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -13,8 +15,8 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
         const getLoggedInUser = async () => {
             try {
                 const response = await api.get("/api/auth/me");
-                console.log(response.status);
                 setUser(response.data);
+                resetQuests();
             } catch {
                 throw redirect("/auth");
             } finally {
@@ -23,7 +25,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
         };
 
         getLoggedInUser();
-    }, []);
+    }, [resetQuests]);
 
     if (isLoading) {
         return null;

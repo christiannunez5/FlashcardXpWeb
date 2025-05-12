@@ -13,7 +13,8 @@ import React from "react";
 import { FaExclamation } from "react-icons/fa";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import { ProgressBar } from "@/components/shared";
+import { getExperiencePercentage } from "@/utils";
+import { Progress } from "@/components/ui/progress";
 
 export const QuestModal = () => {
     const { data: quests, isLoading } = useGetCurrentUserQuests();
@@ -66,6 +67,11 @@ const QuestItem: React.FC<QuestItemProps> = ({ quest }) => {
         completeQuest(quest.id);
     };
 
+    const value = getExperiencePercentage(
+        quest.completedFlashcards,
+        quest.goal
+    );
+
     return (
         <li className="flex gap-4 items-center">
             <div className="w-full space-y-1">
@@ -73,11 +79,13 @@ const QuestItem: React.FC<QuestItemProps> = ({ quest }) => {
                 <p>{quest.description}</p>
 
                 <div className="relative flex flex-col items-center">
-                    <ProgressBar
+                    {/* <ProgressBar
                         currentProgress={quest.completedFlashcards}
                         maxProgress={quest.goal}
                         height={0.8}
-                    />
+                    /> */}
+
+                    <Progress value={value} className="h-3 bg-container" />
 
                     <p className="absolute z-30 text-sm -translate-y-3">
                         {`${quest.completedFlashcards} / ${quest.goal}`}

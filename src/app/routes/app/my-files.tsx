@@ -11,8 +11,6 @@ export const MyFiles = () => {
 
     const { data: folders } = useGetFolders();
 
-    console.log(studySets);
-
     return (
         <MainLayout>
             <div className="w-full flex justify-between items-center mb-5">

@@ -11,7 +11,6 @@ interface MultipleChoiceCardProps {
     currentIndex: number;
     onAnswerSelectCallback: () => void;
     isActive: boolean;
-    flashcardId: string;
 }
 
 export const MultipleChoiceCard = ({
@@ -19,7 +18,6 @@ export const MultipleChoiceCard = ({
     onAnswerSelectCallback,
     question,
     isActive,
-    flashcardId,
 }: MultipleChoiceCardProps) => {
     const { mutate: addCompleteFlashcard } = useAddCompletedFlashcard();
 

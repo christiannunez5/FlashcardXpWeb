@@ -12,7 +12,7 @@ import { RenameFolderModal } from "@/features/folders/components/rename-folder";
 
 interface FolderCardProps {
     folder: TFolderSummary;
-    parentFolderId?: string;
+    parentFolderId: string | undefined;
     isFolderHovered: boolean;
 }
 

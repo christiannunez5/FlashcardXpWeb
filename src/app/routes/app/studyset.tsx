@@ -12,12 +12,19 @@ import {
     useGetStudySet,
     useGetStudySetRating,
     useGetStudySetRecord,
+    useGetStudySetTags,
     useGetUserStudySetRating,
 } from "@/features/studysets/hooks";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Skeleton } from "@/components/shared/skeleton";
-import { StudySetBasicInfoCard } from "@/features/studysets/components";
+import {
+    AddStudySetTagModal,
+    StudySetBasicInfoCard,
+    StudySetTags,
+} from "@/features/studysets/components";
+import { Plus } from "lucide-react";
+import { useGetTags } from "@/features/tags/hooks";
 
 export const StudySet = () => {
     const params = useParams();
@@ -34,6 +41,8 @@ export const StudySet = () => {
     const { data: studySetRating } = useGetStudySetRating(params.id);
     const { data: userRating } = useGetUserStudySetRating(params.id);
     const { data: studySetRecord } = useGetStudySetRecord(params.id);
+    const { data: tags } = useGetTags();
+    const { data: studySetTags } = useGetStudySetTags(params.id);
 
     useEffect(() => {
         if (studySet) {
@@ -87,6 +96,30 @@ export const StudySet = () => {
                 <section>
                     <FlashcardsCarousel studySet={studySet} />
                 </section>
+
+                <div className="bg-primary p-6 rounded-xl space-y-2">
+                    <h5>Tags</h5>
+
+                    <div className="flex gap-2">
+                        <StudySetTags studySetTags={studySetTags} />
+
+                        <div>
+                            {!tags ? (
+                                <Skeleton className="h-2 w-12" />
+                            ) : (
+                                <AddStudySetTagModal tags={tags}>
+                                    <Button
+                                        className="p-2 rounded-full border-2 border-container w-fit
+                                px-5"
+                                    >
+                                        <p className="text-sm">Add tag</p>
+                                        <Plus />
+                                    </Button>
+                                </AddStudySetTagModal>
+                            )}
+                        </div>
+                    </div>
+                </div>
 
                 <section>
                     <FlashcardList studySet={studySet}>

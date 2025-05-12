@@ -6,7 +6,7 @@ const ENDPOINT = "api/folders";
 
 export const getFolders = async (): Promise<TFolderSummary[]> => {
     await new Promise((resolve) => {
-        setTimeout(resolve, 300);
+        setTimeout(resolve, 200);
     });
     const response = await api.get(`${ENDPOINT}`);
     return response.data;
@@ -14,7 +14,7 @@ export const getFolders = async (): Promise<TFolderSummary[]> => {
 
 export const getFolder = async (folderId: string): Promise<TFolder> => {
     await new Promise((resolve) => {
-        setTimeout(resolve, 300);
+        setTimeout(resolve, 200);
     });
     const response = await api.get(`${ENDPOINT}/${folderId}`);
     return response.data;
@@ -56,7 +56,7 @@ export const getStudySetsByFolder = async (
     folderId: string
 ): Promise<TStudySetSummary[]> => {
     await new Promise((resolve) => {
-        setTimeout(resolve, 300);
+        setTimeout(resolve, 200);
     });
     const response = await api.get(`${ENDPOINT}/${folderId}/study-sets`);
     return response.data;
