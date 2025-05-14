@@ -9,7 +9,7 @@ export const useAddStudySetTag = (studySetId: string) => {
     return useMutation({
         mutationFn: addStudySetTag,
         onMutate: async (data) => {
-            queryClient.invalidateQueries({
+            queryClient.cancelQueries({
                 queryKey: ["study-set-tags", studySetId],
             });
 

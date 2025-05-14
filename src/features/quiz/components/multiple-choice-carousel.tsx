@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { MultipleChoiceCard } from "./multiple-choice-card";
 import { TFlashcard } from "@/types";
-import { createQuestionsFromFlashcards } from "@/utils";
+import { createQuestionsFromFlashcards, getPercentage } from "@/utils";
 import { RestartQuiz } from "@/features/quiz/components/restart-quiz";
+import { Progress } from "@/components/ui/progress";
 
 interface MultipleChoiceCarouselProps {
     flashcards: TFlashcard[];
@@ -23,37 +24,30 @@ export const MultipleChoiceCarousel = ({
 
     const questions = createQuestionsFromFlashcards(flashcards);
 
+    const value = getPercentage(currentIndex, questions.length);
+    
     return (
-        <div className="h-full w-full flex flex-nowrap overflow-hidden">
-            {/* {questions.map((question, index) => {
-                return (
-                    <MultipleChoiceCard
-                        key={index}
-                        question={question}
-                        currentIndex={currentIndex}
-                        onAnswerSelectCallback={handleOnAnswerSelectCallback}
-                        isActive={currentIndex === index}
-                    />
-                );
-            })} */}
-
-            {currentIndex !== questions.length ? (
-                questions.map((question, index) => {
-                    return (
-                        <MultipleChoiceCard
-                            key={index}
-                            question={question}
-                            currentIndex={currentIndex}
-                            onAnswerSelectCallback={
-                                handleOnAnswerSelectCallback
-                            }
-                            isActive={currentIndex === index}
-                        />
-                    );
-                })
-            ) : (
-                <RestartQuiz />
-            )}
+        <div className="flex flex-col gap-4 h-full w-full">
+            <Progress value={value} className="bg-primary" />
+            <div className="h-full w-full flex flex-nowrap overflow-hidden">
+                {currentIndex !== questions.length ? (
+                    questions.map((question, index) => {
+                        return (
+                            <MultipleChoiceCard
+                                key={index}
+                                question={question}
+                                currentIndex={currentIndex}
+                                onAnswerSelectCallback={
+                                    handleOnAnswerSelectCallback
+                                }
+                                isActive={currentIndex === index}
+                            />
+                        );
+                    })
+                ) : (
+                    <RestartQuiz onRestartClick={() => setCurrentIndex(0)} />
+                )}
+            </div>
         </div>
     );
 };

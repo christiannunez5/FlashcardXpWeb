@@ -11,8 +11,8 @@ export const useUpdateStudySetFolder = (folderId: string | undefined) => {
             let previousMyStudySets;
             let previousFolderStudySets;
 
-            queryClient.invalidateQueries({ queryKey: ["my-study-sets"] });
-            queryClient.invalidateQueries({
+            queryClient.cancelQueries({ queryKey: ["my-study-sets"] });
+            queryClient.cancelQueries({
                 queryKey: ["study-sets-folder", folderId],
             });
 

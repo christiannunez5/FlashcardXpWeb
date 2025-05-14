@@ -13,7 +13,7 @@ export const FlashcardField: React.FC<FlashcardFieldProps> = ({
     register,
 }) => {
     return (
-        <div className="w-full space-y-2">
+        <div className="w-full space-y-2 ">
             <FormInput
                 {...register}
                 placeholder="Enter definition"

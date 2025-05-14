@@ -29,12 +29,12 @@ import { useGetTags } from "@/features/tags/hooks";
 export const StudySet = () => {
     const params = useParams();
     const navigate = useNavigate();
-    const { user } = useAuthContext();
 
     if (!params.id) {
         throw new Error("params missing");
     }
 
+    const { user } = useAuthContext();
     const { mutate: addNewRecentStudySet } = useAddRecentStudySet();
     const { mutate: addStudySetRecord } = useAddStudySetRecord(params.id);
     const { data: studySet } = useGetStudySet(params.id);
@@ -107,15 +107,17 @@ export const StudySet = () => {
                             {!tags ? (
                                 <Skeleton className="h-2 w-12" />
                             ) : (
-                                <AddStudySetTagModal tags={tags}>
-                                    <Button
-                                        className="p-2 rounded-full border-2 border-container w-fit
-                                px-5"
-                                    >
-                                        <p className="text-sm">Add tag</p>
-                                        <Plus />
-                                    </Button>
-                                </AddStudySetTagModal>
+                                user?.id === studySet?.createdBy.id && (
+                                    <AddStudySetTagModal tags={tags}>
+                                        <Button
+                                            className="p-2 rounded-full border-2 border-container w-fit
+                                        px-5"
+                                        >
+                                            <p className="text-sm">Add tag</p>
+                                            <Plus />
+                                        </Button>
+                                    </AddStudySetTagModal>
+                                )
                             )}
                         </div>
                     </div>

@@ -42,6 +42,20 @@ export const createDraftStudySet = async ({
     return response.data;
 };
 
+export const createStudySetFromFile = async (
+    data: FormData
+): Promise<string> => {
+    console.log(data);
+
+    const response = await api.post(`${ENDPOINT}/ai-upload`, data, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+
+    return response.data;
+};
+
 export const updateFullStudySet = async ({
     studySetId,
     data,
@@ -153,5 +167,12 @@ export const addStudySetTag = async ({
     const data = { tagId: tag.id };
 
     const response = await api.post(`${ENDPOINT}/${studySetId}/tags`, data);
+    return response.data;
+};
+
+export const combineStudySets = async (data: {
+    studySetIds: string[];
+}): Promise<string> => {
+    const response = await api.post(`${ENDPOINT}/combine`, data);
     return response.data;
 };

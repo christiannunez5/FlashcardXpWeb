@@ -13,7 +13,7 @@ import React from "react";
 import { FaExclamation } from "react-icons/fa";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import { getExperiencePercentage } from "@/utils";
+import { getPercentage } from "@/utils";
 import { Progress } from "@/components/ui/progress";
 
 export const QuestModal = () => {
@@ -67,10 +67,7 @@ const QuestItem: React.FC<QuestItemProps> = ({ quest }) => {
         completeQuest(quest.id);
     };
 
-    const value = getExperiencePercentage(
-        quest.completedFlashcards,
-        quest.goal
-    );
+    const value = getPercentage(quest.completedFlashcards, quest.goal);
 
     return (
         <li className="flex gap-4 items-center">

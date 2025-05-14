@@ -53,6 +53,15 @@ const createAppRouter = () => {
                     },
                 },
                 {
+                    path: "study-set/combine",
+                    lazy: async () => {
+                        const { CombineStudySet } = await import(
+                            "./routes/app/combine-study-set"
+                        );
+                        return { Component: CombineStudySet };
+                    },
+                },
+                {
                     path: "my-files",
                     lazy: async () => {
                         const { MyFiles: MyStudySets } = await import(
@@ -142,6 +151,16 @@ const createAppRouter = () => {
                     },
                 },
 
+                {
+                    path: "/challenge/bomb-party",
+                    lazy: async () => {
+                        const { BombParty } = await import(
+                            "./routes/app/challenge/bomb-party"
+                        );
+                        return { Component: BombParty };
+                    },
+                },
+
                 // leaderboard routes
                 {
                     path: "/leaderboard",
@@ -161,6 +180,25 @@ const createAppRouter = () => {
                             "./routes/app/explore"
                         );
                         return { Component: Explore };
+                    },
+                },
+
+                // explore
+                {
+                    path: "/explore/tags/:id",
+                    lazy: async () => {
+                        const { Tag } = await import("./routes/app/tag");
+                        return { Component: Tag };
+                    },
+                },
+
+                {
+                    path: "/study-set/ai-upload",
+                    lazy: async () => {
+                        const { AiUpload } = await import(
+                            "./routes/app/ai-upload"
+                        );
+                        return { Component: AiUpload };
                     },
                 },
             ],

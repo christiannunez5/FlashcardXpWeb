@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
 
-export const RestartQuiz = () => {
+interface RestartQuizProps {
+    onRestartClick: () => void;
+}
+
+export const RestartQuiz: React.FC<RestartQuizProps> = ({ onRestartClick }) => {
     return (
         <div
             className="min-w-full h-full bg-primary 
@@ -18,7 +22,10 @@ export const RestartQuiz = () => {
                 >
                     Back to studyset
                 </Button>
-                <Button className="w-fit py-5 px-12 rounded-full">
+                <Button
+                    className="w-fit py-5 px-12 rounded-full"
+                    onClick={onRestartClick}
+                >
                     Restart
                 </Button>
             </div>

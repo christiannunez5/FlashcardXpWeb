@@ -13,4 +13,6 @@ export * from "./update-study-set-folder";
 export * from "./add-study-set-record";
 export * from "./get-study-set-record";
 export * from "./get-popular-study-sets";
-export * from './get-study-set-tags'
+export * from "./get-study-set-tags";
+export * from "./create-study-set-from-file";
+export * from "./combine-study-sets";

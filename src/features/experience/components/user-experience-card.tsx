@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/shared/skeleton";
 import { Progress } from "@/components/ui/progress";
 import { useAuthContext } from "@/context/auth/hooks";
 import { TUserExperience } from "@/types";
-import { getExperiencePercentage } from "@/utils";
+import { getPercentage } from "@/utils";
 import React from "react";
 
 interface UserExperienceCardProps {
@@ -19,7 +19,7 @@ export const UserExperienceCard: React.FC<UserExperienceCardProps> = ({
         return <UserExperienceCardSkeleton />;
     }
 
-    const value = getExperiencePercentage(
+    const value = getPercentage(
         userExperience.currentExperience,
         userExperience.maxXp
     );

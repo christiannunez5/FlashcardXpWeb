@@ -20,44 +20,41 @@ export const AddStudySetTagForm: React.FC<AddStudySetTagFormProps> = ({
     }
     const { mutate: addTag } = useAddStudySetTag(params.id);
 
-    const [input, setInput] = useState("");
     const [filteredTags, setFilteredTags] = useState<TTag[]>(tags);
-    const [selectedTag, setSelectedTag] = useState<TTag>(tags[0]);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [selectedTag, setSelectedTag] = useState<TTag>({
+        id: "",
+        imageUrl: "",
+        name: ""
+    });
+    const [isDropdownOpen, setIsDropdownOpen] = useState(true);
 
     useEffect(() => {
-        const filtered = tags.filter((tag) =>
-            tag.name.toLowerCase().includes(input.toLowerCase())
-        );
-        setFilteredTags(filtered);
-    }, [input, tags]);
+        if (selectedTag.name === "") {
+            setFilteredTags(tags);
+        } else {
+            const filtered = tags.filter((tag) =>
+                tag.name.toLowerCase().includes(selectedTag.name.toLowerCase())
+            );
+            setFilteredTags(filtered);
+        }
+    }, [selectedTag, tags]);
 
     const handleTagSelect = (tag: TTag) => {
-        setInput(tag.name);
+        setIsDropdownOpen(!isDropdownOpen);
         setSelectedTag(tag);
-        setIsDropdownOpen(false);
-    };
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setInput(value);
-        setIsDropdownOpen(value.length > 0);
-    };
-
-    const handleInputFocus = () => {
-        if (input.length > 0) {
-            setIsDropdownOpen(true);
-        }
     };
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        if (input === "") {
-            alert("fuck u");
+        if (selectedTag.name === "") {
             return;
         }
 
         addTag({ studySetId: params.id!, tag: selectedTag });
+    };
+
+    const handleInputFocus = () => {
+        setIsDropdownOpen(true);
     };
 
     return (
@@ -69,17 +66,42 @@ export const AddStudySetTagForm: React.FC<AddStudySetTagFormProps> = ({
                 <input
                     className="outline-none grow"
                     placeholder="Type a tag"
-                    value={input}
-                    onChange={handleInputChange}
+                    value={selectedTag.name}
                     onFocus={handleInputFocus}
+                    onChange={(e) => {
+                        setSelectedTag((prev) => ({
+                            ...prev,
+                            name: e.target.value,
+                        }));
+                    }}
                 />
                 <ChevronDown size={18} />
             </div>
 
-            {isDropdownOpen && input && (
+            {/* <ul
+                className="absolute z-10 bg-background border mt-2 rounded-md shadow-lg w-full
+                    max-h-60 overflow-y-auto"
+            >
+                {filteredTags.length > 0 ? (
+                    filteredTags.map((tag) => (
+                        <li
+                            key={tag.id}
+                            className="p-2 hover:bg-muted cursor-pointer"
+                            onClick={() => handleTagSelect(tag)}
+                        >
+                            {tag.name}
+                        </li>
+                    ))
+                ) : (
+                    <li className="p-2 text-muted-foreground">
+                        No matches found
+                    </li>
+                )}
+            </ul> */}
+            {isDropdownOpen && (
                 <ul
                     className="absolute z-10 bg-background border mt-2 rounded-md shadow-lg w-full
-                    max-h-60 overflow-y-auto"
+                    max-h-52 overflow-y-auto"
                 >
                     {filteredTags.length > 0 ? (
                         filteredTags.map((tag) => (

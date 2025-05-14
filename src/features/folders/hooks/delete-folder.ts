@@ -14,7 +14,7 @@ export const useDeleteFolder = (parentFolderId?: string) => {
             let previousFolders;
 
             if (!parentFolderId) {
-                queryClient.invalidateQueries({
+                queryClient.cancelQueries({
                     queryKey: ["folders"],
                 });
 
@@ -30,7 +30,7 @@ export const useDeleteFolder = (parentFolderId?: string) => {
                     }
                 );
             } else {
-                queryClient.invalidateQueries({
+                queryClient.cancelQueries({
                     queryKey: ["folders", parentFolderId],
                 });
                 previousParentFolder = queryClient.getQueryData<TFolder>([
@@ -70,13 +70,15 @@ export const useDeleteFolder = (parentFolderId?: string) => {
         },
 
         onSuccess() {
-            queryClient.invalidateQueries({
-                queryKey: ["folders", parentFolderId],
-            });
-
-            queryClient.invalidateQueries({
-                queryKey: ["folders"],
-            });
+            if (parentFolderId) {
+                queryClient.invalidateQueries({
+                    queryKey: ["folders", parentFolderId],
+                });
+            } else {
+                queryClient.invalidateQueries({
+                    queryKey: ["folders"],
+                });
+            }
         },
     });
 };

@@ -22,12 +22,11 @@ export const QuizLayout = () => {
             <header className="w-full p-4 bg-primary flex items-center justify-center">
                 <h4 className="grow text-center">{studySet.title}</h4>
 
-                <div className="p-2 cursor-pointer rounded-full hover:bg-container">
-                    <X
-                        size={20}
-                        strokeWidth={2}
-                        onClick={() => navigate(`/study-set/${studySet.id}`)}
-                    />
+                <div
+                    className="p-2 cursor-pointer rounded-full hover:bg-container"
+                    onClick={() => navigate(`/study-set/${studySet.id}`)}
+                >
+                    <X size={20} strokeWidth={2} />
                 </div>
             </header>
 

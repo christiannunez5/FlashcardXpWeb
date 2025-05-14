@@ -77,7 +77,7 @@ export const FlashcardFormSection: React.FC<FlashcardFormSection> = ({
 
         handleUpdateFlashcard();
     }, [handleUpdateFlashcard, index]);
-
+    
     return (
         <div className="bg-primary p-6 rounded-xl flex flex-col gap-4 shadow-md">
             <div className="flex items-center">

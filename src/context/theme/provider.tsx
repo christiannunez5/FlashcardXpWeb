@@ -4,7 +4,7 @@ import { PropsWithChildren, useState, useEffect } from "react";
 export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
     const [isDark, setIsDark] = useState(() => {
         const mode = localStorage.getItem("dark") === "true";
-
+        
         if (mode) {
             document.documentElement.classList.add("dark");
         }

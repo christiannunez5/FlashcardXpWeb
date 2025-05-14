@@ -40,12 +40,8 @@ export const FolderCardDropdown: React.FC<FolderCardDropdownProps> = ({
                     className="hover:bg-container rounded-none p-3.5 space-x-2"
                     onClick={(e) => handleDropdownClick(e, "delete")}
                 >
-                    <Trash
-                        size={20}
-                        strokeWidth={2}
-                        className="text-destructive"
-                    />
-                    <p className="text-destructive">Delete folder</p>
+                    <Trash size={20} strokeWidth={2} className="text-red-400" />
+                    <p className="text-red-400">Delete folder</p>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

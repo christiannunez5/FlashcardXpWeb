@@ -1,8 +1,6 @@
 import { updateStudySet } from "@/api/studysets";
-import { TStudySetSummary } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AxiosError } from "axios";
-import { toast } from "sonner";
+
 import { z } from "zod";
 
 export const updateStudySetSchema = z.object({

@@ -14,9 +14,14 @@ import { useParams } from "react-router";
 interface ItemListProps {
     studySets: TStudySetSummary[] | undefined;
     folders: TFolderSummary[] | undefined;
+    inputValue: string;
 }
 
-export const ItemList: React.FC<ItemListProps> = ({ studySets, folders }) => {
+export const ItemList: React.FC<ItemListProps> = ({
+    studySets,
+    folders,
+    inputValue,
+}) => {
     const params = useParams();
     const [hoveredFolder, setHoveredFolder] = useState<string | null>(null);
     const { mutate: updateStudySetFolder } = useUpdateStudySetFolder(params.id);
@@ -54,12 +59,20 @@ export const ItemList: React.FC<ItemListProps> = ({ studySets, folders }) => {
         );
     }
 
+    const filteredFolders = folders.filter((folder) =>
+        folder.name.toLowerCase().includes(inputValue.toLowerCase())
+    );
+
+    const filteredStudySets = studySets.filter((studySet) =>
+        studySet.title.toLowerCase().includes(inputValue.toLowerCase())
+    );
+
     const items = [
-        ...folders.map((folder) => ({
+        ...filteredFolders.map((folder) => ({
             type: "folder" as const,
             data: folder,
         })),
-        ...studySets.map((studySet) => ({
+        ...filteredStudySets.map((studySet) => ({
             type: "studysets" as const,
             data: studySet,
         })),

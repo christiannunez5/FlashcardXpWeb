@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
-import { TTopStudySetCreator, TUser } from "@/types";
+import { TTopStudySetCreator, TUser, TUserExperience } from "@/types";
 
 const ENDPOINT = "api/users";
 
@@ -40,5 +40,13 @@ export const getTopStudySetCreator = async (): Promise<
         setTimeout(resolve, 150);
     });
     const response = await api.get(`${ENDPOINT}/top-creators`);
+    return response.data;
+};
+
+export const getTopXpEarners = async (): Promise<TUserExperience[]> => {
+    await new Promise((resolve) => {
+        setTimeout(resolve, 150);
+    });
+    const response = await api.get(`${ENDPOINT}/top-xp-earners`);
     return response.data;
 };

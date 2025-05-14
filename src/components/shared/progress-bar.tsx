@@ -1,4 +1,4 @@
-import { getExperiencePercentage } from "@/utils";
+import { getPercentage } from "@/utils";
 
 interface ProgressBarProps {
     height: number;
@@ -11,8 +11,8 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
     currentProgress,
     maxProgress,
 }) => {
-    const percentage = getExperiencePercentage(currentProgress, maxProgress);
-    
+    const percentage = getPercentage(currentProgress, maxProgress);
+
     return (
         <div
             className={`bg-primary border-2 border-container w-full rounded-lg `}

@@ -2,7 +2,7 @@ import { useDeleteStudySet } from "@/features/studysets/hooks";
 import { TStudySetSummary } from "@/types";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { EllipsisVertical, GripVertical, Move } from "lucide-react";
+import { EllipsisVertical, GripVertical } from "lucide-react";
 import { StudySetDropdownAction } from "./study-set-drop-down-data";
 import flashcardIcon from "@/assets/flash-card.png";
 import { StudySetCardDropdown } from "@/features/studysets/components/study-sets/study-set-card-drop-down";
@@ -17,11 +17,11 @@ export const StudySetCard: React.FC<StudySetCardProps> = ({ studySet }) => {
     const params = useParams();
 
     const [isHovered, setIsHovered] = useState(false);
+    const queryParams = new URLSearchParams();
 
     const { mutate: deleteStudySet } = useDeleteStudySet(params.id);
 
     const handleNavigate = (e: React.MouseEvent) => {
-        console.log("hello");
         e.stopPropagation();
         if (studySet.status === "Draft") {
             navigate(`/study-set/${studySet.id}/edit`);
@@ -44,6 +44,8 @@ export const StudySetCard: React.FC<StudySetCardProps> = ({ studySet }) => {
                 navigate(`/study-set/${studySet.id}/edit`);
                 break;
             case "combine":
+                queryParams.set("studySetId", studySet.id);
+                navigate(`/study-set/combine?${queryParams.toString()}`);
         }
     };
 

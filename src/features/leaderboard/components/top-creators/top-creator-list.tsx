@@ -13,7 +13,7 @@ export const TopCreatorList: React.FC<TopCreatorListProps> = ({
     if (!topCreators) {
         return (
             <ul className="space-y-4">
-                {Array.from({ length: 5 }).map(() => {
+                {Array.from({ length: 3 }).map(() => {
                     return <TopCreatorCardSkeleton />;
                 })}
             </ul>

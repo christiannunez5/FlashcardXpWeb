@@ -5,11 +5,12 @@ import { AddItemTypeModal } from "@/components/shared/add-item-type-modal";
 import { useGetFolders } from "@/features/folders/hooks";
 import { ItemList } from "@/features/items/item-list/item-list";
 import { FormInput } from "@/components/ui/input";
+import { useState } from "react";
 
 export const MyFiles = () => {
     const { data: studySets } = useGetCurrentUserStudySets();
-
     const { data: folders } = useGetFolders();
+    const [inputValue, setInputValue] = useState("");
 
     return (
         <MainLayout>
@@ -19,7 +20,8 @@ export const MyFiles = () => {
                     <FormInput
                         icon={<Search />}
                         className="rounded-4xl py-2.5 px-4 bg-primary w-96 gap-4"
-                        placeholder="Search on the item"
+                        placeholder="Search name.."
+                        onChange={(e) => setInputValue(e.target.value)}
                     />
 
                     <AddItemTypeModal>
@@ -35,7 +37,11 @@ export const MyFiles = () => {
             </div>
 
             <div className="mt-5  ">
-                <ItemList studySets={studySets} folders={folders} />
+                <ItemList
+                    studySets={studySets}
+                    folders={folders}
+                    inputValue={inputValue}
+                />
             </div>
         </MainLayout>
     );
